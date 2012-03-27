@@ -1,0 +1,5 @@
+body { padding: 50px 0; }
+h1 { border-bottom: 1px solid #CCC; margin-bottom: 20px; }
+h4 { border-bottom: 1px solid #F0F0F0; margin: 10px 0; }
+h4 .btn { float: right; -webkit-user-select: none; margin-top: 8px; box-shadow: -10px 0 0 #FFF; }
+.label { margin: -8px 0 0 10px; display: inline-block; } 
