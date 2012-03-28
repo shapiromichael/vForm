@@ -13,60 +13,66 @@
 			<div class="span6">
 				<h1>Example</h1>
 
-				<form>
+				<form onSubmit="return false;" novalidate="novalidate">
 
-					<h4>Required <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<h4>All required <button class="btn btn-mini" type="button">Validate</button></h4>
 					<label class="checkbox">
-						<input type="checkbox"> Checkbox
-					</label>
-
-					<h4>Select minimum 1 <button class="btn btn-mini" type="submit">Validate</button></h4>
-					<label class="checkbox">
-						<input type="checkbox"> #1
+						<input type="checkbox" required="required"> #1
 					</label>
 					<label class="checkbox">
-						<input type="checkbox"> #2
-					</label>
-					<label class="checkbox">
-						<input type="checkbox"> #3
-					</label>
-					<label class="checkbox">
-						<input type="checkbox"> #4
+						<input type="checkbox" required="required"> #2
 					</label>
 
-					<h4>Select maximun 3 <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<h4>Select minimum 1 <button class="btn btn-mini" type="button">Validate</button></h4>
+					<div id="just-a-div-1" class="whatever" groupsettings="1" min="1"></div>
 					<label class="checkbox">
-						<input type="checkbox"> #1
+						<input type="checkbox" group="1"> #1
 					</label>
 					<label class="checkbox">
-						<input type="checkbox"> #2
+						<input type="checkbox" group="1"> #2
 					</label>
 					<label class="checkbox">
-						<input type="checkbox"> #3
+						<input type="checkbox" group="1"> #3
 					</label>
 					<label class="checkbox">
-						<input type="checkbox"> #4
+						<input type="checkbox" group="1"> #4
 					</label>
 
-					<h4>Select exactly 2 <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<h4>Select maximun 3 <button class="btn btn-mini" type="button">Validate</button></h4>
+					<div id="just-a-div-2" class="whatever" groupsettings="2" max="3"></div>
 					<label class="checkbox">
-						<input type="checkbox"> #1
+						<input type="checkbox" group="2"> #1
 					</label>
 					<label class="checkbox">
-						<input type="checkbox"> #2
+						<input type="checkbox" group="2"> #2
 					</label>
 					<label class="checkbox">
-						<input type="checkbox"> #3
+						<input type="checkbox" group="2"> #3
 					</label>
 					<label class="checkbox">
-						<input type="checkbox"> #4
+						<input type="checkbox" group="2"> #4
+					</label>
+
+					<h4>Select exactly 2 <button class="btn btn-mini" type="button">Validate</button></h4>
+					<div id="just-a-div-3" class="whatever" groupsettings="3" min="2" max="2"></div>
+					<label class="checkbox">
+						<input type="checkbox" group="3"> #1
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" group="3"> #2
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" group="3"> #3
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" group="3"> #4
 					</label>
 
 					<h4>Options</h4>
 					<button class="btn btn-primary" type="submit">Validate</button>
-					<button class="btn btn-success" type="submit">All Valid</button>
-					<button class="btn btn-danger" type="submit">All Invalid</button>
-					<button class="btn" type="submit">Clear</button>
+					<button class="btn btn-success" type="button">All Valid</button>
+					<button class="btn btn-danger" type="button">All Invalid</button>
+					<button class="btn" type="button">Clear</button>
 
 				</form>
 
@@ -82,5 +88,6 @@
 
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript" src="../js/form.js"></script>
+	<script type="text/javascript" src="../js/demos.js"></script>
 </body>
 </html>

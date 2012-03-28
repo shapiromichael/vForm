@@ -103,14 +103,14 @@ var form = new function(){
 			if( $this.is('[required]') ){
 				if( !$this.is('[group]') ){
 					// Check if has a value
-					isValid = ( $this.is("input[type=checkbox], input[type=radio]") ) ? $this.is(":checked") : ( isValid && $this.val() ) ? true : false ;
+					isValid = ( $this.is('input[type=checkbox], input[type=radio]') ) ? $this.is(":checked") : ( isValid && $this.val() ) ? true : false ;
 				}else{
 					// Validate for required group
 					if( $this.is( params.elements.filter('[required][group=' +  $this.attr('group') + ']:first') ) ){
 						isValid = false;
 						params.elements.filter('[required][group=' +  $this.attr('group') + ']').each(function(){
 							var $this = $(this);
-							isValid = ( $this.is("input[type=checkbox], input[type=radio]") ) ? ( isValid || $this.is(":checked") ) ? true : false : ( isValid || $this.val() ) ? true : false ;
+							isValid = ( $this.is('input[type=checkbox], input[type=radio]') ) ? ( isValid || $this.is(':checked') ) ? true : false : ( isValid || $this.val() ) ? true : false ;
 						});
 					}
 				}
@@ -135,39 +135,58 @@ var form = new function(){
 					isValid = ( isValid && $this.prop('validity').valid ) ? true : false ;
 				}
 
-				// Validate for minimum state
-				if( $this.is('[min]') ){
+				// Validate min & max states
+				if( $this.is('input[type=checkbox][group]') || $this.is('input[type=radio][group]') ){
 
-					// Check textual content for min length
-					if( $this.is('input[type=text], input[type=url], input[type=password], input[type=tel], textarea') && form.check.number( $this.attr('min') ) ){
-						isValid = ( isValid && ($this.val()).length >= form.convert.toInt( $this.attr('min') ) ) ? true : false ;
+					var $group = $('[groupsettings=' + $this.attr('group') + ']');
+
+					// Validate for minimum state
+					if( $group.is('[min]') && form.check.number( $group.attr('min') ) ){
+						isValid = ( isValid && params.elements.filter('input[type=' + $this.attr('type') + '][group=' +  $this.attr('group') + ']:checked').size() >= form.convert.toInt( $group.attr('min') ) ) ? true : false ;
 					}
-					
-					// Check numeric content for min number
-					if( $this.is('input[type=number], input[type=range]') && $this.val() ){
-						isValid = ( isValid && $this.val() >= form.convert.toFloat( $this.attr('min') ) ) ? true : false ;
+
+					// Validate for maximum state
+					if( $group.is('[max]') && form.check.number( $group.attr('max') ) ){
+						isValid = ( isValid && params.elements.filter('input[type=' + $this.attr('type') + '][group=' +  $this.attr('group') + ']:checked').size() <= form.convert.toInt( $group.attr('max') ) ) ? true : false ;
 					}
+
+				}else{
+
+					// Validate for minimum state
+					if( $this.is('[min]') ){
+
+						// Check textual content for min length
+						if( $this.is('input[type=text], input[type=url], input[type=password], input[type=tel], textarea') && form.check.number( $this.attr('min') ) ){
+							isValid = ( isValid && ($this.val()).length >= form.convert.toInt( $this.attr('min') ) ) ? true : false ;
+						}
+						
+						// Check numeric content for min number
+						if( $this.is('input[type=number], input[type=range]') && $this.val() ){
+							isValid = ( isValid && $this.val() >= form.convert.toFloat( $this.attr('min') ) ) ? true : false ;
+						}
+						
+					}
+
+					// Validate for maximum state
+					if( $this.is('[max]') ){
+
+						// Check textual content for min length
+						if( $this.is('input[type=text], input[type=url], input[type=password], input[type=tel], textarea') && form.check.number( $this.attr('max') ) ){
+							isValid = ( isValid && ($this.val()).length <= form.convert.toInt( $this.attr('max') ) ) ? true : false ;
+						}
+						
+						// Check numeric content for min number
+						if( $this.is('input[type=number], input[type=range]') && $this.val() ){
+							isValid = ( isValid && $this.val() <= form.convert.toFloat( $this.attr('max') ) ) ? true : false ;
+						}
+						
+					}
+
+					// Allowed chars
+
+					// Not allowed chars
 					
 				}
-
-				// Validate for maximum state
-				if( $this.is('[max]') ){
-
-					// Check textual content for min length
-					if( $this.is('input[type=text], input[type=url], input[type=password], input[type=tel], textarea') && form.check.number( $this.attr('max') ) ){
-						isValid = ( isValid && ($this.val()).length <= form.convert.toInt( $this.attr('max') ) ) ? true : false ;
-					}
-					
-					// Check numeric content for min number
-					if( $this.is('input[type=number], input[type=range]') && $this.val() ){
-						isValid = ( isValid && $this.val() <= form.convert.toFloat( $this.attr('max') ) ) ? true : false ;
-					}
-					
-				}
-
-				// Allowed chars
-
-				// Not allowed chars
 
 			}
 
