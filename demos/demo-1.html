@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>From JS - Demo 1</title>
+	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/demos.css">
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row">
+			<div class="span6">
+				<h1>Example</h1>
+
+				<form novalidate="novalidate">
+
+					<h4>Requirenament <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<label for="example-01">Required</label>
+					<input type="text" class="input-xlarge" id="example-01" required="required">
+
+					<label for="example-02">One of them required</label>
+					<input type="text" class="input-xlarge" id="example-02" required="required" group="group-name">
+
+					<label for="example-03">One of them required</label>
+					<input type="text" class="input-xlarge" id="example-03" required="required" group="group-name">
+
+					<h4>String Validation <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<label for="example-04">Length minimum 3 chars</label>
+					<input type="text" class="input-xlarge" id="example-04" min="3">
+
+					<label for="example-05">Length maximum 7 chars</label>
+					<input type="text" class="input-xlarge" id="example-05" max="7">
+
+					<label for="example-06">Length exactly 5 chars</label>
+					<input type="text" class="input-xlarge" id="example-06" min="5" max="5">
+
+					<label for="example-07">Length between 4 to 6 chars</label>
+					<input type="text" class="input-xlarge" id="example-07" min="4" max="6">
+
+					<h4>Nummeric Validation <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<label for="example-08">Minimum 10</label>
+					<input type="number" class="input-xlarge" id="example-08" min="10" value="10">
+
+					<label for="example-09">Maximum 20</label>
+					<input type="number" class="input-xlarge" id="example-09" max="20" value="0">
+
+					<label for="example-10">Between 5 to 15</label>
+					<input type="number" class="input-xlarge" id="example-10" min="5" max="15" value="5">
+
+					<h4>Patterns Validation <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<label for="example-11">Email</label>
+					<input type="email" class="input-xlarge" id="example-11">
+
+					<label for="example-12">Pattern: (123) 456-7890</label>
+					<input type="text" class="input-xlarge" id="example-12" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}">
+
+					<label for="example-13">URL</label>
+					<input type="url" class="input-xlarge" id="example-13">
+
+					<h4>Password Validation <button class="btn btn-mini" type="submit">Validate</button></h4>
+					<label for="example-14">Password</label>
+					<input type="password" class="input-xlarge" id="example-14">
+
+					<label for="example-15">Confirm Password</label>
+					<input type="password" class="input-xlarge" id="example-15" confirm="example-14">
+
+					<label for="example-16">Password Strangth</label>
+					<input type="password" class="input-xlarge" id="example-16">
+
+
+
+					<h4>Others <button class="btn btn-mini" type="submit">Validate</button></h4>
+
+					<label for="example-17">Ignored</label>
+					<input type="text" class="input-xlarge" id="example-17" ignore="true" required="required">
+					
+					<label for="example-18">Disabled</label>
+					<input type="text" class="input-xlarge" id="example-18" disabled="disabled" required="required">
+
+					<h4>Options</h4>
+					<button class="btn btn-primary" type="submit">Validate</button>
+
+				</form>
+
+			</div>
+			<div class="span6">
+				<h1>Code</h1>
+
+				<h4>Markup</h4>
+				<p>
+					<div class="code">
+						<ol>
+							<li><span class="tag">&lt;form <span class="atn">novalidate</span><span class="pun">=</span><span class="atv">"novalidate"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- Required field --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- One of the two is required --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span> <span class="atn">group</span><span class="pun">=</span><span class="atv">"group-name"</span>&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span> <span class="atn">group</span><span class="pun">=</span><span class="atv">"group-name"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- Length between 4 to 6 chars --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">min</span><span class="pun">=</span><span class="atv">"4"</span> <span class="atn">max</span><span class="pun">=</span><span class="atv">"6"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- Number between 10 to 20 chars --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"number"</span> <span class="atn">min</span><span class="pun">=</span><span class="atv">"10"</span> <span class="atn">max</span><span class="pun">=</span><span class="atv">"20"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- Email --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"email"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- URL --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"url"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- Pattern: (123) 456-7890 --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">pattern</span><span class="pun">=</span><span class="atv">"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="com">&lt;!-- Password --&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span> <span class="atn">id</span><span class="pun">=</span><span class="atv">"pw"</span> <span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span>&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span> <span class="atn">confirm</span><span class="pun">=</span><span class="atv">"pw"</span>&gt;</span></li>
+							<li></li>
+							<li><span class="tag">&lt;/form&gt;</span></li>
+						</ol>
+					</div>
+				</p>
+
+				<h4 style="padding-top:20px;">Java Script</h4>
+				<p>
+					Validating the form before ajax call
+					<div class="code">
+						<ol>
+							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#submit-button'</span><span class="pun">).</span><span class="pln">click</span><span class="pun">(<span class="kwd">function</span>(){</span></li>
+							<li><span class="kwd">	<span class="pln">form</span><span class="pun">.</span><span class="pln">validate</span><span class="pun">({</span></span></li>
+							<li><span class="pln">		onError<span class="pun">: <span class="kwd">function</span>(){</span></span></li>
+							<li><span class="pun">			...</span></li>
+							<li><span class="pun">		}),</span></li>
+							<li><span class="pln">		onSuccess<span class="pun">: <span class="kwd">function</span>(){</span></span></li>
+							<li><span class="pun">			...</span></li>
+							<li><span class="pun">		})</span></li>
+							<li><span class="pun">	});</span></li>
+							<li><span class="pun">});</span></li>
+						</ol>
+					</div>
+				</p>
+				<p>
+					Validating the form before submitting
+					<div class="code">
+						<ol>
+							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#the-form'</span><span class="pun">).</span><span class="pln">submit</span><span class="pun">(<span class="kwd">function</span>(){</span></li>
+							<li><span class="kwd">	return <span class="pln">form</span><span class="pun">.</span><span class="pln">validate</span><span class="pun">();</span></span></li>
+							<li><span class="pun">});</span></li>
+						</ol>
+					</div>
+				</p>
+				
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/form.min.js"></script>
+	<script type="text/javascript" src="../js/demos.js"></script>
+</body>
+</html>
