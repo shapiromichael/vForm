@@ -11,7 +11,7 @@ var form = new function(){
 		elements: $('input, textarea, select'),
 		trim: true,
 		autoFocus: false,
-		costumeValidation: function( $this ){ return true; },
+		customValidation: function( $this ){ return true; },
 
 		// Error options
 		errors: {
@@ -257,11 +257,11 @@ var form = new function(){
 			}
 
 			// Custome validation
-			if( isValid && $.isFunction( params.costumeValidation ) ){
-				isValid = ( isValid && params.costumeValidation( $this ) ) ? true : false ;
+			if( isValid && $.isFunction( params.customValidation ) ){
+				isValid = ( isValid && params.customValidation( $this ) ) ? true : false ;
 
 				// Handle errors
-				if( !isValid ){ validation.error( $this, params, 'costume' ); }
+				if( !isValid ){ validation.error( $this, params, 'custom' ); }
 			}
 
 			if( isValid ){

@@ -11,13 +11,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="span6">
-				<h1>Example</h1>
+				<h1>Custom Error Messages</h1>
 
 				<form novalidate="novalidate">
 
 					<h4>Requirenament <button class="btn btn-mini" type="submit">Validate</button></h4>
 					<label for="example-01">Required</label>
-					<input type="text" class="input-xlarge" id="example-01" required="required" data-error-msg="Required">
+					<input type="text" class="input-xlarge" id="example-01" required="required" data-error-msg="Must Fill">
 
 					<label for="example-02">One of them required</label>
 					<input type="text" class="input-xlarge" id="example-02" required="required" group="group-name" data-error-required-group-msg="One of those required">
@@ -81,7 +81,7 @@
 							<li><span class="tag">&lt;form <span class="atn">novalidate</span><span class="pun">=</span><span class="atv">"novalidate"</span>&gt;</span></li>
 							<li></li>
 							<li><span class="com">&lt;!-- Required field --&gt;</span></li>
-							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span>&gt;</span></li>
+							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span> <span class="atn">data-error-msg<span class="pun">=</span><span class="atv">"Must Fill"</span>&gt;</span></li>
 							<li></li>
 							<li><span class="com">&lt;!-- One of the two is required --&gt;</span></li>
 							<li><span class="tag">&lt;input <span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span> <span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span> <span class="atn">group</span><span class="pun">=</span><span class="atv">"group-name"</span>&gt;</span></li>
@@ -116,7 +116,7 @@
 					Validating the form before ajax call
 					<div class="code">
 						<ol>
-							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#submit-button'</span><span class="pun">).</span><span class="pln">click</span><span class="pun">(<span class="kwd">function</span>(){</span></li>
+							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#submit-button'</span><span class="pun">).</span><span class="pln">on</span><span class="pun">(</span><span class="str">'click'</span><span class="pun">,<span class="kwd">function</span>(){</span></li>
 							<li><span class="kwd">	<span class="pln">form</span><span class="pun">.</span><span class="pln">validate</span><span class="pun">({</span></span></li>
 							<li><span class="pln">		onError<span class="pun">: <span class="kwd">function</span>(){</span></span></li>
 							<li><span class="pun">			...</span></li>
@@ -130,10 +130,10 @@
 					</div>
 				</p>
 				<p>
-					Validating the form before submitting
+					Validating before submitting the form
 					<div class="code">
 						<ol>
-							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#the-form'</span><span class="pun">).</span><span class="pln">submit</span><span class="pun">(<span class="kwd">function</span>(){</span></li>
+							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#the-form'</span><span class="pun">).</span><span class="pln">on</span><span class="pun">(</span><span class="str">'submit'</span><span class="pun">,<span class="kwd">function</span>(){</span></li>
 							<li><span class="kwd">	return <span class="pln">form</span><span class="pun">.</span><span class="pln">validate</span><span class="pun">();</span></span></li>
 							<li><span class="pun">});</span></li>
 						</ol>

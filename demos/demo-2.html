@@ -11,7 +11,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="span6">
-				<h1>Example</h1>
+				<h1>Checkboxs Example</h1>
 
 				<form novalidate="novalidate" >
 
@@ -103,7 +103,7 @@
 					Validating the form before ajax call
 					<div class="code">
 						<ol>
-							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#submit-button'</span><span class="pun">).</span><span class="pln">click</span><span class="pun">(<span class="kwd">function</span>(){</span></li>
+							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#submit-button'</span><span class="pun">).</span><span class="pln">on</span><span class="pun">(</span><span class="str">'click'</span><span class="pun">,<span class="kwd">function</span>(){</span></li>
 							<li><span class="kwd">	<span class="pln">form</span><span class="pun">.</span><span class="pln">validate</span><span class="pun">({</span></span></li>
 							<li><span class="pln">		onError<span class="pun">: <span class="kwd">function</span>(){</span></span></li>
 							<li><span class="pun">			...</span></li>
@@ -117,10 +117,10 @@
 					</div>
 				</p>
 				<p>
-					Validating the form before submitting
+					Validating before submitting the form
 					<div class="code">
 						<ol>
-							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#the-form'</span><span class="pun">).</span><span class="pln">submit</span><span class="pun">(<span class="kwd">function</span>(){</span></li>
+							<li><span class="pln">$</span><span class="pun">(</span><span class="str">'#the-form'</span><span class="pun">).</span><span class="pln">on</span><span class="pun">(</span><span class="str">'submit'</span><span class="pun">,<span class="kwd">function</span>(){</span></li>
 							<li><span class="kwd">	return <span class="pln">form</span><span class="pun">.</span><span class="pln">validate</span><span class="pun">();</span></span></li>
 							<li><span class="pun">});</span></li>
 						</ol>
