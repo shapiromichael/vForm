@@ -1,23 +1,47 @@
-
-/*! Form JS version: 1.0 */
+/*! Form JS 
+ *  version: 1.1
+ *
+ * http://shapiromichael.github.io/Form-JS 
+ */
 var form = new function(){
 
 	var defaults = {
+		
 		// Params
 		elements: $('input, textarea, select'),
 		trim: true,
 		autoFocus: false,
-		costomeValidation: function( $this ){ return true; },
+		costumeValidation: function( $this ){ return true; },
+
+		// Error options
+		errors: {
+			enabled: true,
+			summarized: true,
+			dom: function( msg, $element ){ return msg; }
+		},
+
+		// Valid feedback options
+		validFeedback: {
+			enabled: false,
+			dom: function( $element ){ return ''; }
+		},
 
 		// Events
 		onStart: function(){ return true; },
 		onSuccess: function(){ return true; },
-		onError: function(){ return false; }
+		onError: function( msgs ){ return false; }
 	};
 
 	this.validate = function(){
 		var params = $.extend(false, defaults, arguments[0] ),
 			form = this;
+
+		// Error params
+		params.errors = ( arguments[0].errors ) ? $.extend(false, defaults.errors, arguments[0].errors ) : defaults.errors ;
+		params.errors.msgs = [];
+
+		// Valid feedback options
+		params.validFeedback = ( arguments[0].validFeedback ) ? $.extend(false, defaults.validFeedback, arguments[0].validFeedback ) : defaults.validFeedback ;
 
 		// Removing the ignored and disabled elements
 		params.elements = params.elements.not('[disabled=disabled]').not('[ignore=true]');		
@@ -44,7 +68,7 @@ var form = new function(){
 						params.elements.filter('[error=true]:first').focus();
 					}
 					
-					return params.onError();
+					return params.onError( params.errors.msgs );
 				}else{
 					return params.onSuccess();
 				}
@@ -106,9 +130,15 @@ var form = new function(){
 			// Validate for required state
 			if( $this.is('[required]') ){
 				if( !$this.is('[group]') ){
+
 					// Check if has a value
 					isValid = ( $this.is('input[type=checkbox], input[type=radio]') ) ? $this.is(":checked") : ( isValid && $this.val() ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ validation.error( $this, params, 'required' ); }
+
 				}else{
+
 					// Validate for required group
 					if( $this.is( params.elements.filter('[required][group=' +  $this.attr('group') + ']:first') ) ){
 						isValid = false;
@@ -117,52 +147,69 @@ var form = new function(){
 							isValid = ( $this.is('input[type=checkbox], input[type=radio]') ) ? ( isValid || $this.is(':checked') ) ? true : false : ( isValid || $this.val() ) ? true : false ;
 						});
 					}
-				}
-				
+
+					// Handle errors
+					if( !isValid ){ validation.error( $this, params, 'required-group' ); }
+				}				
 			}
 			
 			if( $this.val() ){
 
 				// Validate email content type
-				if( $this.is('input[type=email]') ){
+				if( isValid && $this.is('input[type=email]') ){
 					form.convert.toLower( $this );
 					isValid = ( isValid && form.check.email( $this.val() ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ validation.error( $this, params, 'email' ); }
 				}
 
 				// Validate url content type
-				if( $this.is('input[type=url]') ){
+				if( isValid && $this.is('input[type=url]') ){
 					isValid = ( isValid && form.check.url( $this.val() ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ validation.error( $this, params, 'url' ); }
 				}
 
 				// Validate pattern defined content
-				if( $this.is('input[pattern]') ){
+				if( isValid && $this.is('input[pattern]') ){
 					if( $.browser.msie ){
 						var re = new RegExp( $this.attr('pattern') ,'g' );
 						isValid = ( isValid && re.test($this.val()) ) ? true : false ;
 					}else{
 						isValid = ( isValid && $this.prop('validity').valid ) ? true : false ;
 					}
+
+					// Handle errors
+					if( !isValid ){ validation.error( $this, params, 'pattern' ); }
 				}
 
 				// Validate min & max states
-				if( $this.is('input[type=checkbox][group]') ){
+				if( isValid && $this.is('input[type=checkbox][group]') ){
 
 					var $group = $('[groupsettings=' + $this.attr('group') + ']');
 
 					// Validate for minimum state
 					if( $group.is('[min]') && form.check.number( $group.attr('min') ) ){
 						isValid = ( isValid && params.elements.filter('input[type=' + $this.attr('type') + '][group=' +  $this.attr('group') + ']:checked').size() >= form.convert.toInt( $group.attr('min') ) ) ? true : false ;
+
+						// Handle errors
+						if( !isValid ){ validation.error( $group, params, 'min' ); }
 					}
 
 					// Validate for maximum state
 					if( $group.is('[max]') && form.check.number( $group.attr('max') ) ){
 						isValid = ( isValid && params.elements.filter('input[type=' + $this.attr('type') + '][group=' +  $this.attr('group') + ']:checked').size() <= form.convert.toInt( $group.attr('max') ) ) ? true : false ;
+
+						// Handle errors
+						if( !isValid ){ validation.error( $group, params, 'max' ); }
 					}
 
 				}else{
 
 					// Validate for minimum state
-					if( $this.is('[min]') ){
+					if( isValid && $this.is('[min]') ){
 
 						// Check textual content for min length
 						if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], textarea') && form.check.number( $this.attr('min') ) ){
@@ -173,11 +220,14 @@ var form = new function(){
 						if( $this.is('input[type=number], input[type=range]') && $this.val() ){
 							isValid = ( isValid && $this.val() >= form.convert.toFloat( $this.attr('min') ) ) ? true : false ;
 						}
+
+						// Handle errors
+						if( !isValid ){ validation.error( $this, params, 'min' ); }
 						
 					}
 
 					// Validate for maximum state
-					if( $this.is('[max]') ){
+					if( isValid && $this.is('[max]') ){
 
 						// Check textual content for min length
 						if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], textarea') && form.check.number( $this.attr('max') ) ){
@@ -188,6 +238,9 @@ var form = new function(){
 						if( $this.is('input[type=number], input[type=range]') && $this.val() ){
 							isValid = ( isValid && $this.val() <= form.convert.toFloat( $this.attr('max') ) ) ? true : false ;
 						}
+
+						// Handle errors
+						if( !isValid ){ validation.error( $this, params, 'max' ); }
 						
 					}
 					
@@ -196,16 +249,55 @@ var form = new function(){
 			}
 
 			// Validate confirm fields
-			if( $this.is('input[confirm]') && params.elements.filter('input#' + $this.attr('confirm') ) ){
+			if( isValid && $this.is('input[confirm]') && params.elements.filter('input#' + $this.attr('confirm') ) ){
 				isValid = ( isValid && $this.val() == params.elements.filter('input#' + $this.attr('confirm') ).val() ) ? true : false ;
+
+				// Handle errors
+				if( !isValid ){ validation.error( $this, params, 'confirm' ); }
 			}
 
-			if( isValid && params.costomeValidation( $this ) ){
+			// Custome validation
+			if( isValid && $.isFunction( params.costumeValidation ) ){
+				isValid = ( isValid && params.costumeValidation( $this ) ) ? true : false ;
+
+				// Handle errors
+				if( !isValid ){ validation.error( $this, params, 'costume' ); }
+			}
+
+			if( isValid ){
 				$this.removeAttr('error');
+				validation.feedback( $this, params );
 			}else{
 				$this.attr('error','true');
 			}
 
+		},
+		error: function( $this, params, name ){
+			if( params.errors.enabled ){
+
+				var msg = '';
+
+				// Grab the correct error message
+				if( $this.data('error-' + name + '-msg') ){
+					msg = $this.data('error-' + name + '-msg');
+				}else if( $this.data('error-msg') ){
+					msg = $this.data('error-msg');
+				}
+
+				// Store all error messages
+				params.errors.msgs.push( msg );
+
+				// Error message DOM
+				if( !params.errors.summarized && $.isFunction( params.errors.dom ) ){
+					$this.after( params.errors.dom( msg, $this ) );
+				}
+			}
+		},
+		feedback: function( $this, params ){
+			if( params.validFeedback.enabled && $.isFunction( params.validFeedback.dom ) ){
+				console.log('-----> ', $this, params.validFeedback.dom( $this ) );
+				$this.after( params.validFeedback.dom( $this ) );
+			}
 		}
 	};
 
