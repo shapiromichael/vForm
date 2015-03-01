@@ -274,8 +274,8 @@ var form = new function(){
 			}
 
 			// Validate confirm fields
-			if( isValid && $this.is('input[confirm]') && params.elements.filter('input#' + $this.attr('confirm') ) ){
-				isValid = ( isValid && $this.val() == params.elements.filter('input#' + $this.attr('confirm') ).val() ) ? true : false ;
+			if( isValid && $this.is('input[confirm]') && $('#' + $this.attr('confirm') ) ){
+				isValid = ( isValid && $this.val() == $('#' + $this.attr('confirm') ).val() ) ? true : false ;
 
 				// Handle errors
 				if( !isValid ){ validation.error( $this, params, 'confirm' ); }
