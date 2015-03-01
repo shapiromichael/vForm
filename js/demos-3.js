@@ -1,5 +1,8 @@
 
-var parsms = {
+var status = false;
+
+var params = {
+		live: 'blur',
 
 		// Error options
 		errors: {
@@ -18,36 +21,28 @@ var parsms = {
 		},
 
 		// Events
-		onStart: function(){
+		onStart: function( $elements ){
 			$('.label-important, .label-success').remove();
 			return true;
 		},
 		onSuccess: function(){
+			status = true;
 			return true;
+		},
+		onError: function(){
+			status = false;
+			return false;
 		}
 	};
 
 
 $(function(){
 	
-	$('.btn-primary').on('click',function( e ){
-		e.preventDefault();
-
-		// This is commented out because the form is validated on submit,
-		// In case you want to validate based on event you can uncomment this.
-		//
-		// form.validate(parsms);
-
-	});
+	form.validate( params );
 
 	$('form').on('submit',function(){
-
-		// In cse you with to validate the form on click event (not on submit)
-		// uncomment the following line
-		//
-		// return false;
-		return form.validate( parsms );
-
+		console.log('-----> ', status);
+		return status;
 	});
 	
 	$('.btn-mini').on('click', function( e ){

@@ -11,12 +11,11 @@ var form = new function(){
 		elements: $('input, textarea, select'),
 		trim: true,
 		autoFocus: false,
-		customValidation: function( $this ){ return true; },
+		live: false,
 
 		// Error options
 		errors: {
 			enabled: true,
-			summarized: true,
 			dom: function( msg, $element ){ return msg; }
 		},
 
@@ -27,9 +26,12 @@ var form = new function(){
 		},
 
 		// Events
-		onStart: function(){ return true; },
+		onStart: function( $elements ){ return true; },
 		onSuccess: function(){ return true; },
-		onError: function( msgs ){ return false; }
+		onError: function( msgs ){ return false; },
+
+		// Other
+		customValidation: function( $this ){ return true; }
 	};
 
 	this.validate = function(){
@@ -48,37 +50,57 @@ var form = new function(){
 
 		if( params.elements.size() ){
 			
-			if( params.onStart() ){
-				
-				// Trim content
-				if( params.trim ){
-					params.elements.filter('input:not([trim=false]), textarea:not([trim=false])').each( validation.trim );
-				}
+			if( params.live ){
 
-				// Process the validations
-				params.elements.each(function(){
-					validation.process( form, params, $(this) );
+				var event = (params.live === 'change' || params.live === 'keyup' || params.live === 'blur') ? params.live : 'change' ;
+				params.live = false;
+
+				// In case of live validation, only biding the events by now
+				params.elements.on(event, function(){
+					var temp_params = params;
+					temp_params.elements = $(this);
+					form.validate( temp_params );
 				});
 
-				// Compleate validation
-				if( params.elements.filter('[error=true]').size() ){
-					
-					// Auto focus on the first error occured
-					if( params.autoFocus ){
-						params.elements.filter('[error=true]:first').focus();
+			}else{
+
+				if( params.onStart( params.elements ) ){
+				
+					// Trim content
+					if( params.trim ){
+						params.elements.filter('input:not([trim=false]), textarea:not([trim=false])').each( validation.trim );
 					}
-					
-					return params.onError( params.errors.msgs );
-				}else{
-					return params.onSuccess();
+
+					// Process the validations
+					params.elements.each(function(){
+						validation.process( form, params, $(this) );
+					});
+
+					// Compleate validation
+					if( params.elements.filter('[error=true]').size() ){
+						
+						// Auto focus on the first error occured
+						if( params.autoFocus ){
+							params.elements.filter('[error=true]:first').focus();
+						}
+						
+						return params.onError( params.errors.msgs );
+
+					}else{
+						return params.onSuccess();
+					}
 				}
-			}
+			}			
 
 		}else{
 			return true; // in case there's no elements to validate
 		}
 
 		return false;
+
+	};
+
+	this.valid = function(){
 
 	};
 
@@ -288,14 +310,13 @@ var form = new function(){
 				params.errors.msgs.push( msg );
 
 				// Error message DOM
-				if( !params.errors.summarized && $.isFunction( params.errors.dom ) ){
+				if( $.isFunction( params.errors.dom ) ){
 					$this.after( params.errors.dom( msg, $this ) );
 				}
 			}
 		},
 		feedback: function( $this, params ){
 			if( params.validFeedback.enabled && $.isFunction( params.validFeedback.dom ) ){
-				console.log('-----> ', $this, params.validFeedback.dom( $this ) );
 				$this.after( params.validFeedback.dom( $this ) );
 			}
 		}
