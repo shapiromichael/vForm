@@ -1,7 +1,7 @@
 /*! Form JS 
  *  version: 1.1
  *
- * http://shapiromichael.github.io/Form-JS 
+ *  http://shapiromichael.github.io/Form-JS 
  */
 var form = new function(){
 
@@ -11,7 +11,7 @@ var form = new function(){
 		elements: $('input, textarea, select'),
 		trim: true,
 		autoFocus: false,
-		live: false,
+		on: false, // false means no live validation
 
 		// Error options
 		errors: {
@@ -46,20 +46,27 @@ var form = new function(){
 		params.validFeedback = ( arguments[0].validFeedback ) ? $.extend(false, defaults.validFeedback, arguments[0].validFeedback ) : defaults.validFeedback ;
 
 		// Removing the ignored and disabled elements
+		if( typeof params.elements == 'string' || params.elements instanceof String ){
+			params.elements = $( params.elements );
+		}
 		params.elements = params.elements.not('[disabled=disabled]').not('[ignore=true]');		
 
 		if( params.elements.size() ){
 			
-			if( params.live ){
+			if( params.on ){
 
-				var event = (params.live === 'change' || params.live === 'keyup' || params.live === 'blur') ? params.live : 'change' ;
-				params.live = false;
+				var event = (params.on === 'change' || params.on === 'keyup' || params.on === 'blur') ? params.on : 'change' ;
+				params.on = false;
 
 				// In case of live validation, only biding the events by now
 				params.elements.on(event, function(){
 					var temp_params = params;
 					temp_params.elements = $(this);
 					form.validate( temp_params );
+				});
+
+				params.elements.on('keydown', function(){
+					if( $.isFunction( params.onStart ) ){ params.onStart( $(this) ); }
 				});
 
 			}else{
@@ -97,10 +104,6 @@ var form = new function(){
 		}
 
 		return false;
-
-	};
-
-	this.valid = function(){
 
 	};
 

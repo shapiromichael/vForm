@@ -2,7 +2,7 @@
 var status = false;
 
 var params = {
-		live: 'blur',
+		on: 'blur',
 
 		// Error options
 		errors: {
