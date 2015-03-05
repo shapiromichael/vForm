@@ -1,0 +1,9 @@
+{
+  "name": "form-js",
+  "version": "2.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "qunit": "~1.12.0",
+    "jquery": "~2.1.3"
+  }
+}
