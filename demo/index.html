@@ -42,12 +42,13 @@
 
 				<h3 id="overview-install">Install</h3>
 
-				<code>bower install form-jquery</code>
+				<code></code>
+				<pre><code class="bash">$ bower install form-jquery</code></pre>
 
 				<h3 id="overview-requirements">Requirements</h3>
 
 				<h1 id="validations" class="page-header">Validation Types</h1>
-				
+
 				<h3 id="validation-required">Required Fields</h3>
 				<p>To validate the field has a value add a <code>required</code> attribute.</p>
 				<div class="example">
@@ -78,14 +79,106 @@
 &lt;input type="text" group="group-name" required&gt;</code></pre>
 
 				<h3 id="validation-string">String</h3>
+				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-2">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length minimum 3 characters" min="3">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length maximum 7 characters" max="7">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length between 4 to 8 characters" min="4" max="8">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length exactly 5 characters" min="5" max="5">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" min="3"&gt; &lt;!-- Minimum 3 characters --&gt;
+&lt;input type="text" max="7"&gt; &lt;!-- Maximum 7 characters --&gt;
+&lt;input type="text" min="4" max="8"&gt; &lt;!-- Between 4 to 8 characters --&gt;
+&lt;input type="text" min="5" max="5"&gt; &lt;!-- Exactly 5 characters --&gt;</code></pre>
 
 				<h3 id="validation-numeric">Numeric</h3>
+				<p>Validating a numeric value is only avalible for those HTML5 types: <code>month</code>, <code>week</code>, <code>number</code> and <code>range</code>.</p>
+				<div class="alert alert-warning" role="alert">Note that on <code>type="range"</code> you should use <code>data-min</code> &amp; <code>data-max</code> attributes, that's becase the <code>min</code> &amp; <code>max</code> attributes specify the total range of the field.</div>
+				<div class="example">
+					<form novalidate="novalidate" id="example-2">
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Greater than 10" min="11">
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Less than 20" max="19">
+						</div>
+						<div class="form-group">
+							<input type="range" class="form-control" min="1" max="100" data-min="30" data-max="70">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="number" min="11"&gt; &lt;!-- Greater than 10 --&gt;
+&lt;input type="number" max="20"&gt; &lt;!-- Less than 20 --&gt;
+&lt;input type="range" min="1" max="100" data-min="30" data-max="70"&gt; &lt;!-- Between 30 to 70 characters --&gt;</code></pre>
+				
+				<h3 id="validation-email">Email</h3>
+				<p>To validate an email field just make sure that <code>type="email"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Required email field" required>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="email" required&gt;</code></pre>
 
+				<h3 id="validation-url">URL</h3>
+				<p>To validate a URL field just make sure that <code>type="url"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<div class="form-group">
+							<input type="url" class="form-control" placeholder="URL field">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="url"&gt;</code></pre>
+				
 				<h3 id="validation-patterns">Patterns</h3>
+				<p>To validate a regex pattern just use the <code>pattern</code> attribute. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="(123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"&gt;
+&lt;!-- Phone number that match the pattern: "(123) 456-7890" --&gt;</code></pre>
 
 				<h3 id="validation-password">Password</h3>
+				<p>You can use the <code>min</code> or <code>pattern</code> attribute to validate the password, and <code>data-match</code> attribute to validation the password confirmation. Note that <code>data-match</code> should contain the original password field <code>id</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<div class="form-group">
+							<input type="password" class="form-control" id="password-field" placeholder="Password" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Password confirmation" data-match="password-field">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="password" id="password-field" required&gt;
+&lt;input type="password" data-match="password-field"&gt;</code></pre>
 
 				<h3 id="validation-checkboxes">Checkboxes</h3>
+
+				<h3 id="validation-radio">Radio Buttons</h3>
 
 				<h3 id="validation-custom">Custom Validation</h3>
 
@@ -129,6 +222,8 @@
 
 				<h3 id="methods-check">Check</h3>
 
+				<h3 id="methods-convert">Convert</h3>
+
 				<h3 id="methods-clear">Clear</h3>
 
 				<h1 id="styling" class="page-header">Styling</h1>
@@ -163,9 +258,12 @@
 								<li><a href="#validation-required-group">Required Group</a></li>
 								<li><a href="#validation-string">String</a></li>
 								<li><a href="#validation-numeric">Numeric</a></li>
+								<li><a href="#validation-email">Email</a></li>
+								<li><a href="#validation-url">URL</a></li>
 								<li><a href="#validation-patterns">Patterns</a></li>
 								<li><a href="#validation-password">Password</a></li>
 								<li><a href="#validation-checkboxes">Checkboxes</a></li>
+								<li><a href="#validation-radio">Radio Buttons</a></li>
 								<li><a href="#validation-custom">Custom Validation</a></li>
 								<li><a href="#validation-ignored">Ignored</a></li>
 							</ul>
@@ -209,6 +307,7 @@
 							<ul class="nav">
 								<li><a href="#methods-validate">Validate</a></li>
 								<li><a href="#methods-check">Check</a></li>
+								<li><a href="#methods-convert">Convert</a></li>
 								<li><a href="#methods-clear">Clear</a></li>
 							</ul>
 						</li>

@@ -237,7 +237,7 @@ var form = new function(){
 					if( isValid && $this.is('[min]') ){
 
 						// Check textual content for min length
-						if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], textarea') && form.check.number( $this.attr('min') ) ){
+						if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], input[type=search], textarea') && form.check.number( $this.attr('min') ) ){
 							isValid = ( isValid && ($this.val()).length >= form.convert.toInt( $this.attr('min') ) ) ? true : false ;
 						}
 						
