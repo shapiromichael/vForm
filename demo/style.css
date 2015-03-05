@@ -84,6 +84,18 @@ footer {
 .callout-warning h4 {
 	color: #C89800;
 }
+.callout-danger {
+	border-left-color: #D23732;
+}
+.callout-danger h4 {
+	color: #D23732;
+}
+.callout-info {
+	border-left-color: #00C1F3;
+}
+.callout-info h4 {
+	color: #0B94B8;
+}
 
 pre {
 	padding: 0;

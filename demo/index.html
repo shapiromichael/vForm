@@ -67,10 +67,10 @@
 					<p>Please enter at least one contact method:</p>
 					<form novalidate="novalidate" id="example-2">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Phone" required>
+							<input type="text" class="form-control" placeholder="Phone" data-group="example-required-group" required>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Email" required>
+							<input type="text" class="form-control" placeholder="Email" data-group="example-required-group" required>
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
@@ -177,10 +177,125 @@
 &lt;input type="password" data-match="password-field"&gt;</code></pre>
 
 				<h3 id="validation-checkboxes">Checkboxes</h3>
+				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" required>
+								This checkbox is required
+							</label>
+						</div>
+						<fieldset min="2" max="3">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option one
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option two
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option three
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option four
+								</label>
+							</div>
+						</fieldset>
+						
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">
+&lt;input type="checkbox" required&gt; &lt;!-- Required checkbox --&gt;
+
+&lt;!-- Checkbox group --&gt;
+&lt;fieldset min="2" max="3"&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option one
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option two
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option three
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option four
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+				
+				<div class="callout callout-warning">
+					<h4>Keep checkboxes &amp; radio separated</h4>
+					<p>Make sure to separate checkboxes &amp; radio buttons into different <code>&lt;fieldset&gt;</code> tags.</p>
+				</div>
 
 				<h3 id="validation-radio">Radio Buttons</h3>
+				<p>Radios can be validated only by group, for that wrap them with <code>&lt;fieldset&gt;</code>, you can only add <code>required</code> attribute to this <code>&lt;fieldset&gt;</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<fieldset required>
+							<div class="radio">
+								<label>
+									<input type="radio">
+									Option one
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio">
+									Option two
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio">
+									Option three
+								</label>
+							</div>
+						</fieldset>
+						
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;fieldset required&gt;
+    &lt;label&gt;
+        &lt;input type="radio"&gt;
+        Option one
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="radio"&gt;
+        Option two
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="radio"&gt;
+        Option three
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+				
+				<div class="callout callout-info">
+					<h4>Better way to validate radio buttons</h4>
+					<p>Since radio buttons cannot be unselected, you can just add <code>checked</code> attribute to one of them. So there's no need to actually validate them.</p>
+				</div>
 
-				<h3 id="validation-custom">Custom Validation</h3>
+				<div class="callout callout-danger">
+					<h4>Cross-browser compatibility</h4>
+					<p>While Form.js will ignore those items in all browsers, Internet Explorer 11 and below don't fully support the <code>disabled</code> attribute on a <code>&lt;fieldset&gt;</code>. Use custom JavaScript to disable the fieldset in these browsers.</p>
+				</div>
 
 				<h3 id="validation-ignored">Ignored</h3>
 
@@ -206,7 +321,11 @@
 
 				<h1 id="events" class="page-header">Events</h1>
 
-				<h3 id="events-onstart">onStart</h3>
+				<h3 id="events-onbegin">onBegin</h3>
+
+				<h3 id="events-onbefore">onBefore</h3>
+
+				<h3 id="events-onafter">onAfter</h3>
 
 				<h3 id="events-onerror">onError</h3>
 
@@ -221,6 +340,8 @@
 				<h3 id="methods-validate">Validate</h3>
 
 				<h3 id="methods-check">Check</h3>
+
+				<h3 id="methods-add">Add</h3>
 
 				<h3 id="methods-convert">Convert</h3>
 
@@ -264,7 +385,6 @@
 								<li><a href="#validation-password">Password</a></li>
 								<li><a href="#validation-checkboxes">Checkboxes</a></li>
 								<li><a href="#validation-radio">Radio Buttons</a></li>
-								<li><a href="#validation-custom">Custom Validation</a></li>
 								<li><a href="#validation-ignored">Ignored</a></li>
 							</ul>
 						</li>
@@ -295,7 +415,9 @@
 						<li>
 							<a href="#events">Events</a>
 							<ul class="nav">
-								<li><a href="#events-onstart">onStart</a></li>
+								<li><a href="#events-onbegin">onBegin</a></li>
+								<li><a href="#events-onbefore">onBefore</a></li>
+								<li><a href="#events-onafter">onAfter</a></li>
 								<li><a href="#events-onerror">onError</a></li>
 								<li><a href="#events-onsuccess">onSuccess</a></li>
 								<li><a href="#events-onerror-message">onErrorMessage</a></li>
@@ -307,6 +429,7 @@
 							<ul class="nav">
 								<li><a href="#methods-validate">Validate</a></li>
 								<li><a href="#methods-check">Check</a></li>
+								<li><a href="#methods-add">Add</a></li>
 								<li><a href="#methods-convert">Convert</a></li>
 								<li><a href="#methods-clear">Clear</a></li>
 							</ul>
