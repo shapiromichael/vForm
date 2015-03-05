@@ -131,6 +131,9 @@ div.example:after {
 /* *********************************************************** */
 /*                      Syntax Highlighting                    */
 /* *********************************************************** */
+.text-string {
+  color: #89B229;
+}
 .hljs {
 	display: block;
 	overflow-x: auto;

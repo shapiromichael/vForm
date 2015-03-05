@@ -298,10 +298,122 @@
 				</div>
 
 				<h3 id="validation-ignored">Ignored</h3>
+				<p>Disabled fields are being ignored, however you can also add <code>data-ignore="true"</code> to manually ignore fields from being validated.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Disabled field" disabled>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Ignored from validatio" data-ignore="true" required>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" disabled&gt;
+&lt;input type="text" data-ignore="true" required&gt;</code></pre>
 
 				<h1 id="errors" class="page-header">Errors</h1>
 
 				<h3 id="error-messages">Error Messages</h3>
+				<p>You can specify the error messages from the configuration as default or from the markup to apply individually.<br />The error messages are based on the validation type as specified.</p>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Validation Type</th>
+							<th>Option Key</th>
+							<th>Marktup Attribute</th>
+							<th>Default Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Default</th>
+							<td><code>default</code></td>
+							<td><code>data-error-msg</code></td>
+							<td>Invalid</td>
+						</tr>
+						<tr>
+							<th>Required</th>
+							<td><code>required</code></td>
+							<td><code>data-required-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Required Group</th>
+							<td><code>required_group</code></td>
+							<td><code>data-required-group-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>String Minimun Length</th>
+							<td><code>min_length</code></td>
+							<td><code>data-min-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>String Maximum Length</th>
+							<td><code>max_length</code></td>
+							<td><code>data-max-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Numeric Minimun Value</th>
+							<td><code>min</code></td>
+							<td><code>data-min-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Numeric Maximum Value</th>
+							<td><code>max</code></td>
+							<td><code>data-max-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Email</th>
+							<td><code>email</code></td>
+							<td><code>data-email-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>URL</th>
+							<td><code>url</code></td>
+							<td><code>data-url-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Pattern</th>
+							<td><code>pattern</code></td>
+							<td><code>data-pattern-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Password</th>
+							<td><code>password</code></td>
+							<td><code>data-password-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Password Match</th>
+							<td><code>password_match</code></td>
+							<td><code>data-password-match-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Checkboxes Minimun Selection</th>
+							<td><code>min_selection</code></td>
+							<td><code>data-min-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Checkboxes Maximum Selection</th>
+							<td><code>max_selection</code></td>
+							<td><code>data-max-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<h3 id="error-summarized">Summarized Errors</h3>
 
@@ -317,9 +429,12 @@
 
 				<h3 id="processing-ajax">Ajax</h3>
 
-				<h1 id="options" class="page-header">Options</h1>
-
 				<h1 id="events" class="page-header">Events</h1>
+
+				<div class="callout callout-warning">
+					<h4>All the events must return a boolean</h4>
+					<p>Modern browsers show buil-in error styles for invalid fields, to disable that make sure to add <code>novalidate="novalidate"</code> attribute to the <code>&lt;form&gt;</code> tag.</p>
+				</div>
 
 				<h3 id="events-onbegin">onBegin</h3>
 
@@ -335,15 +450,106 @@
 
 				<h3 id="events-onvalid-feedback">onValidFeedback</h3>
 
+				<h1 id="options" class="page-header">Options</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="2">Key</th>
+							<th>Default Value</th>
+							<th>Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="2"><code>elements</code></td>
+							<td class="text-string">"input, textarea, select"</td>
+							<td>String</td>
+							<td>Selector for the elements that should be validated.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>trim</code></td>
+							<td>True</td>
+							<td>Boolean</td>
+							<td>If true, each field will get trimed before processing the validation.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>focus</code></td>
+							<td>False</td>
+							<td>Boolean</td>
+							<td>If true, will set the focus on the first invalid field after processing.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>live</code></td>
+							<td>False</td>
+							<td>Boolean / String</td>
+							<td>Avalible options are: <span class="text-string">"onKeyUp"</span>, <span class="text-string">"onBlur"</span>, <span class="text-string">"onChnage"</span>.</td>
+						</tr>
+						<tr>
+							<td rowspan="3"><code>error.</code></td>
+							<td><code>enabled</code></td>
+							<td>False</td>
+							<td>Boolean</td>
+							<td>If true, will show error messages.</td>
+						</tr>
+						<tr>
+							<td><code>messages</code></td>
+							<td>{ default: <span class="text-string">"Invalid"</span> }</td>
+							<td>Object</td>
+							<td>See <a href="#error-messages">Error Messages</a> for object documentation.</td>
+						</tr>
+						<tr>
+							<td><code>onErrorMessage</code></td>
+							<td>---</td>
+							<td>Function</td>
+							<td>See <a href="#events-onerror-message">onErrorMessage</a> event documentation.</td>
+						</tr>
+						<tr>
+							<td rowspan="2"><code>feedback.</code></td>
+							<td><code>enabled</code></td>
+							<td>False</td>
+							<td>Boolean</td>
+							<td>If true, will show field valid feedback.</td>
+						</tr>
+						<tr>
+							<td><code>onValidFeedback</code></td>
+							<td>---</td>
+							<td>Function</td>
+							<td>See <a href="#events-onvalid-feedback">onValidFeedback</a> event documentation.</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<pre><code class="javascript">{
+    elements: "input, textarea, select",
+    trim: true,
+    focus: false,
+    error: {
+        enabled: false,
+        messages: { default: "Invalid" },
+        onErrorMessage: function( $field, message ){ ... }
+    },
+    feedback: {
+        enabled: false,
+        onValidFeedback: function( $field ){ ... }
+    }
+}</code></pre>
+
 				<h1 id="methods" class="page-header">Methods</h1>
+
+				<h3 id="methods-create">Create</h3>
 
 				<h3 id="methods-validate">Validate</h3>
 
-				<h3 id="methods-check">Check</h3>
+				<h3 id="methods-status">Status</h3>
 
 				<h3 id="methods-add">Add</h3>
 
+				<h3 id="methods-set">Set</h3>
+
 				<h3 id="methods-convert">Convert</h3>
+
+				<h3 id="methods-trim">Trim</h3>
 
 				<h3 id="methods-clear">Clear</h3>
 
@@ -410,9 +616,6 @@
 							</ul>
 						</li>
 						<li>
-							<a href="#options">Options</a>
-						</li>
-						<li>
 							<a href="#events">Events</a>
 							<ul class="nav">
 								<li><a href="#events-onbegin">onBegin</a></li>
@@ -425,12 +628,18 @@
 							</ul>
 						</li>
 						<li>
+							<a href="#options">Options</a>
+						</li>
+						<li>
 							<a href="#methods">Methods</a>
 							<ul class="nav">
+								<li><a href="#methods-create">Create</a></li>
 								<li><a href="#methods-validate">Validate</a></li>
-								<li><a href="#methods-check">Check</a></li>
+								<li><a href="#methods-status">Status</a></li>
 								<li><a href="#methods-add">Add</a></li>
+								<li><a href="#methods-set">Set</a></li>
 								<li><a href="#methods-convert">Convert</a></li>
+								<li><a href="#methods-trim">Trim</a></li>
 								<li><a href="#methods-clear">Clear</a></li>
 							</ul>
 						</li>
