@@ -131,6 +131,54 @@ div.example:after {
 /* *********************************************************** */
 /*                      Syntax Highlighting                    */
 /* *********************************************************** */
+code, kbd, pre, samp {
+  font-family: "Monaco", Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+.label-primary {
+	font-weight: normal;
+	padding: 2px 10px;
+	font-size: 90%;
+	color: #0B94B8;
+	background-color: #F6F8FC;
+	border-radius: 4px;
+	font-family: "Monaco", Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+.label-info {
+	font-weight: normal;
+	padding: 2px 10px;
+	font-size: 90%;
+	color: #4B0BB8;
+ 	background-color: #F2EBFA;
+	border-radius: 4px;
+	font-family: "Monaco", Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+.label-success {
+	font-weight: normal;
+	padding: 2px 10px;
+	font-size: 90%;
+	color: #89B229;
+	background-color: #F4FAF3;
+	border-radius: 4px;
+	font-family: "Monaco", Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+.label-warning {
+	font-weight: normal;
+	padding: 2px 10px;
+	font-size: 90%;
+	color: #F0AD4E;
+	background-color: #FAF7F3;
+	border-radius: 4px;
+	font-family: "Monaco", Menlo,Monaco,Consolas,"Courier New",monospace;
+}
+.label-danger {
+	font-weight: normal;
+	padding: 2px 10px;
+	font-size: 90%;
+	color: #F04ECF;
+	background-color: #FAF3F9;
+	border-radius: 4px;
+	font-family: "Monaco", Menlo,Monaco,Consolas,"Courier New",monospace;
+}
 .text-string {
   color: #89B229;
 }

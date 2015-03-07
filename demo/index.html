@@ -34,11 +34,6 @@
 
 				<h3 id="overview-getting-started">Getting Started</h3>
 				<p>Form is based on the HTML 5 form validation standards.</p>
-				
-				<div class="callout callout-warning">
-					<h4>Disable the browser default errors</h4>
-					<p>Modern browsers show buil-in error styles for invalid fields, to disable that make sure to add <code>novalidate="novalidate"</code> attribute to the <code>&lt;form&gt;</code> tag.</p>
-				</div>
 
 				<h3 id="overview-install">Install</h3>
 
@@ -432,23 +427,186 @@
 				<h1 id="events" class="page-header">Events</h1>
 
 				<div class="callout callout-warning">
-					<h4>All the events must return a boolean</h4>
+					<h4>All the events must return a <span class="label label-primary">Boolean</span></h4>
 					<p>Modern browsers show buil-in error styles for invalid fields, to disable that make sure to add <code>novalidate="novalidate"</code> attribute to the <code>&lt;form&gt;</code> tag.</p>
 				</div>
 
-				<h3 id="events-onbegin">onBegin</h3>
+				<h3 id="events-onbegin">onBegin <small>( fields )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>Every time the validation process begines.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>fields</code> <span class="label label-info">Array</span> of all fields that's about to get processed.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether to proceed with the validation. <code>False</code> will fail the form validation.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( fields ){
+    return true;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="events-onbefore">onBefore</h3>
+				<h3 id="events-onbefore">onBefore <small>( $field )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>Before processing each field.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether to proceed with the validation. <code>False</code> will skip to the next field.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field ){
+    return true;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="events-onafter">onAfter</h3>
+				<h3 id="events-onafter">onAfter <small>( $field, status )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>After processing each field.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<td><code>status</code> <span class="label label-primary">Boolean</span> the validation status of the field.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether this field is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field, status ){
+    return status;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="events-onerror">onError</h3>
+				<h3 id="events-onerror">onFail <small>( fields, messages )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When the form validation fails after processing all of the fields.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>fields</code> <span class="label label-info">Array</span> of all fields that was processed.</td>
+						</tr>
+						<tr>
+							<td><code>messages</code> <span class="label label-info">Array</span> of all the error messages.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether ths form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( fields, messages ){
+    return false;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="events-onsuccess">onSuccess</h3>
+				<h3 id="events-onsuccess">onSuccess <small>( fields )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When the form is validated after processing all of the fields.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>fields</code> <span class="label label-info">Array</span> of all fields that was processed.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether ths form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( fields ){
+    return true;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="events-onerror-message">onErrorMessage</h3>
+				<h3 id="events-onerror-message">onErrorMessage <small>( $field, message )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When field is invalid and need to show an error message.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<td><code>message</code> <span class="label label-success">String</span> error message.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-success">String</span> the HTML code for the error message.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field, message ){
+    return "&lt;span class='error-message'&gt;" + message + "&lt;/span&gt;";
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="events-onvalid-feedback">onValidFeedback</h3>
+				<h3 id="events-onvalid-feedback">onValidFeedback <small>( $field )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When field is valid and need to show a valid feedback.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-success">String</span> the HTML code for the valid feedback.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field ){
+    return "&lt;span class='valid-feedback'&gt;Valid&lt;/span&gt;";
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<h1 id="options" class="page-header">Options</h1>
 				<table class="table">
@@ -456,74 +614,100 @@
 						<tr>
 							<th colspan="2">Key</th>
 							<th>Default Value</th>
-							<th>Type</th>
+							<th>Data Type</th>
 							<th>Description</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="2"><code>elements</code></td>
+							<td colspan="2"><code>fields</code></td>
 							<td class="text-string">"input, textarea, select"</td>
-							<td>String</td>
-							<td>Selector for the elements that should be validated.</td>
+							<td><span class="label label-success">String</span></td>
+							<td>Selector for the fields that should be validated.</td>
 						</tr>
 						<tr>
 							<td colspan="2"><code>trim</code></td>
 							<td>True</td>
-							<td>Boolean</td>
+							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, each field will get trimed before processing the validation.</td>
 						</tr>
 						<tr>
 							<td colspan="2"><code>focus</code></td>
 							<td>False</td>
-							<td>Boolean</td>
+							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, will set the focus on the first invalid field after processing.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>novalidate</code></td>
+							<td>True</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, will add <code>novalidate="novalidate"</code> to the <code>&lt;form&gt;</code>.</td>
 						</tr>
 						<tr>
 							<td colspan="2"><code>live</code></td>
 							<td>False</td>
-							<td>Boolean / String</td>
+							<td><span class="label label-primary">Boolean</span> / <span class="label label-success">String</span></td>
 							<td>Avalible options are: <span class="text-string">"onKeyUp"</span>, <span class="text-string">"onBlur"</span>, <span class="text-string">"onChnage"</span>.</td>
 						</tr>
 						<tr>
-							<td rowspan="3"><code>error.</code></td>
+							<td rowspan="5"><code>error.</code></td>
 							<td><code>enabled</code></td>
 							<td>False</td>
-							<td>Boolean</td>
+							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, will show error messages.</td>
 						</tr>
 						<tr>
 							<td><code>messages</code></td>
 							<td>{ default: <span class="text-string">"Invalid"</span> }</td>
-							<td>Object</td>
+							<td><span class="label label-danger">Object</span></td>
 							<td>See <a href="#error-messages">Error Messages</a> for object documentation.</td>
+						</tr>
+						<tr>
+							<td><code>location</code></td>
+							<td class="text-string">"append"</td>
+							<td><span class="label label-success">String</span></td>
+							<td>Where to place the error message, avalible options are: <span class="text-string">"append"</span>, <span class="text-string">"prepend"</span>, any other selector.</span></td>
+						</tr>
+						<tr>
+							<td><code>className</code></td>
+							<td class="text-string">""</td>
+							<td><span class="label label-success">String</span></td>
+							<td>A CSS class that will be added to the field showing an error message.</span></td>
 						</tr>
 						<tr>
 							<td><code>onErrorMessage</code></td>
 							<td>---</td>
-							<td>Function</td>
+							<td><span class="label label-warning">Function</span></td>
 							<td>See <a href="#events-onerror-message">onErrorMessage</a> event documentation.</td>
 						</tr>
 						<tr>
-							<td rowspan="2"><code>feedback.</code></td>
+							<td rowspan="3"><code>feedback.</code></td>
 							<td><code>enabled</code></td>
 							<td>False</td>
-							<td>Boolean</td>
+							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, will show field valid feedback.</td>
+						</tr>
+						<tr>
+							<td><code>className</code></td>
+							<td class="text-string">""</td>
+							<td><span class="label label-success">String</span></td>
+							<td>A CSS class that will be added to the field showing an valid feedback.</span></td>
 						</tr>
 						<tr>
 							<td><code>onValidFeedback</code></td>
 							<td>---</td>
-							<td>Function</td>
+							<td><span class="label label-warning">Function</span></td>
 							<td>See <a href="#events-onvalid-feedback">onValidFeedback</a> event documentation.</td>
 						</tr>
 					</tbody>
 				</table>
 
 				<pre><code class="javascript">{
-    elements: "input, textarea, select",
+    fields: "input, textarea, select",
     trim: true,
     focus: false,
+    novalidate: true,
+    live: false,
     error: {
         enabled: false,
         messages: { default: "Invalid" },
@@ -536,22 +720,40 @@
 }</code></pre>
 
 				<h1 id="methods" class="page-header">Methods</h1>
+				<p>You'll have to ceate a variable and store the form object in order to call the methods.</p>
 
 				<h3 id="methods-create">Create</h3>
+				<p>Form is highly configurable library. Features can be enabled, disabled or customised to meet your exact needs for your form implementation. Customisation of these options are performed by defining options in the constructor, <a href="#options">see all options list</a>.</p>
+				<h5>The native way:</h5>
+				<pre><code class="javascript">var form = new form({
+    focus: true,
+    live: 'keyup'
+});</code></pre>
+				<h5>The jQuery way:</h5>
+				<pre><code class="javascript">var form = $('form').form({
+    focus: true,
+    live: 'keyup'
+});</code></pre>
+				
+				<div class="callout callout-warning">
+					<h4>jQuery usage won't return a jQuery object</h4>
+					<p>Using the jQuery short method will return the form element rather than jQuery, so you won't be able to call other jQuery methods. If you need to make sure to call the <code>form</code> function at the end.</p>
+				</div>
 
 				<h3 id="methods-validate">Validate</h3>
+				<pre><code class="javascript">form.validate( options );</code></pre>
 
 				<h3 id="methods-status">Status</h3>
+				<pre><code class="javascript">form.status();</code></pre>
 
 				<h3 id="methods-add">Add</h3>
+				<pre><code class="javascript">form.add(function(){ ... });</code></pre>
 
 				<h3 id="methods-set">Set</h3>
-
-				<h3 id="methods-convert">Convert</h3>
-
-				<h3 id="methods-trim">Trim</h3>
+				<pre><code class="javascript">form.set('option key',true);</code></pre>
 
 				<h3 id="methods-clear">Clear</h3>
+				<pre><code class="javascript">form.clear();</code></pre>
 
 				<h1 id="styling" class="page-header">Styling</h1>
 
@@ -563,7 +765,7 @@
 
 				<h1 id="utilities" class="page-header">Utilities</h1>
 
-				<h3 id="utilities-test">Unit Test</h3>
+				<h3 id="utilities-test">Test</h3>
 
 			</div>
 			<div class="col-md-3" role="complementary">
@@ -638,8 +840,6 @@
 								<li><a href="#methods-status">Status</a></li>
 								<li><a href="#methods-add">Add</a></li>
 								<li><a href="#methods-set">Set</a></li>
-								<li><a href="#methods-convert">Convert</a></li>
-								<li><a href="#methods-trim">Trim</a></li>
 								<li><a href="#methods-clear">Clear</a></li>
 							</ul>
 						</li>
@@ -654,7 +854,7 @@
 						<li>
 							<a href="#utilities">Utilities</a>
 							<ul class="nav">
-								<li><a href="#utilities-test">Unit Test</a></li>
+								<li><a href="#utilities-test">Test</a></li>
 							</ul>
 						</li>
 
