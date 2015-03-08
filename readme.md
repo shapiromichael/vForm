@@ -1,19 +1,17 @@
-# Form.js
-
 ![preview](http://shapiromichael.github.io/Form-JS/logo.png)
 
 
 ### Install
 Optionally, you can install Form.js with bower:
 ```shell
-bower install pagepiling.js
+bower install bower install form-jquery
 ```
 Or download the [production version][min] / [development version][max].
 
 [min]: https://raw.githubusercontent.com//jquery-form-js/master/dist/form.min.js
 [max]: https://raw.githubusercontent.com//jquery-form-js/master/dist/form.js
 
-### Including files:
+### Including files
 
 ```html
 <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -29,7 +27,7 @@ Form.js is fully functional on all modern browsers, as well as some old ones suc
 
 ## License
 
-(The MIT License)
+[![License](http://img.shields.io/badge/License-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2015 Michael Shapiro & Sinapsa - R&D Center
 
