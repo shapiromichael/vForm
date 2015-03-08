@@ -314,7 +314,7 @@ var form = new function(){
 
 				// Error message DOM
 				if( $.isFunction( params.errors.dom ) ){
-					$this.after( params.errors.dom( msg, $this ) );
+					$this.before( params.errors.dom( msg, $this ) );
 				}
 			}
 		},
