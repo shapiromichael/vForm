@@ -1,6 +1,6 @@
 'use stict';
 
-var form = function( options ){
+var form = function(){
 
 	var $ = jQuery,
 		self = this,
@@ -439,7 +439,7 @@ var form = function( options ){
 		}
 	};
 
-	_form.init( options );
+	_form.init( self.arguments );
 
 	return self;
 };
@@ -447,21 +447,16 @@ var form = function( options ){
 (function($) {
 	
 	// Collection method.
-	$.fn.form = function( options ){
+	$.fn.form = function( options, submit ){
 
 		var result = [];
 
 		this.each(function(){
 
 			var $this = $(this),
-				params = $.extend({}, {
+				params = ( $.isPlainObject(options) ) ? $.extend({}, {
 					fields: 'input, textarea, select'
-				}, options );
-
-			// novalidate
-			if( $this.is('form') ){
-				$this.attr('novalidate','novalidate');
-			}
+				}, options ) : { fields: 'input, textarea, select' };
 
 			if( typeof params.fields === 'string' || params.fields instanceof String ){
 				params.fields = $( params.fields, $this );
@@ -469,7 +464,19 @@ var form = function( options ){
 				params.fields = $( params.fields, $this );
 			}
 
-			result.push( new form( params ) );
+			var _form = new form( params );
+			result.push( _form );
+
+			// novalidate
+			if( $this.is('form') ){
+				$this.attr('novalidate','novalidate');
+
+				if( $.isFunction( options ) ){
+					$this.on('submit', { form: _form }, options );
+				}else if( $.isFunction( submit ) ){
+					$this.on('submit', { form: _form }, submit );
+				}
+			}
 
 		});
 

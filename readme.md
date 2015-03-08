@@ -11,6 +11,10 @@ Or download the [production version][min] / [development version][max].
 [min]: https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.min.js
 [max]: https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.js
 
+### Requirements
+Form.js is working best with jQuery 2.X, however it can work well with older version of jQuery as well 1.11.x
+if you're using an older version - you can run the unit test.
+
 ### Including files
 
 ```html
@@ -18,9 +22,12 @@ Or download the [production version][min] / [development version][max].
 <script src="form.min.js"></script>
 ```
 
-### Requirements
-Form.js is working best with jQuery 2.X, however it can work well with older version of jQuery as well 1.11.x
-if you're using an older version - you can run the unit test.
+### How to use it
+```javascript
+$('#my-form').form(function( event ){
+return event.data.form.validate();
+```
+
 
 ### Compatibility
 Form.js is fully functional on all modern browsers, as well as some old ones such as Internet Explorer 8+. It is also designed to work on touch devices such as mobile phones or tablets.

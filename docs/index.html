@@ -34,9 +34,7 @@
 			<div class="col-md-9" role="main">
 
 				<h1 id="overview" class="page-header">Overview</h1>
-
-				<h3 id="overview-getting-started">Getting Started</h3>
-				<p>Form is based on the HTML 5 form validation standards.</p>
+				<p class="lead">Form.js is a form validation library based on the HTML 5 standards.</p>
 
 				<div class="callout callout-warning">
 					<h4>Disable the browser default errors</h4>
@@ -46,14 +44,19 @@
 				<h3 id="overview-install">Install</h3>
 				<p>Optionally, you can install Form.js with bower:</p>
 				<pre><code class="bash">$ bower install form-jquery</code></pre>
-				<p><br />Or download the <a href="https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.min.js">production version</a> / <a href="https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.js">development version</a></p>
+				<p><br />Or download the <a href="https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
+			
+				<h3 id="overview-requirements">Requirements</h3>
+				<p>Form.js is working best with <strong>jQuery 2.x</strong>, however it can work well with older version of jQuery as well 1.11.x<br />if you're using an older version - you can run the unit test.</p>
 
-				<h3 id="overview-install">Including files</h3>
+				<h3 id="overview-including-files">Including files</h3>
 				<pre><code class="html">&lt;script src="//code.jquery.com/jquery-2.1.3.min.js"&gt;&lt;/script&gt;
 &lt;script src="form.min.js"&gt;&lt;/script&gt;</code></pre>
 
-				<h3 id="overview-requirements">Requirements</h3>
-				<p>Form.js is working best with jQuery 2.X, however it can work well with older version of jQuery as well 1.11.x<br />if you're using an older version - you can run the unit test.</p>
+				<h3 id="overview-how-to">How to use it</h3>
+				<pre><code class="javascript">$('#my-form').form(function( event ){
+    return event.data.form.validate();
+});</code></pre>
 
 				<h3 id="overview-compatibility">Compatibility</h3>
 				<p>Form.js is fully functional on all modern browsers, as well as some old ones such as Internet Explorer 8+. It is also designed to work on touch devices such as mobile phones or tablets.</p>
@@ -534,21 +537,37 @@
 &lt;/label&gt;</code></pre>
 
 				<h3 id="live-single">Single Field Validation</h3>
+				<pre><code class="javascript">form.validate( $('#my-field') );</code></pre>
 
 				<h3 id="live-feedback">Live Feedback</h3>
 
 				<h1 id="processing" class="page-header">Processing</h1>
 
 				<h3 id="processing-submition">Form Submition</h3>
+				<pre><code class="javascript">$('#my-form').form(function( event ){
+    return event.data.form.validate();
+});</code></pre>
 
 				<h3 id="processing-ajax">Ajax</h3>
+				<pre><code class="javascript">var form = $('#my-form').form(function(){
+
+    if( form.validate() ){
+        $.post( "test.php", $(this).serialize(), function(){
+            alert( "Done!" );
+        });
+    }
+
+    return false;
+});</code></pre>
+
+					<div class="callout callout-warning">
+					<h4>Form submit event must return <code>false</code></h4>
+					<p>If you forget (or return true) on the form submit event, the form will be submitted to itself, means the page will be reloaded.</p>
+				</div>
 
 				<h1 id="events" class="page-header">Events</h1>
 
-				<div class="callout callout-warning">
-					<h4>All the events must return a <span class="label label-primary">Boolean</span></h4>
-					<p>Modern browsers show buil-in error styles for invalid fields, to disable that make sure to add <code>novalidate="novalidate"</code> attribute to the <code>&lt;form&gt;</code> tag.</p>
-				</div>
+				<div class="alert alert-warning" role="alert">If you override the events, make sure your methods will have a return with the expected data type, otherwise you'll get a mess.</div>
 
 				<h3 id="events-onbegin">onBegin <small>( fields )</small></h3>
 				<table class="table">
@@ -808,7 +827,7 @@
 				<h1 id="methods" class="page-header">Methods</h1>
 				<p>You'll have to ceate a variable and store the form object in order to call the methods.</p>
 
-				<h3 id="methods-create">Create</h3>
+				<h3 id="methods-create">Create <small>( options [, onSubmit ] )</small></h3>
 				<p>Form is highly configurable library. Features can be enabled, disabled or customised to meet your exact needs for your form implementation. Customisation of these options are performed by defining options in the constructor, <a href="#options">see all options list</a>.</p>
 				<h5>The native way:</h5>
 				<pre><code class="javascript">var form = new form({
@@ -822,26 +841,116 @@
 });</code></pre>
 				
 				<div class="callout callout-warning">
-					<h4>jQuery usage won't return a jQuery object</h4>
+					<h4>jQuery form method won't return a jQuery object</h4>
 					<p>Using the jQuery short method will return the form element rather than jQuery, so you won't be able to call other jQuery methods. If you need to make sure to call the <code>form</code> function at the end.</p>
 				</div>
 
 				<h3 id="methods-validate">Validate <small>( options )</small></h3>
-				<pre><code class="javascript">form.validate( options );</code></pre>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Validates the form, you should call this method manually to validate the form.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>options</code> <span class="label label-danger">Object</span> of all the customized options, see full <a href="#options">options list</a>.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether the form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">form.validate( options );</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+				
 
-				<h3 id="methods-status">Status</h3>
-				<pre><code class="javascript">form.status();</code></pre>
+				<h3 id="methods-status">Status <small>( )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Returns the tatus of the form.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether the form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">form.status();</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="methods-add">Add <small>( function, error )</small></h3>
-				<pre><code class="javascript">form.add(function(){ ... });</code></pre>
+				<h3 id="methods-add">Add <small>( handler, error )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Adding a custom validation handler.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>handler</code> <span class="label label-warning">Function</span> that will be fired as part the validation process stack.</td>
+						</tr>
+						<tr>
+							<td><code>error</code> <span class="label label-success">String</span> of error message that will be used if invalid.</td>
+						</tr>
+						<tr>
+							<th>Handler Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<th>Handler Return</th>
+							<td><span class="label label-primary">Boolean</span> whether the field is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">form.add(function(){ ... });</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<h3 id="methods-set">Set <small>( key, value )</small></h3>
-				<pre><code class="javascript">form.set('option key',true);</code></pre>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Updating the form options (see full <a href="#options">options list</a>).</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>key</code> <span class="label label-success">String</span> the option key.</td>
+						</tr>
+						<tr>
+							<td><code>value</code> the option value.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">form.set('focus',true);</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h3 id="methods-clear">Clear</h3>
-				<pre><code class="javascript">form.clear();</code></pre>
+				<h3 id="methods-clear">Clear <small>( )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Reset all the form fields, for default values use <code>data-default</code> attribute.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">form.clear();</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
-				<h1 id="styling" class="page-header">Styling</h1>
+				<!-- <h1 id="styling" class="page-header">Styling</h1>
 
 				<h3 id="styling-required">Required Fields</h3>
 
@@ -851,7 +960,7 @@
 
 				<h1 id="utilities" class="page-header">Utilities</h1>
 
-				<h3 id="utilities-test">Test</h3>
+				<h3 id="utilities-test">Test</h3> -->
 
 				<h1 id="license" class="page-header">License <small>MIT</small></h1>
 				<p>Copyright (c) 2015 Michael Shapiro &amp; Sinapsa - R&amp;D Center</p>
@@ -867,9 +976,11 @@
 						<li>
 							<a href="#overview">Overview</a>
 							<ul class="nav">
-								<li><a href="#overview-getting-started">Getting Started</a></li>
 								<li><a href="#overview-install">Install</a></li>
 								<li><a href="#overview-requirements">Requirements</a></li>
+								<li><a href="#overview-including-files">Including files</a></li>
+								<li><a href="#overview-how-to">How to use it</a></li>
+								<li><a href="#overview-compatibility">Compatibility</a></li>
 							</ul>
 						</li>
 						<li>
@@ -935,7 +1046,7 @@
 								<li><a href="#methods-clear">Clear</a></li>
 							</ul>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="#styling">Styling</a>
 							<ul class="nav">
 								<li><a href="#styling-required">Required Fields</a></li>
@@ -948,7 +1059,7 @@
 							<ul class="nav">
 								<li><a href="#utilities-test">Test</a></li>
 							</ul>
-						</li>
+						</li> -->
 						<li>
 							<a href="#license">License</a>
 						</li>
