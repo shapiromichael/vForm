@@ -1,6 +1,6 @@
 'use stict';
 
-var form = function(){
+var form = function( options ){
 
 	var $ = jQuery,
 		self = this,
@@ -38,6 +38,10 @@ var form = function(){
 
 	this.validate = function( options ){
 
+		// Reset
+		__.valid = false;
+		__.errors = [];
+
 		// Single field validation mode
 		if( options instanceof jQuery && options.size() === 1){
 			if( _form.on('begin', options ) && _form.on('before', options ) ){
@@ -50,13 +54,9 @@ var form = function(){
 
 			// Parse the form fields
 			__.params.fields = _form.set.fields( __.params.fields );
-
-			// Reset
-			__.valid = false;
-			__.errors = [];
-
+			
 			if( __.params.fields.size() ){
-				
+
 				if( _form.on('begin', __.params.fields ) ){
 					
 					// Trim content
@@ -105,7 +105,7 @@ var form = function(){
 	};
 
 	this.get = function(){
-
+		return __.params.fields;
 	};
 
 	this.set = function(){
@@ -439,7 +439,7 @@ var form = function(){
 		}
 	};
 
-	_form.init( self.arguments );
+	_form.init( options );
 
 	return self;
 };
