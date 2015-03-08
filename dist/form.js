@@ -6,7 +6,7 @@
 */
 'use stict';
 
-var form = function( options ){
+var form = function(){
 
 	var $ = jQuery,
 		self = this,
@@ -44,52 +44,62 @@ var form = function( options ){
 
 	this.validate = function( options ){
 
-		// Update params
-		__.params = $.extend({}, __.defaults, options );
+		// Single field validation mode
+		if( options instanceof jQuery && options.size() === 1){
+			if( _form.on('begin', options ) && _form.on('before', options ) ){
+				return _form.process( options );
+			}
+		}else{
 
-		// Parse the form fields
-		__.params.fields = _form.set.fields( __.params.fields );
+			// Update params
+			__.params = $.extend({}, __.defaults, options );
 
-		// Reset
-		__.valid = false;
-		__.errors = [];
+			// Parse the form fields
+			__.params.fields = _form.set.fields( __.params.fields );
 
-		if( __.params.fields.size() ){
-			
-			if( __.params.onBegin( __.params.fields.toArray() ) ){
+			// Reset
+			__.valid = false;
+			__.errors = [];
+
+			if( __.params.fields.size() ){
 				
-				// Trim content
-				if( __.params.trim ){
-					__.params.fields.filter('input:not([trim=false]), textarea:not([trim=false])').each( _form.trim );
-				}
-
-				// Process the validations
-				__.params.fields.each(function(){
-					_form.process( $(this) );
-				});
-
-				// Compleate validation
-				if( __.params.fields.filter('[error=true]').size() ){
+				if( _form.on('begin', __.params.fields ) ){
 					
-					// Auto focus on the first error occured
-					if( __.params.focus ){
-						__.params.fields.filter('[error=true]:first').focus();
+					// Trim content
+					if( __.params.trim ){
+						__.params.fields.filter('input:not([trim=false]), textarea:not([trim=false])').each( _form.trim );
 					}
 
-					_form.set.invalid();
+					// Process the validations
+					__.params.fields.each(function(){
+						if( _form.on('before', $(this) ) ){
+							_form.process( $(this) );
+						}
+					});
 
-				}else{
-					_form.set.valid();
-				}
-			}		
+					// Compleate validation
+					if( __.params.fields.filter('[error=true]').size() ){
+						
+						// Auto focus on the first error occured
+						if( __.params.focus ){
+							__.params.fields.filter('[error=true]:first').focus();
+						}
 
-		}else{
-			// In case there's no elements to validate
-			_form.set.valid();
+						_form.set.invalid();
+
+					}else{
+						_form.set.valid();
+					}
+				}		
+
+			}else{
+				// In case there's no elements to validate
+				_form.set.valid();
+			}
+
+			return __.valid;
+
 		}
-
-		return __.valid;
-
 	};
 
 	this.status = function(){
@@ -127,7 +137,7 @@ var form = function( options ){
 			__.defaults.live = (__.defaults.live === 'change' || __.defaults.live === 'keyup' || __.defaults.live === 'blur') ? __.defaults.live : '' ;
 			if( __.defaults.live ){
 				__.defaults.fields.on( __.defaults.live, function(){
-					self.validate( { fields: $(this) } );
+					self.validate( $(this) );
 				});
 			}
 
@@ -176,26 +186,46 @@ var form = function( options ){
 			},
 			valid: function(){
 
-				if( $.isFunction( __.params.onSuccess ) ){
-					__.valid = __.params.onSuccess( __.params.fields.toArray() );
-				}else{
-					__.valid = true;
-				}
-
+				__.valid = _form.on('success');
 				return __.valid;
 
 			},
 			invalid: function(){
 
-				if( $.isFunction( __.params.onFail ) ){
-					__.valid = __.params.onFail( __.params.fields.filter('[error=true]').toArray(), __.errors );
-				}else{
-					__.valid = false;
-				}
-
+				__.valid = _form.on('fail');
 				return __.valid;
 
 			}
+		},
+		on: function( event ){
+
+			var result = true;
+
+			switch( event ){
+				case 'begin':
+					if( $.isFunction( __.params.onBegin ) ){ result = __.params.onBegin( arguments[1].toArray() ); }
+					break;
+				case 'before':
+					if( $.isFunction( __.params.onBefore ) ){ result = __.params.onBefore( arguments[1] ); }
+					break;
+				case 'after':
+					if( $.isFunction( __.params.onAfter ) ){ result = __.params.onAfter( arguments[1], arguments[2] ); }else{ return arguments[2]; }
+					break;
+				case 'fail':
+					if( $.isFunction( __.params.onFail ) ){ result = __.params.onFail( __.params.fields.filter('[error=true]').toArray(), __.errors ); }else{ return false; }
+					break;
+				case 'success':
+					if( $.isFunction( __.params.onSuccess ) ){ result = __.params.onSuccess( __.fields.toArray() ); }
+					break;
+				case 'errorMessage':
+					if( $.isFunction( __.params.onErrorMessage ) ){ result = __.params.onErrorMessage( arguments[1], arguments[2] ); }else{ return arguments[2]; }
+					break;
+				case 'validFeedback':
+					if( $.isFunction( __.params.onValidFeedback ) ){ result = __.params.onValidFeedback( arguments[1] ); }else{ return arguments[1]; }
+					break;
+			}
+
+			return result;
 		},
 		trim: function(){
 			var $this = $(this);
@@ -370,6 +400,9 @@ var form = function( options ){
 				if( !isValid ){ _form.error( $this, 'match', 'match' ); }
 			}
 
+			// After proccessing a field
+			isValid = _form.on('after', $this, isValid );
+
 			if( isValid ){
 				$this.removeAttr('error');
 				_form.feedback( $this );
@@ -377,6 +410,7 @@ var form = function( options ){
 				$this.attr('error','true');
 			}
 
+			return isValid;
 		},
 		error: function( $this, key, attribute ){
 			if( __.params.error.enabled ){
@@ -395,9 +429,7 @@ var form = function( options ){
 				}
 
 				// Fire the error message event
-				if( $.isFunction( __.params.onErrorMessage ) ){
-					msg = __.params.onErrorMessage( $this, msg );
-				}
+				msg = _form.on('errorMessage', $this, msg );
 
 				// Handle the error message
 				if( msg && __.errors.indexOf( msg ) === -1 ){
@@ -407,13 +439,13 @@ var form = function( options ){
 			}
 		},
 		feedback: function( $this ){
-			if( __.params.feedback.enabled && $.isFunction( __.params.onValidFeedback ) ){
-				$this.after( __.params.onValidFeedback( $this ) );
+			if( __.params.feedback.enabled ){
+				_form.on('validFeedback', $this );
 			}
 		}
 	};
 
-	_form.init( options );
+	_form.init( self.arguments );
 
 	return self;
 };
@@ -421,21 +453,16 @@ var form = function( options ){
 (function($) {
 	
 	// Collection method.
-	$.fn.form = function( options ){
+	$.fn.form = function( options, submit ){
 
 		var result = [];
 
 		this.each(function(){
 
 			var $this = $(this),
-				params = $.extend({}, {
+				params = ( $.isPlainObject(options) ) ? $.extend({}, {
 					fields: 'input, textarea, select'
-				}, options );
-
-			// novalidate
-			if( $this.is('form') ){
-				$this.attr('novalidate','novalidate');
-			}
+				}, options ) : { fields: 'input, textarea, select' };
 
 			if( typeof params.fields === 'string' || params.fields instanceof String ){
 				params.fields = $( params.fields, $this );
@@ -443,7 +470,19 @@ var form = function( options ){
 				params.fields = $( params.fields, $this );
 			}
 
-			result.push( new form( params ) );
+			var _form = new form( params );
+			result.push( _form );
+
+			// novalidate
+			if( $this.is('form') ){
+				$this.attr('novalidate','novalidate');
+
+				if( $.isFunction( options ) ){
+					$this.on('submit', { form: _form }, options );
+				}else if( $.isFunction( submit ) ){
+					$this.on('submit', { form: _form }, submit );
+				}
+			}
 
 		});
 
