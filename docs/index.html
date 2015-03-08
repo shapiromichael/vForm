@@ -17,11 +17,11 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Form <span class="label label-default">2.0.0</span></a>
 			</div>
-			<ul class="nav navbar-nav">
+			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="#">jQuery</a></li>
 				<li><a href="#">Angular</a></li>
 				<li><a href="#">Node</a></li>
-			</ul>
+			</ul> -->
 		</div>
 	</nav>
 	
@@ -34,6 +34,11 @@
 
 				<h3 id="overview-getting-started">Getting Started</h3>
 				<p>Form is based on the HTML 5 form validation standards.</p>
+
+				<div class="callout callout-warning">
+					<h4>Disable the browser default errors</h4>
+					<p>Modern browsers show buil-in error styles for invalid fields, to disable that make sure to add <code>novalidate="novalidate"</code> attribute to the <code>&lt;form&gt;</code> tag.</p>
+				</div>
 
 				<h3 id="overview-install">Install</h3>
 
@@ -76,7 +81,7 @@
 				<h3 id="validation-string">String</h3>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-2">
+					<form novalidate="novalidate" id="example-3">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Length minimum 3 characters" min="3">
 						</div>
@@ -101,7 +106,7 @@
 				<p>Validating a numeric value is only avalible for those HTML5 types: <code>month</code>, <code>week</code>, <code>number</code> and <code>range</code>.</p>
 				<div class="alert alert-warning" role="alert">Note that on <code>type="range"</code> you should use <code>data-min</code> &amp; <code>data-max</code> attributes, that's becase the <code>min</code> &amp; <code>max</code> attributes specify the total range of the field.</div>
 				<div class="example">
-					<form novalidate="novalidate" id="example-2">
+					<form novalidate="novalidate" id="example-4">
 						<div class="form-group">
 							<input type="number" class="form-control" placeholder="Greater than 10" min="11">
 						</div>
@@ -121,7 +126,7 @@
 				<h3 id="validation-email">Email</h3>
 				<p>To validate an email field just make sure that <code>type="email"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-1">
+					<form novalidate="novalidate" id="example-5">
 						<div class="form-group">
 							<input type="email" class="form-control" placeholder="Required email field" required>
 						</div>
@@ -133,7 +138,7 @@
 				<h3 id="validation-url">URL</h3>
 				<p>To validate a URL field just make sure that <code>type="url"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-1">
+					<form novalidate="novalidate" id="example-6">
 						<div class="form-group">
 							<input type="url" class="form-control" placeholder="URL field">
 						</div>
@@ -145,7 +150,7 @@
 				<h3 id="validation-patterns">Patterns</h3>
 				<p>To validate a regex pattern just use the <code>pattern</code> attribute. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-1">
+					<form novalidate="novalidate" id="example-7">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="(123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}">
 						</div>
@@ -158,12 +163,12 @@
 				<h3 id="validation-password">Password</h3>
 				<p>You can use the <code>min</code> or <code>pattern</code> attribute to validate the password, and <code>data-match</code> attribute to validation the password confirmation. Note that <code>data-match</code> should contain the original password field <code>id</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-1">
+					<form novalidate="novalidate" id="example-8">
 						<div class="form-group">
-							<input type="password" class="form-control" id="password-field" placeholder="Password" required>
+							<input type="password" class="form-control" id="example-8-password-field" placeholder="Password" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password confirmation" data-match="password-field">
+							<input type="password" class="form-control" placeholder="Password confirmation" data-match="example-8-password-field">
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
@@ -174,7 +179,7 @@
 				<h3 id="validation-checkboxes">Checkboxes</h3>
 				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-1">
+					<form novalidate="novalidate" id="example-9">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" required>
@@ -242,7 +247,7 @@
 				<h3 id="validation-radio">Radio Buttons</h3>
 				<p>Radios can be validated only by group, for that wrap them with <code>&lt;fieldset&gt;</code>, you can only add <code>required</code> attribute to this <code>&lt;fieldset&gt;</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-1">
+					<form novalidate="novalidate" id="example-10">
 						<fieldset required>
 							<div class="radio">
 								<label>
@@ -295,7 +300,7 @@
 				<h3 id="validation-ignored">Ignored</h3>
 				<p>Disabled fields are being ignored, however you can also add <code>data-ignore="true"</code> to manually ignore fields from being validated.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-1">
+					<form novalidate="novalidate" id="example-11">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Disabled field" disabled>
 						</div>
@@ -413,6 +418,42 @@
 				<h3 id="error-summarized">Summarized Errors</h3>
 
 				<h1 id="live" class="page-header">Live Validation</h1>
+				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="First Name" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Last Name" required>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Password" id="example-12-password-field" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-12-password-field">
+						</div>
+						<div class="checkbox">
+								<label>
+									<input type="checkbox" reruired>
+									Must check this
+								</label>
+							</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" placeholder="First Name" required&gt;
+&lt;input type="text" placeholder="Last Name" required&gt;
+&lt;input type="email" placeholder="Email" required&gt;
+&lt;input type="password" placeholder="Password" id="password-field" required&gt;
+&lt;input type="password" placeholder="Confirm Password" data-match="password-field"&gt;
+&lt;label&gt;
+    &lt;input type="checkbox" reruired&gt;
+    Must check this
+&lt;/label&gt;</code></pre>
 
 				<h3 id="live-single">Single Field Validation</h3>
 
@@ -515,7 +556,7 @@
 						</tr>
 						<tr>
 							<th rowspan="2">Params</th>
-							<td><code>fields</code> <span class="label label-info">Array</span> of all fields that was processed.</td>
+							<td><code>fields</code> <span class="label label-info">Array</span> of all invalid fields.</td>
 						</tr>
 						<tr>
 							<td><code>messages</code> <span class="label label-info">Array</span> of all the error messages.</td>
@@ -638,23 +679,23 @@
 							<td>If true, will set the focus on the first invalid field after processing.</td>
 						</tr>
 						<tr>
-							<td colspan="2"><code>novalidate</code></td>
-							<td>True</td>
-							<td><span class="label label-primary">Boolean</span></td>
-							<td>If true, will add <code>novalidate="novalidate"</code> to the <code>&lt;form&gt;</code>.</td>
-						</tr>
-						<tr>
 							<td colspan="2"><code>live</code></td>
-							<td>False</td>
-							<td><span class="label label-primary">Boolean</span> / <span class="label label-success">String</span></td>
+							<td class="text-string">""</td>
+							<td><span class="label label-success">String</span></td>
 							<td>Avalible options are: <span class="text-string">"onKeyUp"</span>, <span class="text-string">"onBlur"</span>, <span class="text-string">"onChnage"</span>.</td>
 						</tr>
 						<tr>
-							<td rowspan="5"><code>error.</code></td>
+							<td rowspan="6"><code>error.</code></td>
 							<td><code>enabled</code></td>
 							<td>False</td>
 							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, will show error messages.</td>
+						</tr>
+						<tr>
+							<td><code>summarized</code></td>
+							<td>False</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, all errors will be summarized and added at the top.</td>
 						</tr>
 						<tr>
 							<td><code>messages</code></td>
@@ -664,9 +705,9 @@
 						</tr>
 						<tr>
 							<td><code>location</code></td>
-							<td class="text-string">"append"</td>
+							<td class="text-string">"after"</td>
 							<td><span class="label label-success">String</span></td>
-							<td>Where to place the error message, avalible options are: <span class="text-string">"append"</span>, <span class="text-string">"prepend"</span>, any other selector.</span></td>
+							<td>Where to place the error message, avalible options are: <span class="text-string">"after"</span>, <span class="text-string">"before"</span>, any other selector.</span></td>
 						</tr>
 						<tr>
 							<td><code>className</code></td>
@@ -706,11 +747,13 @@
     fields: "input, textarea, select",
     trim: true,
     focus: false,
-    novalidate: true,
     live: false,
     error: {
         enabled: false,
+        summarized: false,
         messages: { default: "Invalid" },
+        location: "after",
+        className: "",
         onErrorMessage: function( $field, message ){ ... }
     },
     feedback: {
@@ -740,16 +783,16 @@
 					<p>Using the jQuery short method will return the form element rather than jQuery, so you won't be able to call other jQuery methods. If you need to make sure to call the <code>form</code> function at the end.</p>
 				</div>
 
-				<h3 id="methods-validate">Validate</h3>
+				<h3 id="methods-validate">Validate <small>( options )</small></h3>
 				<pre><code class="javascript">form.validate( options );</code></pre>
 
 				<h3 id="methods-status">Status</h3>
 				<pre><code class="javascript">form.status();</code></pre>
 
-				<h3 id="methods-add">Add</h3>
+				<h3 id="methods-add">Add <small>( function, error )</small></h3>
 				<pre><code class="javascript">form.add(function(){ ... });</code></pre>
 
-				<h3 id="methods-set">Set</h3>
+				<h3 id="methods-set">Set <small>( key, value )</small></h3>
 				<pre><code class="javascript">form.set('option key',true);</code></pre>
 
 				<h3 id="methods-clear">Clear</h3>
@@ -879,6 +922,9 @@
 <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+
+<script src="../src/form.js"></script>
+
 <script src="script.js"></script>
 
 <script>

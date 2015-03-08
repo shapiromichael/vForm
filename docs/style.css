@@ -194,18 +194,21 @@ code, kbd, pre, samp {
 .hljs-comment,
 .hljs-javadoc,
 .hljs-shebang {
-	color: #bc9458;
+	color: #7C7975;
 	font-style: italic;
 }
 
-.hljs-keyword,
-.ruby .hljs-function .hljs-keyword,
 .hljs-request,
 .hljs-status,
 .nginx .hljs-title,
 .method,
 .hljs-list .hljs-title {
 	color: #c26230;
+}
+
+.hljs-keyword,
+.ruby .hljs-function .hljs-keyword {
+	color: #E8CD62;
 }
 
 .hljs-string,
@@ -221,6 +224,10 @@ code, kbd, pre, samp {
 .asciidoc .hljs-link_label,
 .markdown .hljs-link_label {
 	color: #a5c261;
+}
+
+.hljs-literal {
+	color: #3EB8D5;
 }
 
 .hljs-subst {
