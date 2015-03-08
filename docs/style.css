@@ -127,6 +127,58 @@ div.example:after {
 	content: "Example";
 }
 
+.has-error .form-control {
+	border-color: #F08989;
+}
+.has-error .form-control:focus {
+	border-color: #E04B4B;
+}
+.has-success .form-control {
+	border-color: #87AE2C;
+}
+.has-success .form-control:focus {
+	border-color: #6F9D06;
+}
+
+.form-feedback {
+	position: relative;
+	background: #d55959;
+	padding: 6px 10px;
+	border-radius: 4px;
+	margin-left: 10px;
+	position: relative;
+	top: 1px;
+}
+.form-feedback:after {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(213, 89, 89, 0);
+	border-right-color: #d55959;
+	border-width: 5px;
+	margin-top: -5px;
+}
+.form-feedback span {
+	padding-right: 6px;
+}
+.form-feedback.text-danger {
+	background: #FCE5E5;
+}
+.form-feedback.text-danger:after {
+	border-right-color: #FCE5E5;
+}
+.form-feedback.text-success {
+	background: #EAFFDF;
+}
+.form-feedback.text-success:after {
+	border-right-color: #EAFFDF;
+}
+
 
 /* *********************************************************** */
 /*                      Syntax Highlighting                    */

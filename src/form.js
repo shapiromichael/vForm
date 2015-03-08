@@ -60,7 +60,7 @@ var form = function( options ){
 
 		if( __.params.fields.size() ){
 			
-			if( __.params.onStart( __.params.fields.toArray() ) ){
+			if( __.params.onBegin( __.params.fields.toArray() ) ){
 				
 				// Trim content
 				if( __.params.trim ){
@@ -92,7 +92,7 @@ var form = function( options ){
 			_form.set.valid();
 		}
 
-		_form.set.invalid();
+		return __.valid;
 
 	};
 
@@ -150,7 +150,7 @@ var form = function( options ){
 				return /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i.test( value );
 			},
 			url: function( value ){
-				return /^([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test( value );
+				return /^(?:http|ftp)s?:\/\/(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::\d+)?(?:\/?|[\/?]\S+)$/gi.test( value );
 			}
 		},
 		convert: {
@@ -175,7 +175,7 @@ var form = function( options ){
 				if( typeof fields === 'string' || fields instanceof String ){
 					fields = $( fields );
 				}
-				return fields.not('[disabled=disabled]').not('[ignore=true]');
+				return fields.not('[disabled=disabled]').not('[data-ignore=true]');
 
 			},
 			valid: function(){
@@ -192,7 +192,7 @@ var form = function( options ){
 			invalid: function(){
 
 				if( $.isFunction( __.params.onFail ) ){
-					__.valid = __.params.onFail( __.params.fields.filter('[error=true]').toArray(), __.params.errors );
+					__.valid = __.params.onFail( __.params.fields.filter('[error=true]').toArray(), __.errors );
 				}else{
 					__.valid = false;
 				}
@@ -211,7 +211,7 @@ var form = function( options ){
 
 			// Validate for required state
 			if( $this.is('[required]') ){
-				if( !$this.is('[group]') ){
+				if( !$this.is('[data-group]') ){
 
 					// Check if has a value
 					isValid = ( $this.is('input[type=checkbox], input[type=radio]') ) ? $this.is(":checked") : ( isValid && $this.val() ) ? true : false ;
@@ -222,9 +222,9 @@ var form = function( options ){
 				}else{
 
 					// Validate for required group
-					if( $this.is( __.params.fields.filter('[required][group=' +  $this.attr('group') + ']:first') ) ){
+					if( $this.is( __.params.fields.filter('[required][data-group=' +  $this.attr('data-group') + ']:first') ) ){
 						isValid = false;
-						__.params.fields.filter('[required][group=' +  $this.attr('group') + ']').each(function(){
+						__.params.fields.filter('[required][data-group=' +  $this.attr('data-group') + ']').each(function(){
 							var $this = $(this);
 							isValid = ( $this.is('input[type=checkbox], input[type=radio]') ) ? ( isValid || $this.is(':checked') ) ? true : false : ( isValid || $this.val() ) ? true : false ;
 						});
@@ -256,7 +256,7 @@ var form = function( options ){
 
 				// Validate pattern defined content
 				if( isValid && $this.is('input[pattern]') ){
-					if( $.browser.msie ){
+					if( window.navigator.userAgent.indexOf("MSIE ") > 0 ){
 						var re = new RegExp( $this.attr('pattern') ,'g' );
 						isValid = ( isValid && re.test($this.val()) ) ? true : false ;
 					}else{
@@ -267,72 +267,97 @@ var form = function( options ){
 					if( !isValid ){ _form.error( $this, 'pattern' ); }
 				}
 
-				// Validate min & max states
-				if( isValid && $this.is('input[type=checkbox][group]') ){
+			}
 
-					var $group = $('[groupsettings=' + $this.attr('group') + ']');
+			// Validate min & max states
+			if( isValid && $this.is('fieldset input[type=checkbox]') ){
+				var $group = $this.parents('fieldset');
 
-					// Validate for minimum state
-					if( $group.is('[min]') && _form.check.number( $group.attr('min') ) ){
-						isValid = ( isValid && __.params.fields.filter('input[type=' + $this.attr('type') + '][group=' +  $this.attr('group') + ']:checked').size() >= _form.convert.toInt( $group.attr('min') ) ) ? true : false ;
+				// Validate for minimum state
+				if( $group.is('[min]') && _form.check.number( $group.attr('min') ) ){
+					isValid = ( isValid && $group.find('input[type=checkbox]:checked').size() >= _form.convert.toInt( $group.attr('min') ) ) ? true : false ;
 
-						// Handle errors
-						if( !isValid ){ _form.error( $group, 'min' ); }
+					// Handle errors
+					if( !isValid ){ _form.error( $group, 'min' ); }
+				}
+
+				// Validate for maximum state
+				if( $group.is('[max]') && _form.check.number( $group.attr('max') ) ){
+					isValid = ( isValid && $group.find('input[type=checkbox]:checked').size() <= _form.convert.toInt( $group.attr('max') ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ _form.error( $group, 'max' ); }
+				}
+
+			}else{
+
+				// Validate for minimum state
+				if( isValid && $this.is('[min]') ){
+
+					// Check textual content for min length
+					if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], input[type=search], textarea') && _form.check.number( $this.attr('min') ) ){
+						isValid = ( isValid && ($this.val()).length >= _form.convert.toInt( $this.attr('min') ) ) ? true : false ;
+					}
+					
+					// Check numeric content for min number
+					if( $this.is('input[type=number]') ){
+						isValid = ( isValid && _form.convert.toFloat( $this.val() ) >= _form.convert.toFloat( $this.attr('min') ) ) ? true : false ;
 					}
 
-					// Validate for maximum state
-					if( $group.is('[max]') && _form.check.number( $group.attr('max') ) ){
-						isValid = ( isValid && __.params.fields.filter('input[type=' + $this.attr('type') + '][group=' +  $this.attr('group') + ']:checked').size() <= _form.convert.toInt( $group.attr('max') ) ) ? true : false ;
-
-						// Handle errors
-						if( !isValid ){ _form.error( $group, 'max' ); }
+					// Check range field content
+					if( $this.is('input[type=range]') ){
+						isValid = ( isValid && _form.convert.toFloat( $this.val() ) >= _form.convert.toFloat( $this.attr('data-min') ) ) ? true : false ;
 					}
 
-				}else{
-
-					// Validate for minimum state
-					if( isValid && $this.is('[min]') ){
-
-						// Check textual content for min length
-						if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], input[type=search], textarea') && _form.check.number( $this.attr('min') ) ){
-							isValid = ( isValid && ($this.val()).length >= _form.convert.toInt( $this.attr('min') ) ) ? true : false ;
-						}
-						
-						// Check numeric content for min number
-						if( $this.is('input[type=number], input[type=range]') && $this.val() ){
-							isValid = ( isValid && $this.val() >= _form.convert.toFloat( $this.attr('min') ) ) ? true : false ;
-						}
-
-						// Handle errors
-						if( !isValid ){ _form.error( $this, 'min' ); }
-						
-					}
-
-					// Validate for maximum state
-					if( isValid && $this.is('[max]') ){
-
-						// Check textual content for min length
-						if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], textarea') && _form.check.number( $this.attr('max') ) ){
-							isValid = ( isValid && ($this.val()).length <= _form.convert.toInt( $this.attr('max') ) ) ? true : false ;
-						}
-						
-						// Check numeric content for min number
-						if( $this.is('input[type=number], input[type=range]') && $this.val() ){
-							isValid = ( isValid && $this.val() <= _form.convert.toFloat( $this.attr('max') ) ) ? true : false ;
-						}
-
-						// Handle errors
-						if( !isValid ){ _form.error( $this, 'max' ); }
-						
-					}
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'min' ); }
 					
 				}
 
+				// Validate for maximum state
+				if( isValid && $this.is('[max]') ){
+
+					// Check textual content for max length
+					if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], textarea') && _form.check.number( $this.attr('max') ) ){
+						isValid = ( isValid && ($this.val()).length <= _form.convert.toInt( $this.attr('max') ) ) ? true : false ;
+					}
+					
+					// Check numeric content for max number
+					if( $this.is('input[type=number]') ){
+						isValid = ( isValid && _form.convert.toFloat( $this.val() ) <= _form.convert.toFloat( $this.attr('max') ) ) ? true : false ;
+					}
+
+					// Check range field content
+					if( $this.is('input[type=range]') ){
+						isValid = ( isValid && _form.convert.toFloat( $this.val() ) <= _form.convert.toFloat( $this.attr('data-max') ) ) ? true : false ;
+					}
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'max' ); }
+					
+				}
+				
+			}
+
+			// Validate required radio button
+			if( isValid && $this.is('input[type=radio][required]') ){
+				isValid = ( isValid && $this.is(':checked') ) ? true : false ;
+
+				// Handle errors
+				if( !isValid ){ _form.error( $this, 'radio' ); }
+
+			}else if( isValid && $this.is('fieldset[required] input[type=radio]') ){
+				var $fieldset = $this.parents('fieldset');
+
+				isValid = ( isValid && $fieldset.find('input[type=radio]:checked').size() ) ? true : false ;
+
+				// Handle errors
+				if( !isValid ){ _form.error( $this, 'radio' ); }
 			}
 
 			// Validate confirm fields
-			if( isValid && $this.is('input[confirm]') && $('#' + $this.attr('confirm') ) ){
-				isValid = ( isValid && $this.val() === $('#' + $this.attr('confirm') ).val() ) ? true : false ;
+			if( isValid && $this.is('input[data-match]') && $('#' + $this.attr('data-match') ) ){
+				isValid = ( isValid && $this.val() === $('#' + $this.attr('data-match') ).val() ) ? true : false ;
 
 				// Handle errors
 				if( !isValid ){ _form.error( $this, 'confirm' ); }
@@ -347,7 +372,7 @@ var form = function( options ){
 
 		},
 		error: function( $this, name ){
-			if( __.params.errors.enabled ){
+			if( __.params.error.enabled ){
 
 				var msg = '';
 
@@ -363,12 +388,12 @@ var form = function( options ){
 
 				// Error message DOM
 				if( $.isFunction( __.params.onErrorMessage ) ){
-					$this.before( __.params.onErrorMessage( msg, $this ) );
+					$this.before( __.params.onErrorMessage( $this, msg ) );
 				}
 			}
 		},
 		feedback: function( $this ){
-			if( __.params.validFeedback.enabled && $.isFunction( __.params.onValidFeedback ) ){
+			if( __.params.feedback.enabled && $.isFunction( __.params.onValidFeedback ) ){
 				$this.after( __.params.onValidFeedback( $this ) );
 			}
 		}
@@ -379,22 +404,40 @@ var form = function( options ){
 	return self;
 };
 
-(function ($) {
+(function($) {
 	
 	// Collection method.
-	$.fn.form = function () {
-		return this.each(function (i) {
+	$.fn.form = function( options ){
 
-			var $this = $(this);
+		var result = [];
+
+		this.each(function(){
+
+			var $this = $(this),
+				params = $.extend({}, {
+					fields: 'input, textarea, select'
+				}, options );
 
 			// novalidate
 			if( $this.is('form') ){
 				$this.attr('novalidate','novalidate');
 			}
 
-			// Do something to each selected element.
-			$(this).html('' + i);
+			if( typeof params.fields === 'string' || params.fields instanceof String ){
+				params.fields = $( params.fields, $this );
+			}else if( params.fields instanceof jQuery ){
+				params.fields = $( params.fields, $this );
+			}
+
+			result.push( new form( params ) );
+
 		});
+
+		if( result.length === 1 ){
+			result = result[0];
+		}
+
+		return result;
 	};
 
 }(jQuery));

@@ -62,7 +62,7 @@
 				<pre class="example"><code class="html">&lt;input type="text" required&gt;</code></pre>
 
 				<h3 id="validation-required-group">Required Group</h3>
-				<p>You can create a required group to validate that at least one of the fields is not blank, to do that add <code>group="group-name"</code> to each of the fields, (you can have multiple groups if you'd like) make sure they have the <code>required</code> attrebute as well.</p>
+				<p>You can create a required group to validate that at least one of the fields is not blank, to do that add <code>data-group="group-name"</code> to each of the fields, (you can have multiple groups if you'd like) make sure they have the <code>required</code> attrebute as well.</p>
 				<div class="example">
 					<p>Please enter at least one contact method:</p>
 					<form novalidate="novalidate" id="example-2">
@@ -75,8 +75,8 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" group="group-name" required&gt;
-&lt;input type="text" group="group-name" required&gt;</code></pre>
+				<pre class="example"><code class="html">&lt;input type="text" data-group="group-name" required&gt;
+&lt;input type="text" data-group="group-name" required&gt;</code></pre>
 
 				<h3 id="validation-string">String</h3>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
@@ -251,19 +251,19 @@
 						<fieldset required>
 							<div class="radio">
 								<label>
-									<input type="radio">
+									<input type="radio" name="example-radio">
 									Option one
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio">
+									<input type="radio" name="example-radio">
 									Option two
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio">
+									<input type="radio" name="example-radio">
 									Option three
 								</label>
 							</div>
@@ -274,15 +274,15 @@
 				</div>
 				<pre class="example"><code class="html">&lt;fieldset required&gt;
     &lt;label&gt;
-        &lt;input type="radio"&gt;
+        &lt;input type="radio" name="example"&gt;
         Option one
     &lt;/label&gt;
     &lt;label&gt;
-        &lt;input type="radio"&gt;
+        &lt;input type="radio" name="example"&gt;
         Option two
     &lt;/label&gt;
     &lt;label&gt;
-        &lt;input type="radio"&gt;
+        &lt;input type="radio" name="example"&gt;
         Option three
     &lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
