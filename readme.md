@@ -8,8 +8,8 @@ bower install bower install form-jquery
 ```
 Or download the [production version][min] / [development version][max].
 
-[min]: https://raw.githubusercontent.com//jquery-form-js/master/dist/form.min.js
-[max]: https://raw.githubusercontent.com//jquery-form-js/master/dist/form.js
+[min]: https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.min.js
+[max]: https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.js
 
 ### Including files
 
