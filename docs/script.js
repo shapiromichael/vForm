@@ -20,7 +20,7 @@ var Demo = {
 
 				var $form = $( fields[0] ).parents('form');
 
-				$form.find('.form-feedback, .form-control-feedback').remove();
+				$form.find('.form-feedback, .form-control-feedback, .form-control-feedback-inline').remove();
 				$form.find('.has-error, .has-success').removeClass('has-error has-success');
 				
 				return true;
@@ -46,7 +46,13 @@ var Demo = {
 				return true;
 			},
 			onErrorMessage: function( $field, message ){
-				$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+				if( $field.is('[type=checkbox]') ){
+					$field.parents('.checkbox').append('<span class="text-danger form-control-feedback-inline"> - ' + message + '</span>');
+				}else{
+					$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>');
+				}
+
+				return "";
 			},
 			onValidFeedback: function( $field ){
 				$field.parents('.form-group').addClass('has-success has-feedback').append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
@@ -118,6 +124,76 @@ var Demo = {
 			example11.validate();
 			return false;
 		}).form( options );
+
+		// Example 12 - Error Messages
+		var example12 = $('#example-12').on('submit', function(){
+			example12.validate();
+			return false;
+		}).form( $.extend({}, options, {
+			onErrorMessage: function( $field, message ){
+				if( $field.is('[type=checkbox]') ){
+					$field.parents('.checkbox').append('<span class="text-danger form-control-feedback-inline"> - ' + message + '</span>');
+				}else{
+					$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="form-control-feedback text" aria-hidden="true">' + message + '</span>');
+				}
+
+				return "";
+			}
+		}));
+
+		// Example 13 - Summarized Errors
+		var example13 = $('#example-13').on('submit', function(){
+			example13.validate();
+			return false;
+		}).form( $.extend({}, options, {
+			feedback: {
+				enabled: false
+			},
+			onBegin: function( fields ){
+
+				var $form = $( fields[0] ).parents('form');
+
+				$('#example-13-errors').html('');
+				$form.find('.form-feedback, .form-control-feedback, .form-control-feedback-inline').remove();
+				$form.find('.has-error, .has-success').removeClass('has-error has-success');
+				
+				return true;
+			},
+			onFail: function( fields, messages ){
+
+				var $form = $( fields[0] ).parents('form'),
+					$btn = $form.find('button[type=submit]'),
+					$container = $('#example-13-errors'),
+					html = '';
+
+				if( messages.length ){
+					html = '<div class="alert alert-danger" role="alert"><h5>This form is not valid!</h5><ul>';
+
+					$.each( messages, function( index, message ){
+						html += '<li>' + message + '</li>';
+					});
+
+					html += '</ul></div>';
+
+					$container.html( html );
+				}
+
+				$btn.blur();
+
+				return false;
+			},
+			onErrorMessage: function( $field, message ){
+				return message;
+			}
+		}));
+
+		// Example 14 - Live Validation
+		var example14 = $('#example-14').on('submit', function(){
+			example14.validate();
+			return false;
+		}).form( $.extend({}, options, {
+			live: 'keyup'
+		}));
 
 	}
 }

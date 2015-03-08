@@ -18,23 +18,13 @@ var form = function( options ){
 			trim: true,
 			focus: false,
 			live: '',
-
-			// Error
 			error: {
 				enabled: true,
-				summarized: false,
 				messages: {
 					default: 'Invalid'
-				},
-				location: 'after',
-				className: ''
+				}
 			},
-
-			// Valid feedback
-			feedback: {
-				enabled: false,
-				className: ''
-			},
+			feedback: false,
 
 			// Events
 			onBegin: function(){ return true; },
@@ -131,7 +121,7 @@ var form = function( options ){
 			__.defaults.live = (__.defaults.live === 'change' || __.defaults.live === 'keyup' || __.defaults.live === 'blur') ? __.defaults.live : '' ;
 			if( __.defaults.live ){
 				__.defaults.fields.on( __.defaults.live, function(){
-					form.validate( { fields: $(this) } );
+					self.validate( { fields: $(this) } );
 				});
 			}
 
@@ -217,7 +207,7 @@ var form = function( options ){
 					isValid = ( $this.is('input[type=checkbox], input[type=radio]') ) ? $this.is(":checked") : ( isValid && $this.val() ) ? true : false ;
 
 					// Handle errors
-					if( !isValid ){ _form.error( $this, __.params, 'required' ); }
+					if( !isValid ){ _form.error( $this, 'required', 'required' ); }
 
 				}else{
 
@@ -231,7 +221,7 @@ var form = function( options ){
 					}
 
 					// Handle errors
-					if( !isValid ){ _form.error( $this, 'required-group' ); }
+					if( !isValid ){ _form.error( $this, 'required_group', 'required-group' ); }
 				}				
 			}
 			
@@ -243,7 +233,7 @@ var form = function( options ){
 					isValid = ( isValid && _form.check.email( $this.val() ) ) ? true : false ;
 
 					// Handle errors
-					if( !isValid ){ _form.error( $this, 'email' ); }
+					if( !isValid ){ _form.error( $this, 'email', 'email' ); }
 				}
 
 				// Validate url content type
@@ -251,7 +241,7 @@ var form = function( options ){
 					isValid = ( isValid && _form.check.url( $this.val() ) ) ? true : false ;
 
 					// Handle errors
-					if( !isValid ){ _form.error( $this, 'url' ); }
+					if( !isValid ){ _form.error( $this, 'url', 'url' ); }
 				}
 
 				// Validate pattern defined content
@@ -264,7 +254,7 @@ var form = function( options ){
 					}
 
 					// Handle errors
-					if( !isValid ){ _form.error( $this, 'pattern' ); }
+					if( !isValid ){ _form.error( $this, 'pattern', 'pattern' ); }
 				}
 
 			}
@@ -278,7 +268,7 @@ var form = function( options ){
 					isValid = ( isValid && $group.find('input[type=checkbox]:checked').size() >= _form.convert.toInt( $group.attr('min') ) ) ? true : false ;
 
 					// Handle errors
-					if( !isValid ){ _form.error( $group, 'min' ); }
+					if( !isValid ){ _form.error( $group, 'min_selection', 'min' ); }
 				}
 
 				// Validate for maximum state
@@ -286,7 +276,7 @@ var form = function( options ){
 					isValid = ( isValid && $group.find('input[type=checkbox]:checked').size() <= _form.convert.toInt( $group.attr('max') ) ) ? true : false ;
 
 					// Handle errors
-					if( !isValid ){ _form.error( $group, 'max' ); }
+					if( !isValid ){ _form.error( $group, 'max_selection', 'max' ); }
 				}
 
 			}else{
@@ -297,21 +287,27 @@ var form = function( options ){
 					// Check textual content for min length
 					if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], input[type=search], textarea') && _form.check.number( $this.attr('min') ) ){
 						isValid = ( isValid && ($this.val()).length >= _form.convert.toInt( $this.attr('min') ) ) ? true : false ;
+
+						// Handle errors
+						if( !isValid ){ _form.error( $this, 'min_length', 'min' ); }
 					}
 					
 					// Check numeric content for min number
 					if( $this.is('input[type=number]') ){
 						isValid = ( isValid && _form.convert.toFloat( $this.val() ) >= _form.convert.toFloat( $this.attr('min') ) ) ? true : false ;
+
+						// Handle errors
+						if( !isValid ){ _form.error( $this, 'min', 'min' ); }
 					}
 
 					// Check range field content
 					if( $this.is('input[type=range]') ){
 						isValid = ( isValid && _form.convert.toFloat( $this.val() ) >= _form.convert.toFloat( $this.attr('data-min') ) ) ? true : false ;
+
+						// Handle errors
+						if( !isValid ){ _form.error( $this, 'min', 'min' ); }
 					}
 
-					// Handle errors
-					if( !isValid ){ _form.error( $this, 'min' ); }
-					
 				}
 
 				// Validate for maximum state
@@ -320,21 +316,26 @@ var form = function( options ){
 					// Check textual content for max length
 					if( $this.is('input[type=text], input[type=email], input[type=url], input[type=password], input[type=tel], textarea') && _form.check.number( $this.attr('max') ) ){
 						isValid = ( isValid && ($this.val()).length <= _form.convert.toInt( $this.attr('max') ) ) ? true : false ;
+
+						// Handle errors
+						if( !isValid ){ _form.error( $this, 'max_length', 'max' ); }
 					}
 					
 					// Check numeric content for max number
 					if( $this.is('input[type=number]') ){
 						isValid = ( isValid && _form.convert.toFloat( $this.val() ) <= _form.convert.toFloat( $this.attr('max') ) ) ? true : false ;
+
+						// Handle errors
+						if( !isValid ){ _form.error( $this, 'max', 'max' ); }
 					}
 
 					// Check range field content
 					if( $this.is('input[type=range]') ){
 						isValid = ( isValid && _form.convert.toFloat( $this.val() ) <= _form.convert.toFloat( $this.attr('data-max') ) ) ? true : false ;
-					}
 
-					// Handle errors
-					if( !isValid ){ _form.error( $this, 'max' ); }
-					
+						// Handle errors
+						if( !isValid ){ _form.error( $this, 'max', 'max' ); }
+					}					
 				}
 				
 			}
@@ -344,7 +345,7 @@ var form = function( options ){
 				isValid = ( isValid && $this.is(':checked') ) ? true : false ;
 
 				// Handle errors
-				if( !isValid ){ _form.error( $this, 'radio' ); }
+				if( !isValid ){ _form.error( $this, 'radio', 'radio' ); }
 
 			}else if( isValid && $this.is('fieldset[required] input[type=radio]') ){
 				var $fieldset = $this.parents('fieldset');
@@ -352,7 +353,7 @@ var form = function( options ){
 				isValid = ( isValid && $fieldset.find('input[type=radio]:checked').size() ) ? true : false ;
 
 				// Handle errors
-				if( !isValid ){ _form.error( $this, 'radio' ); }
+				if( !isValid ){ _form.error( $fieldset, 'required', 'required' ); }
 			}
 
 			// Validate confirm fields
@@ -360,7 +361,7 @@ var form = function( options ){
 				isValid = ( isValid && $this.val() === $('#' + $this.attr('data-match') ).val() ) ? true : false ;
 
 				// Handle errors
-				if( !isValid ){ _form.error( $this, 'confirm' ); }
+				if( !isValid ){ _form.error( $this, 'match', 'match' ); }
 			}
 
 			if( isValid ){
@@ -371,25 +372,32 @@ var form = function( options ){
 			}
 
 		},
-		error: function( $this, name ){
+		error: function( $this, key, attribute ){
 			if( __.params.error.enabled ){
 
 				var msg = '';
 
 				// Grab the correct error message
-				if( $this.data('error-' + name + '-msg') ){
-					msg = $this.data('error-' + name + '-msg');
+				if( $this.data( attribute + '-error-msg') ){
+					msg = $this.data( attribute + '-error-msg');
 				}else if( $this.data('error-msg') ){
 					msg = $this.data('error-msg');
+				}else if( __.params.error.messages[ key ] ){
+					msg = __.params.error.messages[ key ];
+				}else{
+					msg = __.params.error.messages.default;
 				}
 
-				// Store all error messages
-				__.errors.push( msg );
-
-				// Error message DOM
+				// Fire the error message event
 				if( $.isFunction( __.params.onErrorMessage ) ){
-					$this.before( __.params.onErrorMessage( $this, msg ) );
+					msg = __.params.onErrorMessage( $this, msg );
 				}
+
+				// Handle the error message
+				if( msg && __.errors.indexOf( msg ) === -1 ){
+					__.errors.push( msg );
+				}
+				
 			}
 		},
 		feedback: function( $this ){

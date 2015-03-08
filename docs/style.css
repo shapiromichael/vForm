@@ -1,5 +1,5 @@
 /*
- * Prime Color: #00C1F3;
+ * Prime Color: #4D92DE;
  */
 
 /* Layout */
@@ -12,7 +12,14 @@ footer {
 	color: #777;
 	border-top: 1px solid #E5E5E5;
 }
-
+.navbar-brand img {
+	height: 40px;
+	display: inline-block;
+	margin: -10px 10px -10px 0;
+}
+.navbar-brand .label-default {
+	background: #999;
+}
 
 /* Navigation */
 .sidebar {
@@ -30,17 +37,17 @@ footer {
 }
 .sidebar .nav > li > a:focus,
 .sidebar .nav > li > a:hover {
-	color: #00C1F3;
+	color: #4D92DE;
 	text-decoration: none;
 	background-color: rgba(109, 234, 242, .02);
-	border-left: 2px solid #00C1F3;
+	border-left: 2px solid #4D92DE;
 }
 .sidebar .nav > .active:focus > a,
 .sidebar .nav > .active:hover > a,
 .sidebar .nav > .active > a {
-	color: #00C1F3;
+	color: #4D92DE;
 	background-color: rgba(0, 0, 0, 0);
-	border-left: 2px solid #00C1F3;
+	border-left: 2px solid #4D92DE;
 }
 .sidebar .nav .nav{
 	display: none;
@@ -91,7 +98,7 @@ footer {
 	color: #D23732;
 }
 .callout-info {
-	border-left-color: #00C1F3;
+	border-left-color: #4D92DE;
 }
 .callout-info h4 {
 	color: #0B94B8;
@@ -177,6 +184,16 @@ div.example:after {
 }
 .form-feedback.text-success:after {
 	border-right-color: #EAFFDF;
+}
+.form-control-feedback.text {
+	width: auto;
+	right: 10px;
+}
+.alert.alert-danger ul {
+	padding-left: 20px;
+}
+.alert.alert-danger h5 {
+	margin-top: 0;
 }
 
 

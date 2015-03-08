@@ -3,6 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Form.js</title>
+	
+	<link rel="icon" href="icon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="icon.ico" type="image/x-icon">
 
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
@@ -15,7 +18,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Form <span class="label label-default">2.0.0</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.0</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="#">jQuery</a></li>
@@ -168,7 +171,7 @@
 							<input type="password" class="form-control" id="example-8-password-field" placeholder="Password" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password confirmation" data-match="example-8-password-field">
+							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-8-password-field">
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
@@ -251,19 +254,19 @@
 						<fieldset required>
 							<div class="radio">
 								<label>
-									<input type="radio" name="example-radio">
+									<input type="radio" name="radio-10">
 									Option one
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="example-radio">
+									<input type="radio" name="radio-10">
 									Option two
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="example-radio">
+									<input type="radio" name="radio-10">
 									Option three
 								</label>
 							</div>
@@ -389,15 +392,9 @@
 							<td><span class="label label-default">None</span></td>
 						</tr>
 						<tr>
-							<th>Password</th>
-							<td><code>password</code></td>
-							<td><code>data-password-error-msg</code></td>
-							<td><span class="label label-default">None</span></td>
-						</tr>
-						<tr>
 							<th>Password Match</th>
-							<td><code>password_match</code></td>
-							<td><code>data-password-match-error-msg</code></td>
+							<td><code>match</code></td>
+							<td><code>data-match-error-msg</code></td>
 							<td><span class="label label-default">None</span></td>
 						</tr>
 						<tr>
@@ -415,12 +412,85 @@
 					</tbody>
 				</table>
 
+				<div class="example">
+					<form novalidate="novalidate" id="example-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Name" min="3" required data-required-error-msg="Enter name" data-min-error-msg="At least 3 characters">
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required data-required-error-msg="Required email" data-email-error-msg="Email is invalid">
+						</div>
+						<div class="checkbox">
+								<label>
+									<input type="checkbox" required data-required-error-msg="Don't forget to check this">
+									Check me - I'm required
+								</label>
+							</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" placeholder="First Name" min="3" required data-required-error-msg="Enter first name" data-min-error-msg="At least 3 characters"&gt;
+&lt;input type="email" placeholder="Email" required data-required-error-msg="Required email" data-email-error-msg="Email is invalid"&gt;
+&lt;label&gt;
+    &lt;input type="checkbox" reruired data-required-error-msg="Don't forget to check this"&gt;
+    Must check this
+&lt;/label&gt;</code></pre>
+
 				<h3 id="error-summarized">Summarized Errors</h3>
+				<p>Summarized errors are gathered together and can be shown above the form.</p>
+				<div class="example">
+					<div id="example-13-errors"></div>
+					<form novalidate="novalidate" id="example-13">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Name" required data-required-error-msg="Please enter the name">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Phone: (123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" data-pattern-error-msg="Phone number is incorrect">
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required data-required-error-msg="Please enter the email" data-email-error-msg="Email is invalid">
+						</div>
+						<div class="form-group">
+							<input type="url" class="form-control" placeholder="http://" data-url-error-msg="URL address is invalid">
+						</div>
+						<fieldset required data-required-error-msg="Please select the gender">
+							<div class="radio">
+								<label>
+									<input type="radio" name="radio-13">
+									Male
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="radio-13">
+									Female
+								</label>
+							</div>
+						</fieldset>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;div id="form-errors"&gt;&lt;/div&gt;
+
+&lt;input type="text" placeholder="Name" required data-required-error-msg="Please enter the name"&gt;
+&lt;input type="text" placeholder="Phone: (123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" data-pattern-error-msg="Phone number is incorrect"&gt;
+&lt;input type="email" placeholder="Email" required data-required-error-msg="Please enter the email" data-email-error-msg="Email is invalid"&gt;
+&lt;input type="url" placeholder="http://" data-url-error-msg="URL address is invalid"&gt;
+&lt;fieldset required data-required-error-msg="Please select the gender"&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Male
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Female
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
 
 				<h1 id="live" class="page-header">Live Validation</h1>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-12">
+					<form novalidate="novalidate" id="example-14">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="First Name" required>
 						</div>
@@ -431,14 +501,14 @@
 							<input type="email" class="form-control" placeholder="Email" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password" id="example-12-password-field" required>
+							<input type="password" class="form-control" placeholder="Password" id="example-14-password-field" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-12-password-field">
+							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-14-password-field">
 						</div>
 						<div class="checkbox">
 								<label>
-									<input type="checkbox" reruired>
+									<input type="checkbox" required>
 									Must check this
 								</label>
 							</div>
@@ -685,17 +755,11 @@
 							<td>Avalible options are: <span class="text-string">"onKeyUp"</span>, <span class="text-string">"onBlur"</span>, <span class="text-string">"onChnage"</span>.</td>
 						</tr>
 						<tr>
-							<td rowspan="6"><code>error.</code></td>
+							<td rowspan="2"><code>error.</code></td>
 							<td><code>enabled</code></td>
 							<td>False</td>
 							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, will show error messages.</td>
-						</tr>
-						<tr>
-							<td><code>summarized</code></td>
-							<td>False</td>
-							<td><span class="label label-primary">Boolean</span></td>
-							<td>If true, all errors will be summarized and added at the top.</td>
 						</tr>
 						<tr>
 							<td><code>messages</code></td>
@@ -704,41 +768,10 @@
 							<td>See <a href="#error-messages">Error Messages</a> for object documentation.</td>
 						</tr>
 						<tr>
-							<td><code>location</code></td>
-							<td class="text-string">"after"</td>
-							<td><span class="label label-success">String</span></td>
-							<td>Where to place the error message, avalible options are: <span class="text-string">"after"</span>, <span class="text-string">"before"</span>, any other selector.</span></td>
-						</tr>
-						<tr>
-							<td><code>className</code></td>
-							<td class="text-string">""</td>
-							<td><span class="label label-success">String</span></td>
-							<td>A CSS class that will be added to the field showing an error message.</span></td>
-						</tr>
-						<tr>
-							<td><code>onErrorMessage</code></td>
-							<td>---</td>
-							<td><span class="label label-warning">Function</span></td>
-							<td>See <a href="#events-onerror-message">onErrorMessage</a> event documentation.</td>
-						</tr>
-						<tr>
-							<td rowspan="3"><code>feedback.</code></td>
-							<td><code>enabled</code></td>
+							<td colspan="2"><code>feedback</code></td>
 							<td>False</td>
 							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, will show field valid feedback.</td>
-						</tr>
-						<tr>
-							<td><code>className</code></td>
-							<td class="text-string">""</td>
-							<td><span class="label label-success">String</span></td>
-							<td>A CSS class that will be added to the field showing an valid feedback.</span></td>
-						</tr>
-						<tr>
-							<td><code>onValidFeedback</code></td>
-							<td>---</td>
-							<td><span class="label label-warning">Function</span></td>
-							<td>See <a href="#events-onvalid-feedback">onValidFeedback</a> event documentation.</td>
 						</tr>
 					</tbody>
 				</table>
@@ -750,16 +783,18 @@
     live: false,
     error: {
         enabled: false,
-        summarized: false,
         messages: { default: "Invalid" },
-        location: "after",
-        className: "",
-        onErrorMessage: function( $field, message ){ ... }
     },
-    feedback: {
-        enabled: false,
-        onValidFeedback: function( $field ){ ... }
-    }
+    feedback: false,
+
+    // Events
+    onBegin: function( fields ){ return true; },
+    onBefore: function( $field ){ return true; },
+    onAfter: function( $field, status ){ return status; },
+    onFail: function( fields, messages ){ return false; },
+    onSuccess: function( fields ){ return true; },
+    onErrorMessage: function( $field, message ){ return "<span class='error-message'>" + message + "</span>"; },
+    onValidFeedback: function( $field ){  return "<span class='valid-feedback'>Valid</span>"; }
 }</code></pre>
 
 				<h1 id="methods" class="page-header">Methods</h1>
@@ -769,12 +804,12 @@
 				<p>Form is highly configurable library. Features can be enabled, disabled or customised to meet your exact needs for your form implementation. Customisation of these options are performed by defining options in the constructor, <a href="#options">see all options list</a>.</p>
 				<h5>The native way:</h5>
 				<pre><code class="javascript">var form = new form({
-    focus: true,
+    feedback: true,
     live: 'keyup'
 });</code></pre>
 				<h5>The jQuery way:</h5>
 				<pre><code class="javascript">var form = $('form').form({
-    focus: true,
+    feedback: true,
     live: 'keyup'
 });</code></pre>
 				
