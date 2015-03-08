@@ -1,9 +1,19 @@
 {
-  "name": "form-js",
-  "version": "2.0.0",
-  "dependencies": {},
-  "devDependencies": {
-    "qunit": "~1.12.0",
-    "jquery": "~2.1.3"
-  }
+	"name": "form-jquery",
+	"version": "2.0.0",
+	"main": "dist/form.min.js",
+	"ignore": [
+		".jshintrc",
+		"docs/*",
+		"src/*",
+		"test/*",
+		"node_modules/*",
+	],
+	"dependencies": {
+		"jquery": "~2.1.3"
+		},
+	"devDependencies": {
+		"qunit": "~1.12.0",
+		"jquery": "~2.1.3"
+	}
 }

@@ -1,0 +1,28 @@
+{
+	"name": "form",
+	"title": "Form",
+	"description": "The best jQuery plugin ever.",
+	"version": "2.0.0",
+	"homepage": "",
+	"author": {
+		"name": "Sinapsa - R&D Center",
+		"url": "http://shapiromichael.github.io/Form-JS/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/shapiromichael/Form-JS"
+	},
+	"bugs": "",
+	"licenses": [
+		{
+			"type": "MIT",
+			"url": "http://opensource.org/licenses/MIT"
+		}
+	],
+	"dependencies": {
+		"jquery": "~2.1.3"
+	},
+	"keywords": [
+		"jquery-plugin"
+	]
+}
