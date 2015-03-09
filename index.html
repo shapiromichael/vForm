@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vForm</title>
+	
+	<link rel="icon" href="icon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
+	<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+	
+	<!-- Header -->
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.6</span></a>
+			</div>
+			<!-- <ul class="nav navbar-nav">
+				<li class="active"><a href="#">jQuery</a></li>
+				<li><a href="#">Angular</a></li>
+				<li><a href="#">Node</a></li>
+			</ul> -->
+		</div>
+	</nav>
+	
+	<!-- Boody -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9" role="main">
+
+				<h1 id="overview" class="page-header">Overview</h1>
+				<p class="lead">vForm is a form validation library based on the HTML 5 standards.</p>
+
+				<div class="callout callout-warning">
+					<h4>Disable the browser default errors</h4>
+					<p>Modern browsers show buil-in error styles for invalid fields, to disable that make sure to add <code>novalidate="novalidate"</code> attribute to the <code>&lt;form&gt;</code> tag.</p>
+				</div>
+
+				<h3 id="overview-install">Install</h3>
+				<p>Optionally, you can install vForm with bower:</p>
+				<pre><code class="bash">$ bower install vForm</code></pre>
+				<p><br />Or download the <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
+			
+				<h3 id="overview-requirements">Requirements</h3>
+				<p>vForm is working best with <strong>jQuery 2.x</strong>, however it can work well with older version of jQuery as well 1.11.x<br />if you're using an older version - you can run the unit test.</p>
+
+				<h3 id="overview-including-files">Including files</h3>
+				<pre><code class="html">&lt;script src="//code.jquery.com/jquery-2.1.3.min.js"&gt;&lt;/script&gt;
+&lt;script src="form.min.js"&gt;&lt;/script&gt;</code></pre>
+
+				<h3 id="overview-how-to">How to use it</h3>
+				<pre><code class="javascript">$('#my-form').form(function( event ){
+    return event.data.form.validate();
+});</code></pre>
+
+				<h3 id="overview-compatibility">Compatibility</h3>
+				<p>vForm is fully functional on all modern browsers, as well as some old ones such as Internet Explorer 8+. It is also designed to work on touch devices such as mobile phones or tablets.</p>
+
+				<h1 id="validations" class="page-header">Validation Types</h1>
+
+				<h3 id="validation-required">Required Fields</h3>
+				<p>To validate the field has a value add a <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-1">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Required field" required>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" required&gt;</code></pre>
+
+				<h3 id="validation-required-group">Required Group</h3>
+				<p>You can create a required group to validate that at least one of the fields is not blank, to do that add <code>data-group="group-name"</code> to each of the fields, (you can have multiple groups if you'd like) make sure they have the <code>required</code> attrebute as well.</p>
+				<div class="example">
+					<p>Please enter at least one contact method:</p>
+					<form novalidate="novalidate" id="example-2">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Phone" data-group="example-required-group" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Email" data-group="example-required-group" required>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" data-group="group-name" required&gt;
+&lt;input type="text" data-group="group-name" required&gt;</code></pre>
+
+				<h3 id="validation-string">String</h3>
+				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-3">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length minimum 3 characters" min="3">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length maximum 7 characters" max="7">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length between 4 to 8 characters" min="4" max="8">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Length exactly 5 characters" min="5" max="5">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" min="3"&gt; &lt;!-- Minimum 3 characters --&gt;
+&lt;input type="text" max="7"&gt; &lt;!-- Maximum 7 characters --&gt;
+&lt;input type="text" min="4" max="8"&gt; &lt;!-- Between 4 to 8 characters --&gt;
+&lt;input type="text" min="5" max="5"&gt; &lt;!-- Exactly 5 characters --&gt;</code></pre>
+
+				<h3 id="validation-numeric">Numeric</h3>
+				<p>Validating a numeric value is only avalible for those HTML5 types: <code>month</code>, <code>week</code>, <code>number</code> and <code>range</code>.</p>
+				<div class="alert alert-warning" role="alert">Note that on <code>type="range"</code> you should use <code>data-min</code> &amp; <code>data-max</code> attributes, that's becase the <code>min</code> &amp; <code>max</code> attributes specify the total range of the field.</div>
+				<div class="example">
+					<form novalidate="novalidate" id="example-4">
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Greater than 10" min="11">
+						</div>
+						<div class="form-group">
+							<input type="number" class="form-control" placeholder="Less than 20" max="19">
+						</div>
+						<div class="form-group">
+							<input type="range" class="form-control" min="1" max="100" data-min="30" data-max="70">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="number" min="11"&gt; &lt;!-- Greater than 10 --&gt;
+&lt;input type="number" max="20"&gt; &lt;!-- Less than 20 --&gt;
+&lt;input type="range" min="1" max="100" data-min="30" data-max="70"&gt; &lt;!-- Between 30 to 70 characters --&gt;</code></pre>
+				
+				<h3 id="validation-email">Email</h3>
+				<p>To validate an email field just make sure that <code>type="email"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-5">
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Required email field" required>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="email" required&gt;</code></pre>
+
+				<h3 id="validation-url">URL</h3>
+				<p>To validate a URL field just make sure that <code>type="url"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-6">
+						<div class="form-group">
+							<input type="url" class="form-control" placeholder="URL field">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="url"&gt;</code></pre>
+				
+				<h3 id="validation-patterns">Patterns</h3>
+				<p>To validate a regex pattern just use the <code>pattern</code> attribute. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-7">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="(123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"&gt;
+&lt;!-- Phone number that match the pattern: "(123) 456-7890" --&gt;</code></pre>
+
+				<h3 id="validation-password">Password</h3>
+				<p>You can use the <code>min</code> or <code>pattern</code> attribute to validate the password, and <code>data-match</code> attribute to validation the password confirmation. Note that <code>data-match</code> should contain the original password field <code>id</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-8">
+						<div class="form-group">
+							<input type="password" class="form-control" id="example-8-password-field" placeholder="Password" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-8-password-field">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="password" id="password-field" required&gt;
+&lt;input type="password" data-match="password-field"&gt;</code></pre>
+
+				<h3 id="validation-checkboxes">Checkboxes</h3>
+				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes. Note that you can't add <code>required</code> attribute to the <code>&lt;fieldset&gt;</code>, use <code>min="1"</code> instead.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-9">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" required>
+								This checkbox is required
+							</label>
+						</div>
+						<fieldset min="2" max="3">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option one
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option two
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option three
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox">
+									Group option four
+								</label>
+							</div>
+						</fieldset>
+						
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">
+&lt;input type="checkbox" required&gt; &lt;!-- Required checkbox --&gt;
+
+&lt;!-- Checkbox group --&gt;
+&lt;fieldset min="2" max="3"&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option one
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option two
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option three
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="checkbox"&gt;
+        Group option four
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+				
+				<div class="callout callout-warning">
+					<h4>Keep checkboxes &amp; radio separated</h4>
+					<p>Make sure to separate checkboxes &amp; radio buttons into different <code>&lt;fieldset&gt;</code> tags.</p>
+				</div>
+
+				<h3 id="validation-radio">Radio Buttons</h3>
+				<p>Radios can be validated only by group, for that wrap them with <code>&lt;fieldset&gt;</code>, you can only add <code>required</code> attribute to this <code>&lt;fieldset&gt;</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-10">
+						<fieldset required>
+							<div class="radio">
+								<label>
+									<input type="radio" name="radio-10">
+									Option one
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="radio-10">
+									Option two
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="radio-10">
+									Option three
+								</label>
+							</div>
+						</fieldset>
+						
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;fieldset required&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Option one
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Option two
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Option three
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+				
+				<div class="callout callout-info">
+					<h4>Better way to validate radio buttons</h4>
+					<p>Since radio buttons cannot be unselected, you can just add <code>checked</code> attribute to one of them. So there's no need to actually validate them.</p>
+				</div>
+
+				<div class="callout callout-danger">
+					<h4>Cross-browser compatibility</h4>
+					<p>While Form.js will ignore those items in all browsers, Internet Explorer 11 and below don't fully support the <code>disabled</code> attribute on a <code>&lt;fieldset&gt;</code>. Use custom JavaScript to disable the fieldset in these browsers.</p>
+				</div>
+
+				<h3 id="validation-ignored">Ignored</h3>
+				<p>Disabled fields are being ignored, however you can also add <code>data-ignore="true"</code> to manually ignore fields from being validated.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-11">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Disabled field" disabled>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Ignored from validatio" data-ignore="true" required>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" disabled&gt;
+&lt;input type="text" data-ignore="true" required&gt;</code></pre>
+
+				<h1 id="errors" class="page-header">Errors</h1>
+
+				<h3 id="error-messages">Error Messages</h3>
+				<p>You can specify the error messages from the configuration as default or from the markup to apply individually.<br />The error messages are based on the validation type as specified.</p>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Validation Type</th>
+							<th>Option Key</th>
+							<th>Marktup Attribute</th>
+							<th>Default Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>Default</th>
+							<td><code>default</code></td>
+							<td><code>data-error-msg</code></td>
+							<td>Invalid</td>
+						</tr>
+						<tr>
+							<th>Required</th>
+							<td><code>required</code></td>
+							<td><code>data-required-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Required Group</th>
+							<td><code>required_group</code></td>
+							<td><code>data-required-group-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>String Minimun Length</th>
+							<td><code>min_length</code></td>
+							<td><code>data-min-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>String Maximum Length</th>
+							<td><code>max_length</code></td>
+							<td><code>data-max-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Numeric Minimun Value</th>
+							<td><code>min</code></td>
+							<td><code>data-min-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Numeric Maximum Value</th>
+							<td><code>max</code></td>
+							<td><code>data-max-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Email</th>
+							<td><code>email</code></td>
+							<td><code>data-email-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>URL</th>
+							<td><code>url</code></td>
+							<td><code>data-url-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Pattern</th>
+							<td><code>pattern</code></td>
+							<td><code>data-pattern-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Password Match</th>
+							<td><code>match</code></td>
+							<td><code>data-match-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Checkboxes Minimun Selection</th>
+							<td><code>min_selection</code></td>
+							<td><code>data-min-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Checkboxes Maximum Selection</th>
+							<td><code>max_selection</code></td>
+							<td><code>data-max-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="example">
+					<form novalidate="novalidate" id="example-12">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Name" min="3" required data-required-error-msg="Enter name" data-min-error-msg="At least 3 characters">
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required data-required-error-msg="Required email" data-email-error-msg="Email is invalid">
+						</div>
+						<div class="checkbox">
+								<label>
+									<input type="checkbox" required data-required-error-msg="Don't forget to check this">
+									Check me - I'm required
+								</label>
+							</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" placeholder="First Name" min="3" required data-required-error-msg="Enter first name" data-min-error-msg="At least 3 characters"&gt;
+&lt;input type="email" placeholder="Email" required data-required-error-msg="Required email" data-email-error-msg="Email is invalid"&gt;
+&lt;label&gt;
+    &lt;input type="checkbox" reruired data-required-error-msg="Don't forget to check this"&gt;
+    Must check this
+&lt;/label&gt;</code></pre>
+
+				<h3 id="error-summarized">Summarized Errors</h3>
+				<p>Summarized errors are gathered together and can be shown above the form.</p>
+				<div class="example">
+					<div id="example-13-errors"></div>
+					<form novalidate="novalidate" id="example-13">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Name" required data-required-error-msg="Please enter the name">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Phone: (123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" data-pattern-error-msg="Phone number is incorrect">
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required data-required-error-msg="Please enter the email" data-email-error-msg="Email is invalid">
+						</div>
+						<div class="form-group">
+							<input type="url" class="form-control" placeholder="http://" data-url-error-msg="URL address is invalid">
+						</div>
+						<fieldset required data-required-error-msg="Please select the gender">
+							<div class="radio">
+								<label>
+									<input type="radio" name="radio-13">
+									Male
+								</label>
+							</div>
+							<div class="radio">
+								<label>
+									<input type="radio" name="radio-13">
+									Female
+								</label>
+							</div>
+						</fieldset>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;div id="form-errors"&gt;&lt;/div&gt;
+
+&lt;input type="text" placeholder="Name" required data-required-error-msg="Please enter the name"&gt;
+&lt;input type="text" placeholder="Phone: (123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" data-pattern-error-msg="Phone number is incorrect"&gt;
+&lt;input type="email" placeholder="Email" required data-required-error-msg="Please enter the email" data-email-error-msg="Email is invalid"&gt;
+&lt;input type="url" placeholder="http://" data-url-error-msg="URL address is invalid"&gt;
+&lt;fieldset required data-required-error-msg="Please select the gender"&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Male
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Female
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+
+				<h1 id="live" class="page-header">Live Validation</h1>
+				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-14">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="First Name" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Last Name" required>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Password" id="example-14-password-field" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-14-password-field">
+						</div>
+						<div class="checkbox">
+								<label>
+									<input type="checkbox" required>
+									Must check this
+								</label>
+							</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" placeholder="First Name" required&gt;
+&lt;input type="text" placeholder="Last Name" required&gt;
+&lt;input type="email" placeholder="Email" required&gt;
+&lt;input type="password" placeholder="Password" id="password-field" required&gt;
+&lt;input type="password" placeholder="Confirm Password" data-match="password-field"&gt;
+&lt;label&gt;
+    &lt;input type="checkbox" reruired&gt;
+    Must check this
+&lt;/label&gt;</code></pre>
+
+				<h3 id="live-single">Single Field Validation</h3>
+				<pre><code class="javascript">form.validate( $('#my-field') );</code></pre>
+
+				<h3 id="live-feedback">Live Feedback</h3>
+
+				<h1 id="processing" class="page-header">Processing</h1>
+
+				<h3 id="processing-submition">Form Submition</h3>
+				<pre><code class="javascript">$('#my-form').form(function( event ){
+    return event.data.form.validate();
+});</code></pre>
+
+				<h3 id="processing-ajax">Ajax</h3>
+				<pre><code class="javascript">var form = $('#my-form').form(function(){
+
+    if( form.validate() ){
+        $.post( "test.php", $(this).serialize(), function(){
+            alert( "Done!" );
+        });
+    }
+
+    return false;
+});</code></pre>
+
+					<div class="callout callout-warning">
+					<h4>Form submit event must return <code>false</code></h4>
+					<p>If you forget (or return true) on the form submit event, the form will be submitted to itself, means the page will be reloaded.</p>
+				</div>
+
+				<h1 id="events" class="page-header">Events</h1>
+
+				<div class="alert alert-warning" role="alert">If you override the events, make sure your methods will have a return with the expected data type, otherwise you'll get a mess.</div>
+
+				<h3 id="events-onbegin">onBegin <small>( fields )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>Every time the validation process begines.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>fields</code> <span class="label label-info">Array</span> of all fields that's about to get processed.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether to proceed with the validation. <code>False</code> will fail the form validation.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( fields ){
+    return true;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="events-onbefore">onBefore <small>( $field )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>Before processing each field.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether to proceed with the validation. <code>False</code> will skip to the next field.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field ){
+    return true;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="events-onafter">onAfter <small>( $field, status )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>After processing each field.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<td><code>status</code> <span class="label label-primary">Boolean</span> the validation status of the field.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether this field is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field, status ){
+    return status;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="events-onerror">onFail <small>( fields, messages )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When the form validation fails after processing all of the fields.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>fields</code> <span class="label label-info">Array</span> of all invalid fields.</td>
+						</tr>
+						<tr>
+							<td><code>messages</code> <span class="label label-info">Array</span> of all the error messages.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether ths form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( fields, messages ){
+    return false;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="events-onsuccess">onSuccess <small>( fields )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When the form is validated after processing all of the fields.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>fields</code> <span class="label label-info">Array</span> of all fields that was processed.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether ths form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( fields ){
+    return true;
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="events-onerror-message">onErrorMessage <small>( $field, message )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When field is invalid and need to show an error message.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<td><code>message</code> <span class="label label-success">String</span> error message.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-success">String</span> the HTML code for the error message.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field, message ){
+    return "&lt;span class='error-message'&gt;" + message + "&lt;/span&gt;";
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="events-onvalid-feedback">onValidFeedback <small>( $field )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Fired</th>
+							<td>When field is valid and need to show a valid feedback.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-success">String</span> the HTML code for the valid feedback.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">function( $field ){
+    return "&lt;span class='valid-feedback'&gt;Valid&lt;/span&gt;";
+}</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h1 id="options" class="page-header">Options</h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="2">Key</th>
+							<th>Default Value</th>
+							<th>Data Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="2"><code>fields</code></td>
+							<td class="text-string">"input, textarea, select"</td>
+							<td><span class="label label-success">String</span></td>
+							<td>Selector for the fields that should be validated.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>trim</code></td>
+							<td>True</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, each field will get trimed before processing the validation.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>focus</code></td>
+							<td>False</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, will set the focus on the first invalid field after processing.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>live</code></td>
+							<td class="text-string">""</td>
+							<td><span class="label label-success">String</span></td>
+							<td>Avalible options are: <span class="text-string">"onKeyUp"</span>, <span class="text-string">"onBlur"</span>, <span class="text-string">"onChnage"</span>.</td>
+						</tr>
+						<tr>
+							<td rowspan="2"><code>error.</code></td>
+							<td><code>enabled</code></td>
+							<td>False</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, will show error messages.</td>
+						</tr>
+						<tr>
+							<td><code>messages</code></td>
+							<td>{ default: <span class="text-string">"Invalid"</span> }</td>
+							<td><span class="label label-danger">Object</span></td>
+							<td>See <a href="#error-messages">Error Messages</a> for object documentation.</td>
+						</tr>
+						<tr>
+							<td colspan="2"><code>feedback</code></td>
+							<td>False</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, will show field valid feedback.</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<pre><code class="javascript">{
+    fields: "input, textarea, select",
+    trim: true,
+    focus: false,
+    live: false,
+    error: {
+        enabled: false,
+        messages: { default: "Invalid" },
+    },
+    feedback: false,
+
+    // Events
+    onBegin: function( fields ){ return true; },
+    onBefore: function( $field ){ return true; },
+    onAfter: function( $field, status ){ return status; },
+    onFail: function( fields, messages ){ return false; },
+    onSuccess: function( fields ){ return true; },
+    onErrorMessage: function( $field, message ){ return "<span class='error-message'>" + message + "</span>"; },
+    onValidFeedback: function( $field ){  return "<span class='valid-feedback'>Valid</span>"; }
+}</code></pre>
+
+				<h1 id="methods" class="page-header">Methods</h1>
+				<p>You'll have to ceate a variable and store the form object in order to call the methods.</p>
+
+				<h3 id="methods-create">Create <small>( options [, onSubmit ] )</small></h3>
+				<p>Form is highly configurable library. Features can be enabled, disabled or customised to meet your exact needs for your form implementation. Customisation of these options are performed by defining options in the constructor, <a href="#options">see all options list</a>.</p>
+				<h5>The native way:</h5>
+				<pre><code class="javascript">var myForm = new form({
+    feedback: true,
+    live: 'keyup'
+});</code></pre>
+				<h5>The jQuery way:</h5>
+				<pre><code class="javascript">var myForm = $('form').form({
+    feedback: true,
+    live: 'keyup'
+});</code></pre>
+				
+				<div class="callout callout-warning">
+					<h4>jQuery form method won't return a jQuery object</h4>
+					<p>Using the jQuery short method will return the form element rather than jQuery, so you won't be able to call other jQuery methods. If you need to make sure to call the <code>form</code> function at the end.</p>
+				</div>
+
+				<h3 id="methods-validate">Validate <small>( options )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Validates the form, you should call this method manually to validate the form.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>options</code> <span class="label label-danger">Object</span> of all the customized options, see full <a href="#options">options list</a>.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether the form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">myForm.validate( options );</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+				
+
+				<h3 id="methods-status">Status <small>( )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Returns the tatus of the form.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether the form is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">myForm.status();</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="methods-add">Add <small>( handler, error )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Adding a custom validation handler.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>handler</code> <span class="label label-warning">Function</span> that will be fired as part the validation process stack.</td>
+						</tr>
+						<tr>
+							<td><code>error</code> <span class="label label-success">String</span> of error message that will be used if invalid.</td>
+						</tr>
+						<tr>
+							<th>Handler Params</th>
+							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
+						</tr>
+						<tr>
+							<th>Handler Return</th>
+							<td><span class="label label-primary">Boolean</span> whether the field is valid.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">myForm.add(function(){ ... });</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<h3 id="methods-get">Get <small>( filter )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Get all the form fields.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>filter</code> <span class="label label-success">String</span> avalible options are: <span class="text-string">"all"</span>, <span class="text-string">"valid"</span> &amp; <span class="text-string">"invalid"</span>.</td>
+						</tr>
+						<tr>
+							<th>Return</th>
+							<td><span class="label label-info">Array</span> of <span class="label label-danger">jQuery Object</span> of the fields.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">myForm.get('invalid');</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="methods-set">Set <small>( key, value )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Updating the form options (see full <a href="#options">options list</a>).</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Params</th>
+							<td><code>key</code> <span class="label label-success">String</span> the option key.</td>
+						</tr>
+						<tr>
+							<td><code>value</code> the option value.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">myForm.set('focus',true);</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h3 id="methods-clear">Clear <small>( )</small></h3>
+				<p>Reset all the form fields, for default values use <code>data-default</code> attribute.</p>
+				<div class="example">
+				<form novalidate="novalidate" id="example-15">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="Password" required>
+					</div>
+					<div class="form-group">
+						<input type="range" class="form-control" min="1" max="100" data-min="30" data-max="70" data-default="20">
+					</div>
+					<fieldset min="1" data-default="one">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="one">
+								Group option one
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="two">
+								Group option two
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="three">
+								Group option three
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="four">
+								Group option four
+							</label>
+						</div>
+					</fieldset>
+					<button type="button" id="example-15-clear" class="btn btn-warning">Clear</button>
+					<button type="submit" class="btn btn-default">Validate</button>
+				</form>
+			</div>
+			<pre class="example"><code class="javascript">$('#btn-reset').on('click', function(){
+    myForm.clear();
+});</code></pre>
+
+				<!-- <h1 id="styling" class="page-header">Styling</h1>
+
+				<h3 id="styling-required">Required Fields</h3>
+
+				<h3 id="styling-error">Error Messages</h3>
+
+				<h3 id="styling-feedback">Valid Feedback</h3>
+
+				<h1 id="utilities" class="page-header">Utilities</h1>
+
+				<h3 id="utilities-test">Test</h3> -->
+
+				<h1 id="license" class="page-header">License <small>MIT</small></h1>
+				<p>Copyright (c) 2015 Sinapsa - R&amp;D Center</p>
+				<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+				<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+				<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+			</div>
+			<div class="col-md-3" role="complementary">
+				<nav class="sidebar hidden-print hidden-xs hidden-sm affix">
+					<ul class="nav sidenav">
+
+						<li>
+							<a href="#overview">Overview</a>
+							<ul class="nav">
+								<li><a href="#overview-install">Install</a></li>
+								<li><a href="#overview-requirements">Requirements</a></li>
+								<li><a href="#overview-including-files">Including files</a></li>
+								<li><a href="#overview-how-to">How to use it</a></li>
+								<li><a href="#overview-compatibility">Compatibility</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#validations">Validation Types</a>
+							<ul class="nav">
+								<li><a href="#validation-required">Required Fields</a></li>
+								<li><a href="#validation-required-group">Required Group</a></li>
+								<li><a href="#validation-string">String</a></li>
+								<li><a href="#validation-numeric">Numeric</a></li>
+								<li><a href="#validation-email">Email</a></li>
+								<li><a href="#validation-url">URL</a></li>
+								<li><a href="#validation-patterns">Patterns</a></li>
+								<li><a href="#validation-password">Password</a></li>
+								<li><a href="#validation-checkboxes">Checkboxes</a></li>
+								<li><a href="#validation-radio">Radio Buttons</a></li>
+								<li><a href="#validation-ignored">Ignored</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#errors">Errors</a>
+							<ul class="nav">
+								<li><a href="#error-messages">Error Messages</a></li>
+								<li><a href="#error-summarized">Summarized Errors</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#live">Live Validation</a>
+							<ul class="nav">
+								<li><a href="#live-single">Single Field Validation</a></li>
+								<li><a href="#live-feedback">Live Feedback</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#processing">Processing</a>
+							<ul class="nav">
+								<li><a href="#processing-submition">Form Submition</a></li>
+								<li><a href="#processing-ajax">Ajax</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#events">Events</a>
+							<ul class="nav">
+								<li><a href="#events-onbegin">onBegin</a></li>
+								<li><a href="#events-onbefore">onBefore</a></li>
+								<li><a href="#events-onafter">onAfter</a></li>
+								<li><a href="#events-onerror">onError</a></li>
+								<li><a href="#events-onsuccess">onSuccess</a></li>
+								<li><a href="#events-onerror-message">onErrorMessage</a></li>
+								<li><a href="#events-onvalid-feedback">onValidFeedback</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#options">Options</a>
+						</li>
+						<li>
+							<a href="#methods">Methods</a>
+							<ul class="nav">
+								<li><a href="#methods-create">Create</a></li>
+								<li><a href="#methods-validate">Validate</a></li>
+								<li><a href="#methods-status">Status</a></li>
+								<li><a href="#methods-add">Add</a></li>
+								<li><a href="#methods-get">Get</a></li>
+								<li><a href="#methods-set">Set</a></li>
+								<li><a href="#methods-clear">Clear</a></li>
+							</ul>
+						</li>
+						<!-- <li>
+							<a href="#styling">Styling</a>
+							<ul class="nav">
+								<li><a href="#styling-required">Required Fields</a></li>
+								<li><a href="#styling-error">Error Messages</a></li>
+								<li><a href="#styling-feedback">Valid Feedback</a></li>
+							</ul>
+						</li>
+						<li>
+							<a href="#utilities">Utilities</a>
+							<ul class="nav">
+								<li><a href="#utilities-test">Test</a></li>
+							</ul>
+						</li> -->
+						<li>
+							<a href="#license">License</a>
+						</li>
+
+					</ul>
+					<a class="back-to-top" href="#top">
+						Back to top
+					</a>
+					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=sinapsa&amp;repo=vForm&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 10px 0 0 20px; float: left; clear: left;"></iframe>
+					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=sinapsa&amp;repo=vForm&amp;type=fork&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 5px 0 0 20px; float: left; clear: left;"></iframe>
+
+				</nav>
+			</div>
+		</div>
+
+		<!-- Footer -->
+		<footer class="footer">
+			<p>Made with <i class="glyphicon glyphicon-heart" style="color: #FF0091;"></i> by Sinapsa</p>
+		</footer>
+
+	</div>
+</div>
+
+<!-- Scripts -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+
+<script src="vform.min.js"></script>
+
+<script src="script.js"></script>
+
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<!-- GA -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-60173413-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
