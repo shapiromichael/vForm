@@ -18,7 +18,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.3</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.4</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="#">jQuery</a></li>
@@ -830,12 +830,12 @@
 				<h3 id="methods-create">Create <small>( options [, onSubmit ] )</small></h3>
 				<p>Form is highly configurable library. Features can be enabled, disabled or customised to meet your exact needs for your form implementation. Customisation of these options are performed by defining options in the constructor, <a href="#options">see all options list</a>.</p>
 				<h5>The native way:</h5>
-				<pre><code class="javascript">var form = new form({
+				<pre><code class="javascript">var myForm = new form({
     feedback: true,
     live: 'keyup'
 });</code></pre>
 				<h5>The jQuery way:</h5>
-				<pre><code class="javascript">var form = $('form').form({
+				<pre><code class="javascript">var myForm = $('form').form({
     feedback: true,
     live: 'keyup'
 });</code></pre>
@@ -862,7 +862,7 @@
 						</tr>
 						<tr>
 							<th>Example</th>
-							<td><pre><code class="javascript">form.validate( options );</code></pre></td>
+							<td><pre><code class="javascript">myForm.validate( options );</code></pre></td>
 						</tr>
 					</tbody>
 				</table>
@@ -881,7 +881,7 @@
 						</tr>
 						<tr>
 							<th>Example</th>
-							<td><pre><code class="javascript">form.status();</code></pre></td>
+							<td><pre><code class="javascript">myForm.status();</code></pre></td>
 						</tr>
 					</tbody>
 				</table>
@@ -910,7 +910,7 @@
 						</tr>
 						<tr>
 							<th>Example</th>
-							<td><pre><code class="javascript">form.add(function(){ ... });</code></pre></td>
+							<td><pre><code class="javascript">myForm.add(function(){ ... });</code></pre></td>
 						</tr>
 					</tbody>
 				</table>
@@ -931,24 +931,57 @@
 						</tr>
 						<tr>
 							<th>Example</th>
-							<td><pre><code class="javascript">form.set('focus',true);</code></pre></td>
+							<td><pre><code class="javascript">myForm.set('focus',true);</code></pre></td>
 						</tr>
 					</tbody>
 				</table>
 
 				<h3 id="methods-clear">Clear <small>( )</small></h3>
-				<table class="table">
-					<tbody>
-						<tr>
-							<th class="col-md-2">Description</th>
-							<td>Reset all the form fields, for default values use <code>data-default</code> attribute.</td>
-						</tr>
-						<tr>
-							<th>Example</th>
-							<td><pre><code class="javascript">form.clear();</code></pre></td>
-						</tr>
-					</tbody>
-				</table>
+				<p>Reset all the form fields, for default values use <code>data-default</code> attribute.</p>
+				<div class="example">
+				<form novalidate="novalidate" id="example-15">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="Password" required>
+					</div>
+					<div class="form-group">
+						<input type="range" class="form-control" min="1" max="100" data-min="30" data-max="70" data-default="20">
+					</div>
+					<fieldset min="1" data-default="one">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="one">
+								Group option one
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="two">
+								Group option two
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="three">
+								Group option three
+							</label>
+						</div>
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" value="four">
+								Group option four
+							</label>
+						</div>
+					</fieldset>
+					<button type="button" id="example-15-clear" class="btn btn-warning">Clear</button>
+					<button type="submit" class="btn btn-default">Validate</button>
+				</form>
+			</div>
+			<pre class="example"><code class="javascript">$('#btn-reset').on('click', function(){
+    myForm.clear();
+});</code></pre>
 
 				<!-- <h1 id="styling" class="page-header">Styling</h1>
 

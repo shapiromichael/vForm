@@ -1,5 +1,5 @@
 /*!
-* Form - v2.0.3
+* Form - v2.0.4
 * http://shapiromichael.github.io/Form-JS/
 * Copyright (c) 2015 
 * Licensed MIT
@@ -59,7 +59,7 @@ var form = function( options ){
 			__.params = $.extend({}, __.defaults, options );
 
 			// Parse the form fields
-			__.params.fields = _form.set.fields( __.params.fields );
+			_form.set.fields( __.params.fields );
 			
 			if( __.params.fields.size() ){
 
@@ -119,7 +119,49 @@ var form = function( options ){
 	};
 
 	this.clear = function(){
+		
+		__.params.fields.each(function(){
+			
+			var $this = $(this),
+				value = '';
 
+			switch( $this.attr('type') ){
+				case 'text':
+				case 'number':
+				case 'email':
+				case 'url':
+				case 'range': 
+					value = ( $(this).data('default') ) ? $(this).data('default') : '' ;
+					$(this).val( value );
+					break;
+
+				case 'checkbox':
+				case 'radio':
+					if( $(this).is('fieldset[data-default] input[type=' + $this.attr('type') + ']') ){
+						var $fieldset = $this.parents('fieldset[data-default]');
+						value = $fieldset.data('default');
+
+						$fieldset.find('input[type=' + $this.attr('type') + ']').prop('checked', false);
+						$fieldset.find('input[type=' + $this.attr('type') + '][value=' + value +']').prop('checked', true);
+
+					}else{
+						if( $(this).data('default') === 'checked' ){
+							$(this).prop('checked', true);
+						}else{
+							$(this).prop('checked', false);
+						}
+					}
+					
+					break;
+
+				default:
+					if( $this.is('textarea') ){
+						value = ( $(this).data('default') ) ? $(this).data('default') : '' ;
+						$(this).val( value );
+					}
+			}
+
+		});
 	};
 
 	// Privates
@@ -140,6 +182,9 @@ var form = function( options ){
 					self.validate( $(this) );
 				});
 			}
+
+			// Clear the form
+			self.clear();
 
 		},
 		check: {
@@ -181,7 +226,8 @@ var form = function( options ){
 				if( typeof fields === 'string' || fields instanceof String ){
 					fields = $( fields );
 				}
-				return fields.not('[disabled=disabled]').not('[data-ignore=true]');
+				__.params.fields = fields.not('[disabled=disabled]').not('[data-ignore=true]');
+				return __.params.fields;
 
 			},
 			valid: function(){

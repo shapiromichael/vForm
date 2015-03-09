@@ -209,6 +209,17 @@ var Demo = {
 			return false;
 		});
 
+		// Example 15 - Clear Method
+		var example15 = $('#example-15').form( options, function(){
+			example15.validate();
+			ga('send', 'event', 'Examples', 'Clear Method', example15.status());
+			return false;
+		});
+		$('#example-15-clear').on('click', function(){
+			example15.clear();
+			ga('send', 'event', 'Examples', 'Clear Method', 'Clear');
+		});
+
 	}
 }
 
