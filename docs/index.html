@@ -791,7 +791,7 @@
 						<tr>
 							<td rowspan="2"><code>error.</code></td>
 							<td><code>enabled</code></td>
-							<td>False</td>
+							<td>True</td>
 							<td><span class="label label-primary">Boolean</span></td>
 							<td>If true, will show error messages.</td>
 						</tr>
@@ -852,7 +852,7 @@
 					<p>Using the jQuery short method will return the form element rather than jQuery, so you won't be able to call other jQuery methods. If you need to make sure to call the <code>form</code> function at the end.</p>
 				</div>
 
-				<h3 id="methods-validate">Validate <small>( options )</small></h3>
+				<h3 id="methods-validate">Validate <small>( [options] )</small></h3>
 				<table class="table">
 					<tbody>
 						<tr>
@@ -861,7 +861,7 @@
 						</tr>
 						<tr>
 							<th>Params</th>
-							<td><code>options</code> <span class="label label-danger">Object</span> of all the customized options, see full <a href="#options">options list</a>.</td>
+							<td><code>options</code> ( Optional ) <span class="label label-danger">Object</span> of all the customized options, see full <a href="#options">options list</a>.</td>
 						</tr>
 						<tr>
 							<th>Return</th>
@@ -893,7 +893,7 @@
 					</tbody>
 				</table>
 
-				<h3 id="methods-add">Add <small>( handler, error )</small></h3>
+				<h3 id="methods-add">Add <small>( [$field ,] handler [, error] )</small></h3>
 				<table class="table">
 					<tbody>
 						<tr>
@@ -901,14 +901,24 @@
 							<td>Adding a custom validation handler.</td>
 						</tr>
 						<tr>
-							<th rowspan="2">Params</th>
+							<th rowspan="3">Params</th>
+							<td><code>$field</code> ( Optional ) <span class="label label-danger">jQuery Object</span> of the field, this will apply the validation only for this field.</td>
+						</tr>
+						<tr>
 							<td><code>handler</code> <span class="label label-warning">Function</span> that will be fired as part the validation process stack.</td>
 						</tr>
 						<tr>
-							<td><code>error</code> <span class="label label-success">String</span> of error message that will be used if invalid.</td>
+							<td><code>error</code> ( Optional ) <span class="label label-success">String</span> of error message that will be used if invalid.</td>
 						</tr>
 						<tr>
-							<th>Handler Params</th>
+							<th>Return</th>
+							<td><span class="label label-primary">Boolean</span> whether the validation handler added successfully.</td>
+						</tr>
+						<tr>
+							<th rowspan="2">Handler Params</th>
+							<td><code>value</code> of the field.</td>
+						</tr>
+						<tr>
 							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
 						</tr>
 						<tr>
@@ -917,12 +927,24 @@
 						</tr>
 						<tr>
 							<th>Example</th>
-							<td><pre><code class="javascript">myForm.add(function(){ ... });</code></pre></td>
+							<td>
+								<div class="example">
+									<form novalidate="novalidate" id="example-15">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Must be 'Ben'">
+										</div>
+										<button type="submit" class="btn btn-default">Validate</button>
+									</form>
+								</div>
+								<pre class="example"><code class="javascript">myForm.add(function( value ){
+    return ( value === 'Ben' ) ? true : false ;
+}, 'Value is not Ben');</code></pre>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 				
-				<h3 id="methods-get">Get <small>( filter )</small></h3>
+				<h3 id="methods-get">Get <small>( [filter] )</small></h3>
 				<table class="table">
 					<tbody>
 						<tr>
@@ -931,7 +953,7 @@
 						</tr>
 						<tr>
 							<th>Params</th>
-							<td><code>filter</code> <span class="label label-success">String</span> avalible options are: <span class="text-string">"all"</span>, <span class="text-string">"valid"</span> &amp; <span class="text-string">"invalid"</span>.</td>
+							<td><code>filter</code> ( Optional ) <span class="label label-success">String</span> avalible options are: <span class="text-string">"all"</span>, <span class="text-string">"valid"</span>, <span class="text-string">"invalid"</span> &amp; <span class="text-string">"errors"</span>.</td>
 						</tr>
 						<tr>
 							<th>Return</th>
@@ -968,47 +990,47 @@
 				<h3 id="methods-clear">Clear <small>( )</small></h3>
 				<p>Reset all the form fields, for default values use <code>data-default</code> attribute.</p>
 				<div class="example">
-				<form novalidate="novalidate" id="example-15">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
-					</div>
-					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Password" required>
-					</div>
-					<div class="form-group">
-						<input type="range" class="form-control" min="1" max="100" data-min="30" data-max="70" data-default="20">
-					</div>
-					<fieldset min="1" data-default="one">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" value="one">
-								Group option one
-							</label>
+					<form novalidate="novalidate" id="example-16">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
 						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" value="two">
-								Group option two
-							</label>
+						<div class="form-group">
+							<input type="password" class="form-control" placeholder="Password" required>
 						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" value="three">
-								Group option three
-							</label>
+						<div class="form-group">
+							<input type="range" class="form-control" min="1" max="100" data-min="30" data-max="70" data-default="20">
 						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" value="four">
-								Group option four
-							</label>
-						</div>
-					</fieldset>
-					<button type="button" id="example-15-clear" class="btn btn-warning">Clear</button>
-					<button type="submit" class="btn btn-default">Validate</button>
-				</form>
-			</div>
-			<pre class="example"><code class="javascript">$('#btn-reset').on('click', function(){
+						<fieldset min="1" data-default="one">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="one">
+									Group option one
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="two">
+									Group option two
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="three">
+									Group option three
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="four">
+									Group option four
+								</label>
+							</div>
+						</fieldset>
+						<button type="button" id="example-16-clear" class="btn btn-warning">Clear</button>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="javascript">$('#btn-reset').on('click', function(){
     myForm.clear();
 });</code></pre>
 
