@@ -1,5 +1,5 @@
 /*!
-* Form - v2.0.4
+* Form - v2.0.5
 * http://shapiromichael.github.io/Form-JS/
 * Copyright (c) 2015 
 * Licensed MIT
@@ -110,8 +110,17 @@ var form = function( options ){
 
 	};
 
-	this.get = function(){
-		return __.params.fields;
+	this.get = function( filter ){
+
+		switch( filter ){
+			case 'valid':
+				return __.params.fields.not('[error=true]');
+			case 'invalid':
+				return __.params.fields.filter('[error=true]');
+			default:
+				return __.params.fields;
+		}
+		
 	};
 
 	this.set = function(){
