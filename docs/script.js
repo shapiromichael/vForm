@@ -210,13 +210,16 @@ var Demo = {
 		});
 
 		// Example 15 - Add Method
-		var example15 = $('#example-15').vForm( options, function(){
-			example16.validate();
-			console.log('-----> ', example16.get('errors'));
+		var example15 = $('#example-15').vForm( $.extend({}, options, {
+			onErrorMessage: function( $field, message ){
+				$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="form-control-feedback text" aria-hidden="true">' + message + '</span>');
+			}
+		}), function(){
+			example15.validate();
 			ga('send', 'event', 'Examples', 'Add Method', example15.status());
 			return false;
 		});
-		example15.add(function(){
+		example15.add(function( value ){
 			return ( value === 'Ben' ) ? true : false ;
 		}, 'Value is not Ben');
 

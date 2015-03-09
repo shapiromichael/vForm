@@ -925,24 +925,19 @@
 							<th>Handler Return</th>
 							<td><span class="label label-primary">Boolean</span> whether the field is valid.</td>
 						</tr>
-						<tr>
-							<th>Example</th>
-							<td>
-								<div class="example">
-									<form novalidate="novalidate" id="example-15">
-										<div class="form-group">
-											<input type="text" class="form-control" placeholder="Must be 'Ben'">
-										</div>
-										<button type="submit" class="btn btn-default">Validate</button>
-									</form>
-								</div>
-								<pre class="example"><code class="javascript">myForm.add(function( value ){
-    return ( value === 'Ben' ) ? true : false ;
-}, 'Value is not Ben');</code></pre>
-							</td>
-						</tr>
 					</tbody>
 				</table>
+				<div class="example">
+					<form novalidate="novalidate" id="example-15">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Must be 'Ben'">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="javascript">myForm.add(function( value ){
+    return ( value === 'Ben' ) ? true : false ;
+}, 'Value is not Ben');</code></pre>
 				
 				<h3 id="methods-get">Get <small>( [filter] )</small></h3>
 				<table class="table">

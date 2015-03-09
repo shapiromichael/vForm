@@ -1,5 +1,5 @@
 /*!
-* vForm - v2.0.6
+* vForm - v2.0.7
 * http://sinapsa.github.io/vForm/
 * Copyright (c) 2015 
 * Licensed MIT
@@ -15,7 +15,8 @@ var vForm = function( options ){
 			valid: false,
 			defaults: {},
 			params: {},
-			errors: []
+			errors: [],
+			validators: []
 		},
 		defaults = {
 		
@@ -108,11 +109,47 @@ var vForm = function( options ){
 
 	this.add = function(){
 
+		var $field, handler, error, valdator = {};
+
+		// first argument can be $field / handler
+		if( arguments[0] && arguments[0] instanceof jQuery ){
+			$field = arguments[0];
+		}else if( arguments[0] && $.isFunction( arguments[0] ) ){
+			handler = arguments[0];
+		}
+
+		// Second argument can be handler / error
+		if( arguments[1] && $.isFunction( arguments[1] ) ){
+			handler = arguments[1];
+		}else if( arguments[1] && ( typeof arguments[1] === 'string' || arguments[1] instanceof String ) ){
+			error = $.trim( arguments[1] );
+		}
+
+		// Third argument can be only error
+		if( arguments[2] && ( typeof arguments[2] === 'string' || arguments[2] instanceof String ) ){
+			error = $.trim( arguments[2] );
+		}
+
+		if( handler ){
+			valdator.handler = handler;
+
+			if( $field && $field.size() ){ valdator.field = $field; }
+			if( error ){ valdator.error = error; }
+
+			__.validators.push( valdator );
+
+			return true;
+		}else{
+			return false;
+		}
+
 	};
 
 	this.get = function( filter ){
 
 		switch( filter ){
+			case 'errors':
+				return __.errors;
 			case 'valid':
 				return __.params.fields.not('[error=true]');
 			case 'invalid':
@@ -140,6 +177,7 @@ var vForm = function( options ){
 				case 'email':
 				case 'url':
 				case 'range': 
+				case 'password': 
 					value = ( $(this).data('default') ) ? $(this).data('default') : '' ;
 					$(this).val( value );
 					break;
@@ -455,6 +493,16 @@ var vForm = function( options ){
 				if( !isValid ){ _form.error( $this, 'match', 'match' ); }
 			}
 
+			// Custom validators
+			$.each( __.validators, function( index, validator ){
+				if( isValid && ( !validator.field || ( validator.field && $this.is( validator.field ) ) ) ){
+					isValid = ( validator.handler( $this.val(), $this ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, '!', validator.error ); }
+				}
+			});
+
 			// After proccessing a field
 			isValid = _form.on('after', $this, isValid );
 
@@ -473,7 +521,9 @@ var vForm = function( options ){
 				var msg = '';
 
 				// Grab the correct error message
-				if( $this.data( attribute + '-error-msg') ){
+				if( key === '!'){
+					msg = attribute;
+				}else if( $this.data( attribute + '-error-msg') ){
 					msg = $this.data( attribute + '-error-msg');
 				}else if( $this.data('error-msg') ){
 					msg = $this.data('error-msg');
