@@ -25,10 +25,10 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.5</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.7</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
-				<li class="active"><a href="#">jQuery</a></li>
+				<li class="active"><a href="http://sinapsa.github.io/vForm/">jQuery</a></li>
 				<li><a href="#">Angular</a></li>
 				<li><a href="#">Node</a></li>
 			</ul> -->
@@ -50,7 +50,7 @@
 
 				<h3 id="overview-install">Install</h3>
 				<p>Optionally, you can install vForm with bower:</p>
-				<pre><code class="bash">$ bower install vForm</code></pre>
+				<pre><code class="bash">$ bower install vform</code></pre>
 				<p><br />Or download the <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
 			
 				<h3 id="overview-requirements">Requirements</h3>
@@ -58,10 +58,10 @@
 
 				<h3 id="overview-including-files">Including files</h3>
 				<pre><code class="html">&lt;script src="//code.jquery.com/jquery-2.1.3.min.js"&gt;&lt;/script&gt;
-&lt;script src="form.min.js"&gt;&lt;/script&gt;</code></pre>
+&lt;script src="vform.min.js"&gt;&lt;/script&gt;</code></pre>
 
 				<h3 id="overview-how-to">How to use it</h3>
-				<pre><code class="javascript">$('#my-form').form(function( event ){
+				<pre><code class="javascript">$('#my-form').vForm(function( event ){
     return event.data.form.validate();
 });</code></pre>
 
@@ -551,12 +551,12 @@
 				<h1 id="processing" class="page-header">Processing</h1>
 
 				<h3 id="processing-submition">Form Submition</h3>
-				<pre><code class="javascript">$('#my-form').form(function( event ){
+				<pre><code class="javascript">$('#my-form').vForm(function( event ){
     return event.data.form.validate();
 });</code></pre>
 
 				<h3 id="processing-ajax">Ajax</h3>
-				<pre><code class="javascript">var form = $('#my-form').form(function(){
+				<pre><code class="javascript">var form = $('#my-form').vForm(function(){
 
     if( form.validate() ){
         $.post( "test.php", $(this).serialize(), function(){
@@ -842,7 +842,7 @@
     live: 'keyup'
 });</code></pre>
 				<h5>The jQuery way:</h5>
-				<pre><code class="javascript">var myForm = $('form').form({
+				<pre><code class="javascript">var myForm = $('form').vForm({
     feedback: true,
     live: 'keyup'
 });</code></pre>
