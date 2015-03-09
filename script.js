@@ -209,13 +209,27 @@ var Demo = {
 			return false;
 		});
 
-		// Example 15 - Clear Method
-		var example15 = $('#example-15').vForm( options, function(){
+		// Example 15 - Add Method
+		var example15 = $('#example-15').vForm( $.extend({}, options, {
+			onErrorMessage: function( $field, message ){
+				$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="form-control-feedback text" aria-hidden="true">' + message + '</span>');
+			}
+		}), function(){
 			example15.validate();
-			ga('send', 'event', 'Examples', 'Clear Method', example15.status());
+			ga('send', 'event', 'Examples', 'Add Method', example15.status());
 			return false;
 		});
-		$('#example-15-clear').on('click', function(){
+		example15.add(function( value ){
+			return ( value === 'Ben' ) ? true : false ;
+		}, 'Value is not Ben');
+
+		// Example 16 - Clear Method
+		var example16 = $('#example-16').vForm( options, function(){
+			example16.validate();
+			ga('send', 'event', 'Examples', 'Clear Method', example16.status());
+			return false;
+		});
+		$('#example-16-clear').on('click', function(){
 			example15.clear();
 			ga('send', 'event', 'Examples', 'Clear Method', 'Clear');
 		});
