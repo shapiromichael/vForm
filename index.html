@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Form.js</title>
+	<title>vForm</title>
 	
 	<link rel="icon" href="icon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="icon.ico" type="image/x-icon">
@@ -18,7 +18,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.5</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.6</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="#">jQuery</a></li>
@@ -34,7 +34,7 @@
 			<div class="col-md-9" role="main">
 
 				<h1 id="overview" class="page-header">Overview</h1>
-				<p class="lead">Form.js is a form validation library based on the HTML 5 standards.</p>
+				<p class="lead">vForm is a form validation library based on the HTML 5 standards.</p>
 
 				<div class="callout callout-warning">
 					<h4>Disable the browser default errors</h4>
@@ -42,12 +42,12 @@
 				</div>
 
 				<h3 id="overview-install">Install</h3>
-				<p>Optionally, you can install Form.js with bower:</p>
-				<pre><code class="bash">$ bower install form-jquery</code></pre>
-				<p><br />Or download the <a href="https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/shapiromichael/Form-JS/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
+				<p>Optionally, you can install vForm with bower:</p>
+				<pre><code class="bash">$ bower install vForm</code></pre>
+				<p><br />Or download the <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
 			
 				<h3 id="overview-requirements">Requirements</h3>
-				<p>Form.js is working best with <strong>jQuery 2.x</strong>, however it can work well with older version of jQuery as well 1.11.x<br />if you're using an older version - you can run the unit test.</p>
+				<p>vForm is working best with <strong>jQuery 2.x</strong>, however it can work well with older version of jQuery as well 1.11.x<br />if you're using an older version - you can run the unit test.</p>
 
 				<h3 id="overview-including-files">Including files</h3>
 				<pre><code class="html">&lt;script src="//code.jquery.com/jquery-2.1.3.min.js"&gt;&lt;/script&gt;
@@ -59,7 +59,7 @@
 });</code></pre>
 
 				<h3 id="overview-compatibility">Compatibility</h3>
-				<p>Form.js is fully functional on all modern browsers, as well as some old ones such as Internet Explorer 8+. It is also designed to work on touch devices such as mobile phones or tablets.</p>
+				<p>vForm is fully functional on all modern browsers, as well as some old ones such as Internet Explorer 8+. It is also designed to work on touch devices such as mobile phones or tablets.</p>
 
 				<h1 id="validations" class="page-header">Validation Types</h1>
 
@@ -927,6 +927,10 @@
 							<td><code>filter</code> <span class="label label-success">String</span> avalible options are: <span class="text-string">"all"</span>, <span class="text-string">"valid"</span> &amp; <span class="text-string">"invalid"</span>.</td>
 						</tr>
 						<tr>
+							<th>Return</th>
+							<td><span class="label label-info">Array</span> of <span class="label label-danger">jQuery Object</span> of the fields.</td>
+						</tr>
+						<tr>
 							<th>Example</th>
 							<td><pre><code class="javascript">myForm.get('invalid');</code></pre></td>
 						</tr>
@@ -1014,7 +1018,7 @@
 				<h3 id="utilities-test">Test</h3> -->
 
 				<h1 id="license" class="page-header">License <small>MIT</small></h1>
-				<p>Copyright (c) 2015 Michael Shapiro &amp; Sinapsa - R&amp;D Center</p>
+				<p>Copyright (c) 2015 Sinapsa - R&amp;D Center</p>
 				<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 				<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 				<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
@@ -1120,7 +1124,8 @@
 					<a class="back-to-top" href="#top">
 						Back to top
 					</a>
-					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=shapiromichael&amp;repo=Form-JS&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 10px 0 0 20px;"></iframe>
+					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=sinapsa&amp;repo=vForm&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 10px 0 0 20px; float: left; clear: left;"></iframe>
+					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=sinapsa&amp;repo=vForm&amp;type=fork&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 5px 0 0 20px; float: left; clear: left;"></iframe>
 
 				</nav>
 			</div>
@@ -1139,7 +1144,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 
-<script src="../src/form.js"></script>
+<script src="vform.min.js"></script>
 
 <script src="script.js"></script>
 
