@@ -2,8 +2,8 @@
 module.exports = function (grunt) {
 	// Load all grunt tasks
 	require('load-grunt-tasks')(grunt);
-	// Show elapsed time at the end
 	require('time-grunt')(grunt);
+	require('grunt-bump')(grunt);
 
 	// Project configuration.
 	grunt.initConfig({
@@ -86,6 +86,24 @@ module.exports = function (grunt) {
 					hostname: '*',
 					port: 9000
 				}
+			}
+		},
+		bump: {
+			options: {
+				files: ['package.json','bower.json','form.json'],
+				updateConfigs: [],
+				commit: false,
+				commitMessage: 'Release v%VERSION%',
+				commitFiles: ['package.json'],
+				createTag: false,
+				tagName: 'v%VERSION%',
+				tagMessage: 'Version %VERSION%',
+				push: false,
+				pushTo: 'upstream',
+				gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+				globalReplace: false,
+				prereleaseName: false,
+				regExp: false
 			}
 		}
 	});

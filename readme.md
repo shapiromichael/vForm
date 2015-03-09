@@ -25,12 +25,13 @@ if you're using an older version - you can run the unit test.
 ### How to use it
 ```javascript
 $('#my-form').form(function( event ){
-return event.data.form.validate();
+	return event.data.form.validate();
+});
 ```
 
 
 ### Compatibility
-Form.js is fully functional on all modern browsers, as well as some old ones such as Internet Explorer 8+. It is also designed to work on touch devices such as mobile phones or tablets.
+Form.js is fully functional on all modern browsers, as well as some old ones such as IE 8+. It is also designed to work on touch devices such as mobile phones or tablets.
 
 ## License
 

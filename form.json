@@ -1,9 +1,9 @@
 {
 	"name": "form",
 	"title": "Form",
-	"description": "The best jQuery plugin ever.",
-	"version": "2.0.0",
-	"homepage": "",
+	"description": "Form is a validation library based on the HTML 5 standards.",
+	"version": "2.0.3",
+	"homepage": "http://shapiromichael.github.io/Form-JS/",
 	"author": {
 		"name": "Sinapsa - R&D Center",
 		"url": "http://shapiromichael.github.io/Form-JS/"

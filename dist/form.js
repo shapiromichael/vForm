@@ -1,5 +1,5 @@
 /*!
-* Form - v2.0.0
+* Form - v2.0.3
 * http://shapiromichael.github.io/Form-JS/
 * Copyright (c) 2015 
 * Licensed MIT
