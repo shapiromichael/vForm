@@ -1,5 +1,5 @@
 {
-	"name": "vForm",
+	"name": "vform",
 	"version": "2.0.6",
 	"main": "dist/vform.min.js",
 	"ignore": [

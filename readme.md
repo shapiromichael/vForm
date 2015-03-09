@@ -4,12 +4,12 @@
 ### Install
 Optionally, you can install vForm with bower:
 ```shell
-bower install bower install vForm
+bower install bower install vform
 ```
 Or download the [production version][min] / [development version][max].
 
-[min]: https://raw.githubusercontent.com/sinapsa/vForm//master/dist/form.min.js
-[max]: https://raw.githubusercontent.com/sinapsa/vForm//master/dist/form.js
+[min]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.min.js
+[max]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.js
 
 ### Requirements
 vForm is working best with jQuery 2.X, however it can work well with older version of jQuery as well 1.11.x
