@@ -18,7 +18,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.4</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.5</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="#">jQuery</a></li>
@@ -191,7 +191,7 @@
 &lt;input type="password" data-match="password-field"&gt;</code></pre>
 
 				<h3 id="validation-checkboxes">Checkboxes</h3>
-				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes.</p>
+				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes. Note that you can't add <code>required</code> attribute to the <code>&lt;fieldset&gt;</code>, use <code>min="1"</code> instead.</p>
 				<div class="example">
 					<form novalidate="novalidate" id="example-9">
 						<div class="checkbox">
@@ -914,6 +914,24 @@
 						</tr>
 					</tbody>
 				</table>
+				
+				<h3 id="methods-get">Get <small>( filter )</small></h3>
+				<table class="table">
+					<tbody>
+						<tr>
+							<th class="col-md-2">Description</th>
+							<td>Get all the form fields.</td>
+						</tr>
+						<tr>
+							<th>Params</th>
+							<td><code>filter</code> <span class="label label-success">String</span> avalible options are: <span class="text-string">"all"</span>, <span class="text-string">"valid"</span> &amp; <span class="text-string">"invalid"</span>.</td>
+						</tr>
+						<tr>
+							<th>Example</th>
+							<td><pre><code class="javascript">myForm.get('invalid');</code></pre></td>
+						</tr>
+					</tbody>
+				</table>
 
 				<h3 id="methods-set">Set <small>( key, value )</small></h3>
 				<table class="table">
@@ -1075,6 +1093,7 @@
 								<li><a href="#methods-validate">Validate</a></li>
 								<li><a href="#methods-status">Status</a></li>
 								<li><a href="#methods-add">Add</a></li>
+								<li><a href="#methods-get">Get</a></li>
 								<li><a href="#methods-set">Set</a></li>
 								<li><a href="#methods-clear">Clear</a></li>
 							</ul>
@@ -1120,7 +1139,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 
-<script src="form.min.js"></script>
+<script src="../src/form.js"></script>
 
 <script src="script.js"></script>
 
