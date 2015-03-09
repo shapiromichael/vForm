@@ -1,7 +1,7 @@
 {
-	"name": "form-jquery",
-	"version": "2.0.5",
-	"main": "dist/form.min.js",
+	"name": "vForm",
+	"version": "2.0.6",
+	"main": "dist/vform.min.js",
 	"ignore": [
 		".jshintrc",
 		"docs/*",

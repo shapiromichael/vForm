@@ -60,84 +60,84 @@ var Demo = {
 		}
 
 		// Example 1 - Required Fields
-		var example1 = $('#example-1').form( options, function(){
+		var example1 = $('#example-1').vForm( options, function(){
 			example1.validate();
 			ga('send', 'event', 'Examples', 'Required Fields', example1.status());
 			return false;
 		});
 
 		// Example 2 - Required Group
-		var example2 = $('#example-2').form( options, function(){
+		var example2 = $('#example-2').vForm( options, function(){
 			example2.validate();
 			ga('send', 'event', 'Examples', 'Required Group', example2.status());
 			return false;
 		});
 
 		// Example 3 - String
-		var example3 = $('#example-3').form( options, function(){
+		var example3 = $('#example-3').vForm( options, function(){
 			example3.validate();
 			ga('send', 'event', 'Examples', 'String', example3.status());
 			return false;
 		});
 
 		// Example 4 - Numeric
-		var example4 = $('#example-4').form( options, function(){
+		var example4 = $('#example-4').vForm( options, function(){
 			example4.validate();
 			ga('send', 'event', 'Examples', 'Numeric', example4.status());
 			return false;
 		});
 
 		// Example 5 - Email
-		var example5 = $('#example-5').form( options, function(){
+		var example5 = $('#example-5').vForm( options, function(){
 			example5.validate();
 			ga('send', 'event', 'Examples', 'Email', example5.status());
 			return false;
 		});
 
 		// Example 6 - URL
-		var example6 = $('#example-6').form( options, function(){
+		var example6 = $('#example-6').vForm( options, function(){
 			example6.validate();
 			ga('send', 'event', 'Examples', 'URL', example6.status());
 			return false;
 		});
 
 		// Example 7 - Patterns
-		var example7 = $('#example-7').form( options,function(){
+		var example7 = $('#example-7').vForm( options,function(){
 			example7.validate();
 			ga('send', 'event', 'Examples', 'Patterns', example7.status());
 			return false;
 		});
 
 		// Example 8 - Password
-		var example8 = $('#example-8').form( options, function(){
+		var example8 = $('#example-8').vForm( options, function(){
 			example8.validate();
 			ga('send', 'event', 'Examples', 'Password', example8.status());
 			return false;
 		});
 
 		// Example 9 - Checkboxes
-		var example9 = $('#example-9').form( options, function(){
+		var example9 = $('#example-9').vForm( options, function(){
 			example9.validate();
 			ga('send', 'event', 'Examples', 'Checkboxes', example9.status());
 			return false;
 		});
 
 		// Example 10 - Radio Buttons
-		var example10 = $('#example-10').form( options, function(){
+		var example10 = $('#example-10').vForm( options, function(){
 			example10.validate();
 			ga('send', 'event', 'Examples', 'Radio Buttons', example10.status());
 			return false;
 		});
 
 		// Example 11 - Ignored
-		var example11 = $('#example-11').form( options, function(){
+		var example11 = $('#example-11').vForm( options, function(){
 			example11.validate();
 			ga('send', 'event', 'Examples', 'Ignored', example11.status());
 			return false;
 		});
 
 		// Example 12 - Error Messages
-		var example12 = $('#example-12').form( $.extend({}, options, {
+		var example12 = $('#example-12').vForm( $.extend({}, options, {
 			onErrorMessage: function( $field, message ){
 				if( $field.is('[type=checkbox]') ){
 					$field.parents('.checkbox').append('<span class="text-danger form-control-feedback-inline"> - ' + message + '</span>');
@@ -154,7 +154,7 @@ var Demo = {
 		});
 
 		// Example 13 - Summarized Errors
-		var example13 = $('#example-13').form( $.extend({}, options, {
+		var example13 = $('#example-13').vForm( $.extend({}, options, {
 			feedback: {
 				enabled: false
 			},
@@ -201,7 +201,7 @@ var Demo = {
 		});
 
 		// Example 14 - Live Validation
-		var example14 = $('#example-14').form( $.extend({}, options, {
+		var example14 = $('#example-14').vForm( $.extend({}, options, {
 			live: 'keyup'
 		}), function(){
 			example14.validate();
@@ -210,7 +210,7 @@ var Demo = {
 		});
 
 		// Example 15 - Clear Method
-		var example15 = $('#example-15').form( options, function(){
+		var example15 = $('#example-15').vForm( options, function(){
 			example15.validate();
 			ga('send', 'event', 'Examples', 'Clear Method', example15.status());
 			return false;

@@ -9,7 +9,7 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		// Metadata.
 		pkg: grunt.file.readJSON('package.json'),
-		banner: '/*!\n* Form - v<%= pkg.version %>\n' +
+		banner: '/*!\n* vForm - v<%= pkg.version %>\n' +
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
 			'* Licensed MIT\n*/\n',

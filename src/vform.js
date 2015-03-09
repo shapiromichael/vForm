@@ -1,6 +1,6 @@
 'use stict';
 
-var form = function( options ){
+var vForm = function( options ){
 
 	var $ = jQuery,
 		self = this,
@@ -502,7 +502,7 @@ var form = function( options ){
 (function($) {
 	
 	// Collection method.
-	$.fn.form = function( options, submit ){
+	$.fn.vForm = function( options, submit ){
 
 		var result = [];
 
@@ -519,7 +519,7 @@ var form = function( options ){
 				params.fields = $( params.fields, $this );
 			}
 
-			var _form = new form( params );
+			var _form = new vForm( params );
 			result.push( _form );
 
 			// novalidate
