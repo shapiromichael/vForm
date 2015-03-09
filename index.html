@@ -54,7 +54,7 @@
 &lt;script src="form.min.js"&gt;&lt;/script&gt;</code></pre>
 
 				<h3 id="overview-how-to">How to use it</h3>
-				<pre><code class="javascript">$('#my-form').form(function( event ){
+				<pre><code class="javascript">$('#my-form').vForm(function( event ){
     return event.data.form.validate();
 });</code></pre>
 
@@ -544,12 +544,12 @@
 				<h1 id="processing" class="page-header">Processing</h1>
 
 				<h3 id="processing-submition">Form Submition</h3>
-				<pre><code class="javascript">$('#my-form').form(function( event ){
+				<pre><code class="javascript">$('#my-form').vForm(function( event ){
     return event.data.form.validate();
 });</code></pre>
 
 				<h3 id="processing-ajax">Ajax</h3>
-				<pre><code class="javascript">var form = $('#my-form').form(function(){
+				<pre><code class="javascript">var form = $('#my-form').vForm(function(){
 
     if( form.validate() ){
         $.post( "test.php", $(this).serialize(), function(){
@@ -830,12 +830,12 @@
 				<h3 id="methods-create">Create <small>( options [, onSubmit ] )</small></h3>
 				<p>Form is highly configurable library. Features can be enabled, disabled or customised to meet your exact needs for your form implementation. Customisation of these options are performed by defining options in the constructor, <a href="#options">see all options list</a>.</p>
 				<h5>The native way:</h5>
-				<pre><code class="javascript">var myForm = new form({
+				<pre><code class="javascript">var myForm = new vForm({
     feedback: true,
     live: 'keyup'
 });</code></pre>
 				<h5>The jQuery way:</h5>
-				<pre><code class="javascript">var myForm = $('form').form({
+				<pre><code class="javascript">var myForm = $('form').vForm({
     feedback: true,
     live: 'keyup'
 });</code></pre>

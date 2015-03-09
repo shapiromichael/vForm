@@ -19,16 +19,20 @@ if you're using an older version - you can run the unit test.
 
 ```html
 <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-<script src="form.min.js"></script>
+<script src="vform.min.js"></script>
 ```
 
 ### How to use it
 ```javascript
-$('#my-form').form(function( event ){
+$('#my-form').vForm(function( event ){
 	return event.data.form.validate();
 });
 ```
 
+### Documentation
+See the full [documentation & examples][min].
+
+[docs]: http://sinapsa.github.io/vForm/
 
 ### Compatibility
 vForm is fully functional on all modern browsers, as well as some old ones such as IE 8+. It is also designed to work on touch devices such as mobile phones or tablets.
