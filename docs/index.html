@@ -49,6 +49,11 @@
 				</div>
 
 				<h3 id="overview-install">Install</h3>
+				<p>
+					<a href="https://github.com/sinapsa/vForm" target="_blank" class="btn btn-primary">Get vForm</a>
+					<a href="https://github.com/sinapsa/vForm/fork" target="_blank" class="btn btn-default">Fork on GitHub</a>
+				</p>
+				
 				<p>Optionally, you can install vForm with bower:</p>
 				<pre><code class="bash">$ bower install vform</code></pre>
 				<p><br />Or download the <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
@@ -145,19 +150,23 @@
 &lt;input type="range" min="1" max="100" data-min="30" data-max="70"&gt; &lt;!-- Between 30 to 70 characters --&gt;</code></pre>
 				
 				<h3 id="validation-email">Email</h3>
-				<p>To validate an email field just make sure that <code>type="email"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<p>To validate an email field just make sure that <code>type="email"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
 					<form novalidate="novalidate" id="example-5">
 						<div class="form-group">
-							<input type="email" class="form-control" placeholder="Required email field" required>
+							<input type="email" class="form-control" placeholder="email@address.com" required>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="email@address" pattern="\S+@\S+" required>
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="email" required&gt;</code></pre>
+				<pre class="example"><code class="html">&lt;input type="email" required&gt;
+&lt;input type="email" pattern="\S+@\S+" required&gt; &lt;!-- Use custom pattern --&gt;</code></pre>
 
 				<h3 id="validation-url">URL</h3>
-				<p>To validate a URL field just make sure that <code>type="url"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<p>To validate a URL field just make sure that <code>type="url"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
 					<form novalidate="novalidate" id="example-6">
 						<div class="form-group">

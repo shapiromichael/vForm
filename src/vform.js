@@ -154,8 +154,13 @@ var vForm = function( options ){
 		
 	};
 
-	this.set = function(){
-
+	this.set = function( key, value ){
+		if( key && __.params[ key ] && typeof __.params[ key ] === typeof value ){
+			__.params[ key ] = value;
+			return true;
+		}else{
+			return false;
+		}
 	};
 
 	this.clear = function(){
@@ -351,7 +356,7 @@ var vForm = function( options ){
 			if( $this.val() ){
 
 				// Validate email content type
-				if( isValid && $this.is('input[type=email]') ){
+				if( isValid && $this.is('input[type=email]:not([pattern])') ){
 					_form.convert.toLower( $this );
 					isValid = ( isValid && _form.check.email( $this.val() ) ) ? true : false ;
 
@@ -360,7 +365,7 @@ var vForm = function( options ){
 				}
 
 				// Validate url content type
-				if( isValid && $this.is('input[type=url]') ){
+				if( isValid && $this.is('input[type=url]:not([pattern])') ){
 					isValid = ( isValid && _form.check.url( $this.val() ) ) ? true : false ;
 
 					// Handle errors
