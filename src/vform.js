@@ -248,6 +248,9 @@ var vForm = function( options ){
 			},
 			url: function( value ){
 				return /^(?:http|ftp)s?:\/\/(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::\d+)?(?:\/?|[\/?]\S+)$/gi.test( value );
+			},
+			color: function( value ){
+				return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test( value );
 			}
 		},
 		convert: {
@@ -370,6 +373,14 @@ var vForm = function( options ){
 
 					// Handle errors
 					if( !isValid ){ _form.error( $this, 'url', 'url' ); }
+				}
+
+				// Validate color content type
+				if( isValid && $this.is('input[type=color]:not([pattern])') ){
+					isValid = ( isValid && _form.check.color( $this.val() ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'color', 'color' ); }
 				}
 
 				// Validate pattern defined content

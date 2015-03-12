@@ -25,7 +25,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.7</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.8</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="http://sinapsa.github.io/vForm/">jQuery</a></li>
@@ -176,11 +176,23 @@
 					</form>
 				</div>
 				<pre class="example"><code class="html">&lt;input type="url"&gt;</code></pre>
+
+				<h3 id="validation-color">Color</h3>
+				<p>To validate a color field just make sure that <code>type="color"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-7">
+						<div class="form-group">
+							<input type="color" class="form-control" placeholder="Color field">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="color"&gt;</code></pre>
 				
 				<h3 id="validation-patterns">Patterns</h3>
 				<p>To validate a regex pattern just use the <code>pattern</code> attribute. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-7">
+					<form novalidate="novalidate" id="example-8">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="(123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}">
 						</div>
@@ -193,12 +205,12 @@
 				<h3 id="validation-password">Password</h3>
 				<p>You can use the <code>min</code> or <code>pattern</code> attribute to validate the password, and <code>data-match</code> attribute to validation the password confirmation. Note that <code>data-match</code> should contain the original password field <code>id</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-8">
+					<form novalidate="novalidate" id="example-9">
 						<div class="form-group">
-							<input type="password" class="form-control" id="example-8-password-field" placeholder="Password" required>
+							<input type="password" class="form-control" id="example-9-password-field" placeholder="Password" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-8-password-field">
+							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-9-password-field">
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
@@ -209,7 +221,7 @@
 				<h3 id="validation-checkboxes">Checkboxes</h3>
 				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes. Note that you can't add <code>required</code> attribute to the <code>&lt;fieldset&gt;</code>, use <code>min="1"</code> instead.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-9">
+					<form novalidate="novalidate" id="example-10">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" required>
@@ -277,23 +289,23 @@
 				<h3 id="validation-radio">Radio Buttons</h3>
 				<p>Radios can be validated only by group, for that wrap them with <code>&lt;fieldset&gt;</code>, you can only add <code>required</code> attribute to this <code>&lt;fieldset&gt;</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-10">
+					<form novalidate="novalidate" id="example-11">
 						<fieldset required>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-10">
+									<input type="radio" name="radio-11">
 									Option one
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-10">
+									<input type="radio" name="radio-11">
 									Option two
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-10">
+									<input type="radio" name="radio-11">
 									Option three
 								</label>
 							</div>
@@ -330,7 +342,7 @@
 				<h3 id="validation-ignored">Ignored</h3>
 				<p>Disabled fields are being ignored, however you can also add <code>data-ignore="true"</code> to manually ignore fields from being validated.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-11">
+					<form novalidate="novalidate" id="example-12">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Disabled field" disabled>
 						</div>
@@ -413,6 +425,12 @@
 							<td><span class="label label-default">None</span></td>
 						</tr>
 						<tr>
+							<th>Color</th>
+							<td><code>color</code></td>
+							<td><code>data-color-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
 							<th>Pattern</th>
 							<td><code>pattern</code></td>
 							<td><code>data-pattern-error-msg</code></td>
@@ -440,7 +458,7 @@
 				</table>
 
 				<div class="example">
-					<form novalidate="novalidate" id="example-12">
+					<form novalidate="novalidate" id="example-13">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" min="3" required data-required-error-msg="Enter name" data-min-error-msg="At least 3 characters">
 						</div>
@@ -467,7 +485,7 @@
 				<p>Summarized errors are gathered together and can be shown above the form.</p>
 				<div class="example">
 					<div id="example-13-errors"></div>
-					<form novalidate="novalidate" id="example-13">
+					<form novalidate="novalidate" id="example-14">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" required data-required-error-msg="Please enter the name">
 						</div>
@@ -483,13 +501,13 @@
 						<fieldset required data-required-error-msg="Please select the gender">
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-13">
+									<input type="radio" name="radio-14">
 									Male
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-13">
+									<input type="radio" name="radio-14">
 									Female
 								</label>
 							</div>
@@ -517,7 +535,7 @@
 				<h1 id="live" class="page-header">Live Validation</h1>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-14">
+					<form novalidate="novalidate" id="example-15">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="First Name" required>
 						</div>
@@ -937,7 +955,7 @@
 					</tbody>
 				</table>
 				<div class="example">
-					<form novalidate="novalidate" id="example-15">
+					<form novalidate="novalidate" id="example-16">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Must be 'Ben'">
 						</div>
@@ -994,7 +1012,7 @@
 				<h3 id="methods-clear">Clear <small>( )</small></h3>
 				<p>Reset all the form fields, for default values use <code>data-default</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-16">
+					<form novalidate="novalidate" id="example-17">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
 						</div>
@@ -1080,6 +1098,7 @@
 								<li><a href="#validation-numeric">Numeric</a></li>
 								<li><a href="#validation-email">Email</a></li>
 								<li><a href="#validation-url">URL</a></li>
+								<li><a href="#validation-color">Color</a></li>
 								<li><a href="#validation-patterns">Patterns</a></li>
 								<li><a href="#validation-password">Password</a></li>
 								<li><a href="#validation-checkboxes">Checkboxes</a></li>
