@@ -25,7 +25,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.7</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.9</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="http://sinapsa.github.io/vForm/">jQuery</a></li>
@@ -49,6 +49,11 @@
 				</div>
 
 				<h3 id="overview-install">Install</h3>
+				<p>
+					<a href="https://github.com/sinapsa/vForm" target="_blank" class="btn btn-primary">Get vForm</a>
+					<a href="https://github.com/sinapsa/vForm/fork" target="_blank" class="btn btn-default">Fork on GitHub</a>
+				</p>
+				
 				<p>Optionally, you can install vForm with bower:</p>
 				<pre><code class="bash">$ bower install vform</code></pre>
 				<p><br />Or download the <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
@@ -68,7 +73,7 @@
 				<h3 id="overview-compatibility">Compatibility</h3>
 				<p>vForm is fully functional on all modern browsers, as well as some old ones such as Internet Explorer 8+. It is also designed to work on touch devices such as mobile phones or tablets.</p>
 
-				<h1 id="validations" class="page-header">Validation Types</h1>
+				<h1 id="validations" class="page-header">Validations</h1>
 
 				<h3 id="validation-required">Required Fields</h3>
 				<p>To validate the field has a value add a <code>required</code> attribute.</p>
@@ -145,19 +150,23 @@
 &lt;input type="range" min="1" max="100" data-min="30" data-max="70"&gt; &lt;!-- Between 30 to 70 characters --&gt;</code></pre>
 				
 				<h3 id="validation-email">Email</h3>
-				<p>To validate an email field just make sure that <code>type="email"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<p>To validate an email field just make sure that <code>type="email"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
 					<form novalidate="novalidate" id="example-5">
 						<div class="form-group">
-							<input type="email" class="form-control" placeholder="Required email field" required>
+							<input type="email" class="form-control" placeholder="email@address.com" required>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="email@address" pattern="\S+@\S+" required>
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="email" required&gt;</code></pre>
+				<pre class="example"><code class="html">&lt;input type="email" required&gt;
+&lt;input type="email" pattern="\S+@\S+" required&gt; &lt;!-- Use custom pattern --&gt;</code></pre>
 
 				<h3 id="validation-url">URL</h3>
-				<p>To validate a URL field just make sure that <code>type="url"</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<p>To validate a URL field just make sure that <code>type="url"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
 					<form novalidate="novalidate" id="example-6">
 						<div class="form-group">
@@ -167,11 +176,57 @@
 					</form>
 				</div>
 				<pre class="example"><code class="html">&lt;input type="url"&gt;</code></pre>
+
+				<h3 id="validation-ip">IP Address</h3>
+				<p>To validate a IP address (v4 only) field just add <code>data-validate="ip"</code>. Validating IP address is only avalible for <code>text</code> &amp; <code>url</code> input types. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-7">
+						<div class="form-group">
+							<input type="url" class="form-control" placeholder="198.12.3.142" data-validate="ip">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="url" data-validate="ip"&gt;</code></pre>
+
+				<h3 id="validation-credit">Credit Card</h3>
+				<p>To validate a crecit card number you'll need to add <code>data-validate="credit-card"</code> and make sure to use <code>text</code> or <code>number</code> input types. vForm support those credit cards: <code>Visa</code>, <code>MasterCard</code>, <code>Discover</code>, <code>American Express</code>, <code>Diners Club</code>, <code>JCB</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-8" class="form-inline">
+						<p>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Credit Card No'" data-validate="credit-card" required>
+							</div>
+							<div class="form-group">
+								<input type="number" class="form-control" placeholder="CVV" min="99" max="999">
+							</div>
+						</p>
+						<button type="submit" class="btn btn-default">Validate</button>	
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="text" data-validate="credit-card"&gt;
+&lt;input type="number" min="99" max="999"&gt;</code></pre>
+				<div class="callout callout-warning">
+					<h4>Local validation only!</h4>
+					<p>vForm will only validate the credit card localy, it dose not confirm the correct validity of the credit card information with a bank or any 3rd party authority.</p>
+				</div>
+
+				<h3 id="validation-color">Color</h3>
+				<p>To validate a color field just make sure that <code>type="color"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
+				<div class="example">
+					<form novalidate="novalidate" id="example-9">
+						<div class="form-group">
+							<input type="color" class="form-control" placeholder="Color field">
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;input type="color"&gt;</code></pre>
 				
 				<h3 id="validation-patterns">Patterns</h3>
 				<p>To validate a regex pattern just use the <code>pattern</code> attribute. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-7">
+					<form novalidate="novalidate" id="example-10">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="(123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}">
 						</div>
@@ -184,12 +239,12 @@
 				<h3 id="validation-password">Password</h3>
 				<p>You can use the <code>min</code> or <code>pattern</code> attribute to validate the password, and <code>data-match</code> attribute to validation the password confirmation. Note that <code>data-match</code> should contain the original password field <code>id</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-8">
+					<form novalidate="novalidate" id="example-11">
 						<div class="form-group">
-							<input type="password" class="form-control" id="example-8-password-field" placeholder="Password" required>
+							<input type="password" class="form-control" id="example-11-password-field" placeholder="Password" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-8-password-field">
+							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-11-password-field">
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
@@ -200,7 +255,7 @@
 				<h3 id="validation-checkboxes">Checkboxes</h3>
 				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes. Note that you can't add <code>required</code> attribute to the <code>&lt;fieldset&gt;</code>, use <code>min="1"</code> instead.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-9">
+					<form novalidate="novalidate" id="example-12">
 						<div class="checkbox">
 							<label>
 								<input type="checkbox" required>
@@ -268,23 +323,23 @@
 				<h3 id="validation-radio">Radio Buttons</h3>
 				<p>Radios can be validated only by group, for that wrap them with <code>&lt;fieldset&gt;</code>, you can only add <code>required</code> attribute to this <code>&lt;fieldset&gt;</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-10">
+					<form novalidate="novalidate" id="example-13">
 						<fieldset required>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-10">
+									<input type="radio" name="radio-13">
 									Option one
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-10">
+									<input type="radio" name="radio-13">
 									Option two
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-10">
+									<input type="radio" name="radio-13">
 									Option three
 								</label>
 							</div>
@@ -321,7 +376,7 @@
 				<h3 id="validation-ignored">Ignored</h3>
 				<p>Disabled fields are being ignored, however you can also add <code>data-ignore="true"</code> to manually ignore fields from being validated.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-11">
+					<form novalidate="novalidate" id="example-14">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Disabled field" disabled>
 						</div>
@@ -404,6 +459,24 @@
 							<td><span class="label label-default">None</span></td>
 						</tr>
 						<tr>
+							<th>IP Address</th>
+							<td><code>ip</code></td>
+							<td><code>data-ip-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Credit Card</th>
+							<td><code>credit</code></td>
+							<td><code>data-cc-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
+							<th>Color</th>
+							<td><code>color</code></td>
+							<td><code>data-color-error-msg</code></td>
+							<td><span class="label label-default">None</span></td>
+						</tr>
+						<tr>
 							<th>Pattern</th>
 							<td><code>pattern</code></td>
 							<td><code>data-pattern-error-msg</code></td>
@@ -431,7 +504,7 @@
 				</table>
 
 				<div class="example">
-					<form novalidate="novalidate" id="example-12">
+					<form novalidate="novalidate" id="example-15">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" min="3" required data-required-error-msg="Enter name" data-min-error-msg="At least 3 characters">
 						</div>
@@ -458,7 +531,7 @@
 				<p>Summarized errors are gathered together and can be shown above the form.</p>
 				<div class="example">
 					<div id="example-13-errors"></div>
-					<form novalidate="novalidate" id="example-13">
+					<form novalidate="novalidate" id="example-16">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" required data-required-error-msg="Please enter the name">
 						</div>
@@ -474,13 +547,13 @@
 						<fieldset required data-required-error-msg="Please select the gender">
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-13">
+									<input type="radio" name="radio-16">
 									Male
 								</label>
 							</div>
 							<div class="radio">
 								<label>
-									<input type="radio" name="radio-13">
+									<input type="radio" name="radio-16">
 									Female
 								</label>
 							</div>
@@ -508,7 +581,7 @@
 				<h1 id="live" class="page-header">Live Validation</h1>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-14">
+					<form novalidate="novalidate" id="example-17">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="First Name" required>
 						</div>
@@ -777,6 +850,12 @@
 							<td>If true, each field will get trimed before processing the validation.</td>
 						</tr>
 						<tr>
+							<td colspan="2"><code>html</code></td>
+							<td>False</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, will allow HTML tags, other wise will esace HTML before validation.</td>
+						</tr>
+						<tr>
 							<td colspan="2"><code>focus</code></td>
 							<td>False</td>
 							<td><span class="label label-primary">Boolean</span></td>
@@ -813,6 +892,7 @@
 				<pre><code class="javascript">{
     fields: "input, textarea, select",
     trim: true,
+    html: false,
     focus: false,
     live: false,
     error: {
@@ -928,7 +1008,7 @@
 					</tbody>
 				</table>
 				<div class="example">
-					<form novalidate="novalidate" id="example-15">
+					<form novalidate="novalidate" id="example-18">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Must be 'Ben'">
 						</div>
@@ -985,7 +1065,7 @@
 				<h3 id="methods-clear">Clear <small>( )</small></h3>
 				<p>Reset all the form fields, for default values use <code>data-default</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-16">
+					<form novalidate="novalidate" id="example-19">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
 						</div>
@@ -1063,7 +1143,7 @@
 							</ul>
 						</li>
 						<li>
-							<a href="#validations">Validation Types</a>
+							<a href="#validations">Validations</a>
 							<ul class="nav">
 								<li><a href="#validation-required">Required Fields</a></li>
 								<li><a href="#validation-required-group">Required Group</a></li>
@@ -1071,6 +1151,9 @@
 								<li><a href="#validation-numeric">Numeric</a></li>
 								<li><a href="#validation-email">Email</a></li>
 								<li><a href="#validation-url">URL</a></li>
+								<li><a href="#validation-ip">IP Address</a></li>
+								<li><a href="#validation-credit">Credit Card</a></li>
+								<li><a href="#validation-color">Color</a></li>
 								<li><a href="#validation-patterns">Patterns</a></li>
 								<li><a href="#validation-password">Password</a></li>
 								<li><a href="#validation-checkboxes">Checkboxes</a></li>
