@@ -249,6 +249,12 @@ var vForm = function( options ){
 			url: function( value ){
 				return /^(?:http|ftp)s?:\/\/(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::\d+)?(?:\/?|[\/?]\S+)$/gi.test( value );
 			},
+			ip: function( value ){
+				return /^(?:(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])$/.test( value );
+			},
+			creditcard: function( value ){
+				return /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.exec( value );
+			},
 			color: function( value ){
 				return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test( value );
 			}
@@ -358,7 +364,7 @@ var vForm = function( options ){
 			
 			if( $this.val() ){
 
-				// Validate email content type
+				// Validate email
 				if( isValid && $this.is('input[type=email]:not([pattern])') ){
 					_form.convert.toLower( $this );
 					isValid = ( isValid && _form.check.email( $this.val() ) ) ? true : false ;
@@ -367,15 +373,51 @@ var vForm = function( options ){
 					if( !isValid ){ _form.error( $this, 'email', 'email' ); }
 				}
 
-				// Validate url content type
-				if( isValid && $this.is('input[type=url]:not([pattern])') ){
+				// Validate URL
+				if( isValid && $this.is('input[type=url]:not([pattern]):not([data-validate="ip"])') ){
 					isValid = ( isValid && _form.check.url( $this.val() ) ) ? true : false ;
 
 					// Handle errors
 					if( !isValid ){ _form.error( $this, 'url', 'url' ); }
 				}
 
-				// Validate color content type
+				// Validate IP address
+				if( isValid && ($this.is('input[type=text][data-validate="ip"]:not([pattern])') || $this.is('input[type=url][data-validate="ip"]:not([pattern])')) ){
+					isValid = ( isValid && _form.check.ip( $this.val() ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'ip', 'ip' ); }
+				}
+
+				// Validate credit card
+				if( isValid && ($this.is('input[type=text][data-validate="credit-card"]:not([pattern])') || $this.is('input[type=number][data-validate="credit-card"]:not([pattern])')) ){
+					var cardnumber = ($this.val()).replace(/[ -]/g, '');
+
+					if( __.params.trim ){ $this.val( cardnumber ); }
+
+					var check = _form.check.creditcard( cardnumber );
+					var types = ['Visa', 'MasterCard', 'Discover', 'American Express','Diners Club', 'JCB'];
+
+					if( isValid && check ){ 
+						for(var i = 1; i < check.length; i++) {
+							if(check[i]) {
+								isValid = true;
+								$this.attr('data-crefit-type', types[i-1]);
+								break;
+							}else{
+								$this.removeAttr('data-crefit-type');
+								isValid = false;
+							}
+						}
+					}else{
+						isValid = false;
+					}
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'credit', 'cc' ); }
+				}
+
+				// Validate color
 				if( isValid && $this.is('input[type=color]:not([pattern])') ){
 					isValid = ( isValid && _form.check.color( $this.val() ) ) ? true : false ;
 
@@ -479,7 +521,7 @@ var vForm = function( options ){
 				
 			}
 
-			// Validate required radio button
+			// Validate required radio buttons
 			if( isValid && $this.is('input[type=radio][required]') ){
 				isValid = ( isValid && $this.is(':checked') ) ? true : false ;
 

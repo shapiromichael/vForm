@@ -101,50 +101,64 @@ var Demo = {
 			return false;
 		});
 
-		// Example 7 - Color
+		// Example 7 - IP Address
 		var example7 = $('#example-7').vForm( options, function(){
 			example7.validate();
-			ga('send', 'event', 'Examples', 'Color', example7.status());
+			ga('send', 'event', 'Examples', 'IP Address', example7.status());
 			return false;
 		});
 
-		// Example 8 - Patterns
-		var example8 = $('#example-8').vForm( options,function(){
+		// Example 8 - Credit Card
+		var example8 = $('#example-8').vForm( options, function(){
 			example8.validate();
-			ga('send', 'event', 'Examples', 'Patterns', example8.status());
+			ga('send', 'event', 'Examples', 'Credit Card', example8.status());
 			return false;
 		});
 
-		// Example 9 - Password
+		// Example 9 - Color
 		var example9 = $('#example-9').vForm( options, function(){
 			example9.validate();
-			ga('send', 'event', 'Examples', 'Password', example9.status());
+			ga('send', 'event', 'Examples', 'Color', example9.status());
 			return false;
 		});
 
-		// Example 10 - Checkboxes
-		var example10 = $('#example-10').vForm( options, function(){
+		// Example 10 - Patterns
+		var example10 = $('#example-10').vForm( options,function(){
 			example10.validate();
-			ga('send', 'event', 'Examples', 'Checkboxes', example10.status());
+			ga('send', 'event', 'Examples', 'Patterns', example10.status());
 			return false;
 		});
 
-		// Example 11 - Radio Buttons
+		// Example 11 - Password
 		var example11 = $('#example-11').vForm( options, function(){
 			example11.validate();
-			ga('send', 'event', 'Examples', 'Radio Buttons', example11.status());
+			ga('send', 'event', 'Examples', 'Password', example11.status());
 			return false;
 		});
 
-		// Example 12 - Ignored
+		// Example 12 - Checkboxes
 		var example12 = $('#example-12').vForm( options, function(){
 			example12.validate();
-			ga('send', 'event', 'Examples', 'Ignored', example12.status());
+			ga('send', 'event', 'Examples', 'Checkboxes', example12.status());
 			return false;
 		});
 
-		// Example 13 - Error Messages
-		var example13 = $('#example-13').vForm( $.extend({}, options, {
+		// Example 13 - Radio Buttons
+		var example13 = $('#example-13').vForm( options, function(){
+			example13.validate();
+			ga('send', 'event', 'Examples', 'Radio Buttons', example13.status());
+			return false;
+		});
+
+		// Example 14 - Ignored
+		var example14 = $('#example-14').vForm( options, function(){
+			example14.validate();
+			ga('send', 'event', 'Examples', 'Ignored', example14.status());
+			return false;
+		});
+
+		// Example 15 - Error Messages
+		var example15 = $('#example-15').vForm( $.extend({}, options, {
 			onErrorMessage: function( $field, message ){
 				if( $field.is('[type=checkbox]') ){
 					$field.parents('.checkbox').append('<span class="text-danger form-control-feedback-inline"> - ' + message + '</span>');
@@ -155,13 +169,13 @@ var Demo = {
 				return "";
 			}
 		}), function(){
-			example13.validate();
-			ga('send', 'event', 'Examples', 'Error Messages', example13.status());
+			example15.validate();
+			ga('send', 'event', 'Examples', 'Error Messages', example15.status());
 			return false;
 		});
 
-		// Example 14 - Summarized Errors
-		var example14 = $('#example-14').vForm( $.extend({}, options, {
+		// Example 16 - Summarized Errors
+		var example16 = $('#example-16').vForm( $.extend({}, options, {
 			feedback: {
 				enabled: false
 			},
@@ -169,7 +183,7 @@ var Demo = {
 
 				var $form = $( fields[0] ).parents('form');
 
-				$('#example-14-errors').html('');
+				$('#example-16-errors').html('');
 				$form.find('.form-feedback, .form-control-feedback, .form-control-feedback-inline').remove();
 				$form.find('.has-error, .has-success').removeClass('has-error has-success');
 				
@@ -179,7 +193,7 @@ var Demo = {
 
 				var $form = $( fields[0] ).parents('form'),
 					$btn = $form.find('button[type=submit]'),
-					$container = $('#example-14-errors'),
+					$container = $('#example-16-errors'),
 					html = '';
 
 				if( messages.length ){
@@ -202,42 +216,42 @@ var Demo = {
 				return message;
 			}
 		}), function(){
-			example14.validate();
-			ga('send', 'event', 'Examples', 'Summarized Errors', example14.status());
+			example16.validate();
+			ga('send', 'event', 'Examples', 'Summarized Errors', example16.status());
 			return false;
 		});
 
-		// Example 15 - Live Validation
-		var example15 = $('#example-15').vForm( $.extend({}, options, {
+		// Example 17 - Live Validation
+		var example17 = $('#example-17').vForm( $.extend({}, options, {
 			live: 'keyup'
 		}), function(){
-			example15.validate();
-			ga('send', 'event', 'Examples', 'Live Validation', example15.status());
+			example17.validate();
+			ga('send', 'event', 'Examples', 'Live Validation', example17.status());
 			return false;
 		});
 
-		// Example 17 - Add Method
-		var example16 = $('#example-16').vForm( $.extend({}, options, {
+		// Example 18 - Add Method
+		var example18 = $('#example-18').vForm( $.extend({}, options, {
 			onErrorMessage: function( $field, message ){
 				$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="form-control-feedback text" aria-hidden="true">' + message + '</span>');
 			}
 		}), function(){
-			example16.validate();
-			ga('send', 'event', 'Examples', 'Add Method', example16.status());
+			example18.validate();
+			ga('send', 'event', 'Examples', 'Add Method', example18.status());
 			return false;
 		});
-		example16.add(function( value ){
+		example18.add(function( value ){
 			return ( value === 'Ben' ) ? true : false ;
 		}, 'Value is not Ben');
 
-		// Example 17 - Clear Method
-		var example17 = $('#example-17').vForm( options, function(){
-			example17.validate();
-			ga('send', 'event', 'Examples', 'Clear Method', example17.status());
+		// Example 19 - Clear Method
+		var example19 = $('#example-19').vForm( options, function(){
+			example19.validate();
+			ga('send', 'event', 'Examples', 'Clear Method', example19.status());
 			return false;
 		});
-		$('#example-17-clear').on('click', function(){
-			example17.clear();
+		$('#example-19-clear').on('click', function(){
+			example19.clear();
 			ga('send', 'event', 'Examples', 'Clear Method', 'Clear');
 		});
 

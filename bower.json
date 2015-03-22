@@ -1,6 +1,6 @@
 {
 	"name": "vform",
-	"version": "2.0.8",
+	"version": "2.0.9",
 	"main": "dist/vform.min.js",
 	"ignore": [
 		".jshintrc",
