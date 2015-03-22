@@ -17,6 +17,7 @@ var vForm = function( options ){
 			// General
 			fields: 'input, textarea, select',
 			trim: true,
+			html: false,
 			focus: false,
 			live: '',
 			error: {
@@ -60,24 +61,31 @@ var vForm = function( options ){
 
 				if( _form.on('begin', __.params.fields ) ){
 					
+					var fields = __.params.fields.filter('input:not([trim=false]), textarea:not([trim=false])');
+
+					// Escape HTML string
+					if( !__.params.html ){
+						fields.each( _form.escape.fhtml );
+					}
+
 					// Trim content
 					if( __.params.trim ){
-						__.params.fields.filter('input:not([trim=false]), textarea:not([trim=false])').each( _form.trim );
+						fields.each( _form.trim );
 					}
 
 					// Process the validations
-					__.params.fields.each(function(){
+					fields.each(function(){
 						if( _form.on('before', $(this) ) ){
 							_form.process( $(this) );
 						}
 					});
 
 					// Compleate validation
-					if( __.params.fields.filter('[error=true]').size() ){
+					if( fields.filter('[error=true]').size() ){
 						
 						// Auto focus on the first error occured
 						if( __.params.focus ){
-							__.params.fields.filter('[error=true]:first').focus();
+							fields.filter('[error=true]:first').focus();
 						}
 
 						_form.set.invalid();
@@ -331,6 +339,12 @@ var vForm = function( options ){
 		trim: function(){
 			var $this = $(this);
 			$this.val( $.trim( $this.val() ) );
+		},
+		escape: {
+			html: function(){
+				var $this = $(this);
+				$this.val( ( $this.val() ).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;') );
+			}
 		},
 		process: function( $this ){
 

@@ -1,5 +1,5 @@
 /*!
-* vForm - v2.0.8
+* vForm - v2.0.9
 * http://sinapsa.github.io/vForm/
 * Copyright (c) 2015 
 * Licensed MIT
@@ -23,6 +23,7 @@ var vForm = function( options ){
 			// General
 			fields: 'input, textarea, select',
 			trim: true,
+			html: false,
 			focus: false,
 			live: '',
 			error: {
@@ -66,24 +67,31 @@ var vForm = function( options ){
 
 				if( _form.on('begin', __.params.fields ) ){
 					
+					var fields = __.params.fields.filter('input:not([trim=false]), textarea:not([trim=false])');
+
+					// Escape HTML string
+					if( !__.params.html ){
+						fields.each( _form.escape.fhtml );
+					}
+
 					// Trim content
 					if( __.params.trim ){
-						__.params.fields.filter('input:not([trim=false]), textarea:not([trim=false])').each( _form.trim );
+						fields.each( _form.trim );
 					}
 
 					// Process the validations
-					__.params.fields.each(function(){
+					fields.each(function(){
 						if( _form.on('before', $(this) ) ){
 							_form.process( $(this) );
 						}
 					});
 
 					// Compleate validation
-					if( __.params.fields.filter('[error=true]').size() ){
+					if( fields.filter('[error=true]').size() ){
 						
 						// Auto focus on the first error occured
 						if( __.params.focus ){
-							__.params.fields.filter('[error=true]:first').focus();
+							fields.filter('[error=true]:first').focus();
 						}
 
 						_form.set.invalid();
@@ -255,6 +263,12 @@ var vForm = function( options ){
 			url: function( value ){
 				return /^(?:http|ftp)s?:\/\/(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::\d+)?(?:\/?|[\/?]\S+)$/gi.test( value );
 			},
+			ip: function( value ){
+				return /^(?:(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])$/.test( value );
+			},
+			creditcard: function( value ){
+				return /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.exec( value );
+			},
 			color: function( value ){
 				return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test( value );
 			}
@@ -332,6 +346,12 @@ var vForm = function( options ){
 			var $this = $(this);
 			$this.val( $.trim( $this.val() ) );
 		},
+		escape: {
+			html: function(){
+				var $this = $(this);
+				$this.val( ( $this.val() ).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;') );
+			}
+		},
 		process: function( $this ){
 
 			var isValid = true;
@@ -364,7 +384,7 @@ var vForm = function( options ){
 			
 			if( $this.val() ){
 
-				// Validate email content type
+				// Validate email
 				if( isValid && $this.is('input[type=email]:not([pattern])') ){
 					_form.convert.toLower( $this );
 					isValid = ( isValid && _form.check.email( $this.val() ) ) ? true : false ;
@@ -373,15 +393,51 @@ var vForm = function( options ){
 					if( !isValid ){ _form.error( $this, 'email', 'email' ); }
 				}
 
-				// Validate url content type
-				if( isValid && $this.is('input[type=url]:not([pattern])') ){
+				// Validate URL
+				if( isValid && $this.is('input[type=url]:not([pattern]):not([data-validate="ip"])') ){
 					isValid = ( isValid && _form.check.url( $this.val() ) ) ? true : false ;
 
 					// Handle errors
 					if( !isValid ){ _form.error( $this, 'url', 'url' ); }
 				}
 
-				// Validate color content type
+				// Validate IP address
+				if( isValid && ($this.is('input[type=text][data-validate="ip"]:not([pattern])') || $this.is('input[type=url][data-validate="ip"]:not([pattern])')) ){
+					isValid = ( isValid && _form.check.ip( $this.val() ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'ip', 'ip' ); }
+				}
+
+				// Validate credit card
+				if( isValid && ($this.is('input[type=text][data-validate="credit-card"]:not([pattern])') || $this.is('input[type=number][data-validate="credit-card"]:not([pattern])')) ){
+					var cardnumber = ($this.val()).replace(/[ -]/g, '');
+
+					if( __.params.trim ){ $this.val( cardnumber ); }
+
+					var check = _form.check.creditcard( cardnumber );
+					var types = ['Visa', 'MasterCard', 'Discover', 'American Express','Diners Club', 'JCB'];
+
+					if( isValid && check ){ 
+						for(var i = 1; i < check.length; i++) {
+							if(check[i]) {
+								isValid = true;
+								$this.attr('data-crefit-type', types[i-1]);
+								break;
+							}else{
+								$this.removeAttr('data-crefit-type');
+								isValid = false;
+							}
+						}
+					}else{
+						isValid = false;
+					}
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'credit', 'cc' ); }
+				}
+
+				// Validate color
 				if( isValid && $this.is('input[type=color]:not([pattern])') ){
 					isValid = ( isValid && _form.check.color( $this.val() ) ) ? true : false ;
 
@@ -485,7 +541,7 @@ var vForm = function( options ){
 				
 			}
 
-			// Validate required radio button
+			// Validate required radio buttons
 			if( isValid && $this.is('input[type=radio][required]') ){
 				isValid = ( isValid && $this.is(':checked') ) ? true : false ;
 

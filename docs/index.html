@@ -207,7 +207,7 @@
 				<pre class="example"><code class="html">&lt;input type="text" data-validate="credit-card"&gt;
 &lt;input type="number" min="99" max="999"&gt;</code></pre>
 				<div class="callout callout-warning">
-					<h4>FE validation only</h4>
+					<h4>Local validation only!</h4>
 					<p>vForm will only validate the credit card localy, it dose not confirm the correct validity of the credit card information with a bank or any 3rd party authority.</p>
 				</div>
 
@@ -850,6 +850,12 @@
 							<td>If true, each field will get trimed before processing the validation.</td>
 						</tr>
 						<tr>
+							<td colspan="2"><code>html</code></td>
+							<td>False</td>
+							<td><span class="label label-primary">Boolean</span></td>
+							<td>If true, will allow HTML tags, other wise will esace HTML before validation.</td>
+						</tr>
+						<tr>
 							<td colspan="2"><code>focus</code></td>
 							<td>False</td>
 							<td><span class="label label-primary">Boolean</span></td>
@@ -886,6 +892,7 @@
 				<pre><code class="javascript">{
     fields: "input, textarea, select",
     trim: true,
+    html: false,
     focus: false,
     live: false,
     error: {
