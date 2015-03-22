@@ -71,7 +71,7 @@ var vForm = function( options ){
 
 					// Escape HTML string
 					if( !__.params.html ){
-						fields.each( _form.escape.fhtml );
+						fields.each( _form.escape.html );
 					}
 
 					// Trim content
@@ -349,7 +349,7 @@ var vForm = function( options ){
 		escape: {
 			html: function(){
 				var $this = $(this);
-				$this.val( ( $this.val() ).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;') );
+				$this.val( $this.val().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;') );
 			}
 		},
 		process: function( $this ){
