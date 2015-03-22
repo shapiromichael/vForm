@@ -1,5 +1,5 @@
 /*!
-* vForm - v2.0.7
+* vForm - v2.0.8
 * http://sinapsa.github.io/vForm/
 * Copyright (c) 2015 
 * Licensed MIT
@@ -160,8 +160,13 @@ var vForm = function( options ){
 		
 	};
 
-	this.set = function(){
-
+	this.set = function( key, value ){
+		if( key && __.params[ key ] && typeof __.params[ key ] === typeof value ){
+			__.params[ key ] = value;
+			return true;
+		}else{
+			return false;
+		}
 	};
 
 	this.clear = function(){
@@ -249,6 +254,9 @@ var vForm = function( options ){
 			},
 			url: function( value ){
 				return /^(?:http|ftp)s?:\/\/(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::\d+)?(?:\/?|[\/?]\S+)$/gi.test( value );
+			},
+			color: function( value ){
+				return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test( value );
 			}
 		},
 		convert: {
@@ -357,7 +365,7 @@ var vForm = function( options ){
 			if( $this.val() ){
 
 				// Validate email content type
-				if( isValid && $this.is('input[type=email]') ){
+				if( isValid && $this.is('input[type=email]:not([pattern])') ){
 					_form.convert.toLower( $this );
 					isValid = ( isValid && _form.check.email( $this.val() ) ) ? true : false ;
 
@@ -366,11 +374,19 @@ var vForm = function( options ){
 				}
 
 				// Validate url content type
-				if( isValid && $this.is('input[type=url]') ){
+				if( isValid && $this.is('input[type=url]:not([pattern])') ){
 					isValid = ( isValid && _form.check.url( $this.val() ) ) ? true : false ;
 
 					// Handle errors
 					if( !isValid ){ _form.error( $this, 'url', 'url' ); }
+				}
+
+				// Validate color content type
+				if( isValid && $this.is('input[type=color]:not([pattern])') ){
+					isValid = ( isValid && _form.check.color( $this.val() ) ) ? true : false ;
+
+					// Handle errors
+					if( !isValid ){ _form.error( $this, 'color', 'color' ); }
 				}
 
 				// Validate pattern defined content
