@@ -333,7 +333,7 @@
 						if( $.isFunction( __.params.onSuccess ) ){ result = __.params.onSuccess( __.fields.toArray() ); }
 						break;
 					case 'errorMessage':
-						if( $.isFunction( __.params.onErrorMessage ) ){ result = __.params.onErrorMessage( arguments[1], arguments[2] ); }else{ return arguments[2]; }
+						if( $.isFunction( __.params.onErrorMessage ) ){ result = __.params.onErrorMessage( arguments[1], arguments[2], arguments[3] ); }else{ return arguments[2]; }
 						break;
 					case 'validFeedback':
 						if( $.isFunction( __.params.onValidFeedback ) ){ result = __.params.onValidFeedback( arguments[1] ); }else{ return arguments[1]; }
@@ -606,7 +606,7 @@
 					}
 
 					// Fire the error message event
-					msg = _form.on('errorMessage', $this, msg );
+					msg = _form.on('errorMessage', $this, msg, key );
 
 					// Handle the error message
 					if( msg && __.errors.indexOf( msg ) === -1 ){

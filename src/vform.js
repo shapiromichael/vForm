@@ -34,7 +34,7 @@
 				onAfter: function( $field, status ){ return status; },
 				onFail: function(){ return false; },
 				onSuccess: function(){ return true; },
-				onErrorMessage: function( $field, message, key ){ return "<span class='error-message'>" + message + "</span>"; },
+				onErrorMessage: function( $field, message ){ return "<span class='error-message'>" + message + "</span>"; },
 				onValidFeedback: function(){  return "<span class='valid-feedback'>Valid</span>"; }
 			};
 
