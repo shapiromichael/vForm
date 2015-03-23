@@ -221,37 +221,71 @@ var Demo = {
 			return false;
 		});
 
-		// Example 17 - Live Validation
+		// Example 17 - i18n
+		var example17_data = {
+			en: { default: 'Invalid', required: 'Required', email: 'Incorrect Email', message: 'Enter Message' },
+			es: { default: 'Inválido', required: 'Necesario', email: 'Correo electrónico incorrecta', message: 'Introduzca Mensaje' },
+			ru: { default: 'Неверно', required: 'Tребуется', email: 'Неправильное Email', message: 'Введите Cообщение' },
+			it: { default: 'Non valido', required: 'Necessario', email: 'Errata Email', message: 'Inserisci Messaggio' },
+			de: { default: 'Ungültig', required: 'Erforderlich', email: 'Falsche E-Mail Adresse', message: 'Geben Sie Nachricht' },
+			fr: { default: 'Invalide', required: 'Requis', email: 'Adresse électronique incorrecte', message: 'Entrez Message' },
+			jp: { default: '無効', required: '必須', email: 'メールアドレスが正しくありません', message: 'メッセージを入力してください' },
+			he: { default: 'לא תקין', required: 'חובה', email: 'דוא״ל לא תקין', message: 'יש להזין הודעה' }
+		}
 		var example17 = $('#example-17').vForm( $.extend({}, options, {
-			live: 'keyup'
+			onErrorMessage: function( $field, temp_message, key ){
+
+				if( $field.is('textarea') && key === 'required' ){
+					key = 'message';
+				}
+
+				var lang = $('#example-17-lang').val(),
+					message = example17_data[lang][key];
+
+				$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="form-control-feedback text" aria-hidden="true">' + message + '</span>');
+
+				return "";
+			}
 		}), function(){
 			example17.validate();
-			ga('send', 'event', 'Examples', 'Live Validation', example17.status());
+			ga('send', 'event', 'Examples', 'i18n', example17.status());
+			return false;
+		});
+		$('#example-17-lang').on('change',function(){
+			$('#example-17').submit();
+		});
+
+		// Example 18 - Live Validation
+		var example18 = $('#example-18').vForm( $.extend({}, options, {
+			live: 'keyup'
+		}), function(){
+			example18.validate();
+			ga('send', 'event', 'Examples', 'Live Validation', example18.status());
 			return false;
 		});
 
-		// Example 18 - Add Method
-		var example18 = $('#example-18').vForm( $.extend({}, options, {
+		// Example 19 - Add Method
+		var example19 = $('#example-19').vForm( $.extend({}, options, {
 			onErrorMessage: function( $field, message ){
 				$field.parents('.form-group').addClass('has-error has-feedback').append('<span class="form-control-feedback text" aria-hidden="true">' + message + '</span>');
 			}
 		}), function(){
-			example18.validate();
-			ga('send', 'event', 'Examples', 'Add Method', example18.status());
+			example19.validate();
+			ga('send', 'event', 'Examples', 'Add Method', example19.status());
 			return false;
 		});
-		example18.add(function( value ){
+		example19.add(function( value ){
 			return ( value === 'Ben' ) ? true : false ;
 		}, 'Value is not Ben');
 
-		// Example 19 - Clear Method
-		var example19 = $('#example-19').vForm( options, function(){
-			example19.validate();
-			ga('send', 'event', 'Examples', 'Clear Method', example19.status());
+		// Example 20 - Clear Method
+		var example20 = $('#example-20').vForm( options, function(){
+			example20.validate();
+			ga('send', 'event', 'Examples', 'Clear Method', example20.status());
 			return false;
 		});
-		$('#example-19-clear').on('click', function(){
-			example19.clear();
+		$('#example-20-clear').on('click', function(){
+			example20.clear();
 			ga('send', 'event', 'Examples', 'Clear Method', 'Clear');
 		});
 

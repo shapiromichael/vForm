@@ -20,6 +20,9 @@ footer {
 .navbar-brand .label-default {
 	background: #999;
 }
+textarea {
+	resize: none;
+}
 
 /* Navigation */
 .sidebar {
