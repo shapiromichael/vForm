@@ -529,8 +529,9 @@
 
 				<h3 id="error-summarized">Summarized Errors</h3>
 				<p>Summarized errors are gathered together and can be shown above the form.</p>
+
 				<div class="example">
-					<div id="example-13-errors"></div>
+					<div id="example-16-errors"></div>
 					<form novalidate="novalidate" id="example-16">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" required data-required-error-msg="Please enter the name">
@@ -577,11 +578,58 @@
         Female
     &lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
+				
+				<h3 id="error-i18n">i18n</h3>
+				<p>vForm can easily support any language for the error message.</p>
+
+				<div class="example">
+					<div id="example-17-errors"></div>
+					<form novalidate="novalidate" id="example-17">
+						<div class="form-group">
+							<select class="form-control" id="example-17-lang">
+								<option value="en">English</option>
+								<option value="es">Español</option>
+								<option value="ru">Русский</option>
+								<option value="it">Italiano</option>
+								<option value="de">Deutsch</option>
+								<option value="fr">Français</option>
+								<option value="jp">日本語</option>
+								<option value="he">עברית</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Name" required>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required>
+						</div>
+						<div class="form-group">
+							<textarea class="form-control" rows="3" placeholder="Message" required></textarea>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<pre class="example"><code class="html">&lt;div id="form-errors"&gt;&lt;/div&gt;
+
+&lt;input type="text" placeholder="Name" required data-required-error-msg="Please enter the name"&gt;
+&lt;input type="text" placeholder="Phone: (123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" data-pattern-error-msg="Phone number is incorrect"&gt;
+&lt;input type="email" placeholder="Email" required data-required-error-msg="Please enter the email" data-email-error-msg="Email is invalid"&gt;
+&lt;input type="url" placeholder="http://" data-url-error-msg="URL address is invalid"&gt;
+&lt;fieldset required data-required-error-msg="Please select the gender"&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Male
+    &lt;/label&gt;
+    &lt;label&gt;
+        &lt;input type="radio" name="example"&gt;
+        Female
+    &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
 
 				<h1 id="live" class="page-header">Live Validation</h1>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-17">
+					<form novalidate="novalidate" id="example-18">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="First Name" required>
 						</div>
@@ -775,7 +823,7 @@
 					</tbody>
 				</table>
 
-				<h3 id="events-onerror-message">onErrorMessage <small>( $field, message )</small></h3>
+				<h3 id="events-onerror-message">onErrorMessage <small>( $field, message, key )</small></h3>
 				<table class="table">
 					<tbody>
 						<tr>
@@ -783,11 +831,14 @@
 							<td>When field is invalid and need to show an error message.</td>
 						</tr>
 						<tr>
-							<th rowspan="2">Params</th>
+							<th rowspan="3">Params</th>
 							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
 						</tr>
 						<tr>
 							<td><code>message</code> <span class="label label-success">String</span> error message.</td>
+						</tr>
+						<tr>
+							<td><code>key</code> <span class="label label-success">String</span> error key as described at the <a href="#error-messages">error messages</a>.</td>
 						</tr>
 						<tr>
 							<th>Return</th>
@@ -795,7 +846,7 @@
 						</tr>
 						<tr>
 							<th>Example</th>
-							<td><pre><code class="javascript">function( $field, message ){
+							<td><pre><code class="javascript">function( $field, message, key ){
     return "&lt;span class='error-message'&gt;" + message + "&lt;/span&gt;";
 }</code></pre></td>
 						</tr>
@@ -1008,7 +1059,7 @@
 					</tbody>
 				</table>
 				<div class="example">
-					<form novalidate="novalidate" id="example-18">
+					<form novalidate="novalidate" id="example-19">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Must be 'Ben'">
 						</div>
@@ -1065,7 +1116,7 @@
 				<h3 id="methods-clear">Clear <small>( )</small></h3>
 				<p>Reset all the form fields, for default values use <code>data-default</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-19">
+					<form novalidate="novalidate" id="example-20">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
 						</div>
@@ -1101,7 +1152,7 @@
 								</label>
 							</div>
 						</fieldset>
-						<button type="button" id="example-16-clear" class="btn btn-warning">Clear</button>
+						<button type="button" id="example-20-clear" class="btn btn-warning">Clear</button>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
@@ -1166,6 +1217,7 @@
 							<ul class="nav">
 								<li><a href="#error-messages">Error Messages</a></li>
 								<li><a href="#error-summarized">Summarized Errors</a></li>
+								<li><a href="#error-i18n">i18n</a></li>
 							</ul>
 						</li>
 						<li>
