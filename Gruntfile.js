@@ -1,9 +1,11 @@
 'use strict';
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 	// Load all grunt tasks
 	require('load-grunt-tasks')(grunt);
 	require('time-grunt')(grunt);
 	require('grunt-bump')(grunt);
+
+	grunt.loadNpmTasks('grunt-jscs');
 
 	// Project configuration.
 	grunt.initConfig({
@@ -13,6 +15,7 @@ module.exports = function (grunt) {
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>\n' +
 			'* Licensed MIT\n*/\n',
+
 		// Task configuration.
 		clean: {
 			files: ['dist']
@@ -90,7 +93,7 @@ module.exports = function (grunt) {
 		},
 		bump: {
 			options: {
-				files: ['package.json','bower.json','form.json'],
+				files: ['package.json', 'bower.json', 'form.json'],
 				updateConfigs: [],
 				commit: false,
 				commitMessage: 'Release v%VERSION%',
@@ -105,12 +108,18 @@ module.exports = function (grunt) {
 				prereleaseName: false,
 				regExp: false
 			}
+		},
+		jscs: {
+			src: ['src/**/*.js', 'docs/**/*.js', 'test/**/*.js'],
+			options: {
+				force: true
+			}
 		}
 	});
 
 	// Default task.
 	grunt.registerTask('default', ['jshint', 'connect', 'qunit', 'clean', 'concat', 'uglify']);
-	grunt.registerTask('build', ['jshint', 'clean', 'concat', 'uglify']);
+	grunt.registerTask('build', ['jshint', 'clean', 'concat', 'uglify', 'jscs']);
 	grunt.registerTask('serve', ['connect', 'watch']);
 	grunt.registerTask('test', ['jshint', 'connect', 'qunit']);
 };

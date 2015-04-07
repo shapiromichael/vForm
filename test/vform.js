@@ -1,9 +1,10 @@
-(function ($) {
-  module('jQuery#', {
-    setup: function () {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
+(function($) {
+	'use strict';
 
-  
+	module('jQuery#', {
+		setup: function() {
+			this.elems = $('#qunit-fixture').children();
+		}
+	});
+
 }(jQuery));
