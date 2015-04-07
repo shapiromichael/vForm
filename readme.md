@@ -25,7 +25,7 @@ if you're using an older version - you can run the unit test.
 
 ### How to use it
 ```javascript
-var form = $('#my-form').vForm(function(){
+var form = $('#my-form').vForm(function() {
 	return form.validate();
 });
 ```

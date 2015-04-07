@@ -23,7 +23,7 @@
 		","
 	],
 	"disallowIdentifierNames": [
-		"default", "ok", "good", "bad", "foo", "bar"
+		"default", "foo", "bar"
 	],
 	"disallowMixedSpacesAndTabs": true,
 	"disallowTrailingWhitespace": true,
