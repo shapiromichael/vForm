@@ -25,7 +25,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.9</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.10</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
 				<li class="active"><a href="http://sinapsa.github.io/vForm/">jQuery</a></li>
@@ -85,7 +85,25 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" required&gt;</code></pre>
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example1-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example1-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example1-html">
+							<pre class="example"><code class="html">&lt;input type="text" required&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example1-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-required-group">Required Group</h3>
 				<p>You can create a required group to validate that at least one of the fields is not blank, to do that add <code>data-group="group-name"</code> to each of the fields, (you can have multiple groups if you'd like) make sure they have the <code>required</code> attrebute as well.</p>
@@ -101,8 +119,26 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" data-group="group-name" required&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example2-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example2-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example2-html">
+							<pre class="example"><code class="html">&lt;input type="text" data-group="group-name" required&gt;
 &lt;input type="text" data-group="group-name" required&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example2-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-string">String</h3>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
@@ -123,10 +159,28 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" min="3"&gt; &lt;!-- Minimum 3 characters --&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example3-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example3-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example3-html">
+							<pre class="example"><code class="html">&lt;input type="text" min="3"&gt; &lt;!-- Minimum 3 characters --&gt;
 &lt;input type="text" max="7"&gt; &lt;!-- Maximum 7 characters --&gt;
 &lt;input type="text" min="4" max="8"&gt; &lt;!-- Between 4 to 8 characters --&gt;
 &lt;input type="text" min="5" max="5"&gt; &lt;!-- Exactly 5 characters --&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example3-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-numeric">Numeric</h3>
 				<p>Validating a numeric value is only avalible for those HTML5 types: <code>month</code>, <code>week</code>, <code>number</code> and <code>range</code>.</p>
@@ -145,9 +199,27 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="number" min="11"&gt; &lt;!-- Greater than 10 --&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example4-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example4-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example4-html">
+							<pre class="example"><code class="html">&lt;input type="number" min="11"&gt; &lt;!-- Greater than 10 --&gt;
 &lt;input type="number" max="20"&gt; &lt;!-- Less than 20 --&gt;
 &lt;input type="range" min="1" max="100" data-min="30" data-max="70"&gt; &lt;!-- Between 30 to 70 characters --&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example4-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 				
 				<h3 id="validation-email">Email</h3>
 				<p>To validate an email field just make sure that <code>type="email"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
@@ -157,13 +229,31 @@
 							<input type="email" class="form-control" placeholder="email@address.com" required>
 						</div>
 						<div class="form-group">
-							<input type="email" class="form-control" placeholder="email@address" pattern="\S+@\S+" required>
+							<input type="email" class="form-control" placeholder="your@address" pattern="\S+@\S+" required>
 						</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="email" required&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example5-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example5-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example5-html">
+							<pre class="example"><code class="html">&lt;input type="email" required&gt;
 &lt;input type="email" pattern="\S+@\S+" required&gt; &lt;!-- Use custom pattern --&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example5-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-url">URL</h3>
 				<p>To validate a URL field just make sure that <code>type="url"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
@@ -175,7 +265,25 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="url"&gt;</code></pre>
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example6-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example6-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example6-html">
+							<pre class="example"><code class="html">&lt;input type="url"&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example6-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-ip">IP Address</h3>
 				<p>To validate a IP address (v4 only) field just add <code>data-validate="ip"</code>. Validating IP address is only avalible for <code>text</code> &amp; <code>url</code> input types. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
@@ -187,7 +295,25 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="url" data-validate="ip"&gt;</code></pre>
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example7-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example7-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example7-html">
+							<pre class="example"><code class="html">&lt;input type="url" data-validate="ip"&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example7-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-credit">Credit Card</h3>
 				<p>To validate a crecit card number you'll need to add <code>data-validate="credit-card"</code> and make sure to use <code>text</code> or <code>number</code> input types. vForm support those credit cards: <code>Visa</code>, <code>MasterCard</code>, <code>Discover</code>, <code>American Express</code>, <code>Diners Club</code>, <code>JCB</code>. Note that blank will be valid without the <code>required</code> attribute.</p>
@@ -204,8 +330,26 @@
 						<button type="submit" class="btn btn-default">Validate</button>	
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" data-validate="credit-card"&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example8-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example8-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example8-html">
+							<pre class="example"><code class="html">&lt;input type="text" data-validate="credit-card"&gt;
 &lt;input type="number" min="99" max="999"&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example8-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 				<div class="callout callout-warning">
 					<h4>Local validation only!</h4>
 					<p>vForm will only validate the credit card localy, it dose not confirm the correct validity of the credit card information with a bank or any 3rd party authority.</p>
@@ -221,7 +365,25 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="color"&gt;</code></pre>
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example9-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example9-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example9-html">
+							<pre class="example"><code class="html">&lt;input type="color"&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example9-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 				
 				<h3 id="validation-patterns">Patterns</h3>
 				<p>To validate a regex pattern just use the <code>pattern</code> attribute. Note that blank will be valid without the <code>required</code> attribute.</p>
@@ -233,8 +395,26 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example10-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example10-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example10-html">
+							<pre class="example"><code class="html">&lt;input type="text" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}"&gt;
 &lt;!-- Phone number that match the pattern: "(123) 456-7890" --&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example10-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-password">Password</h3>
 				<p>You can use the <code>min</code> or <code>pattern</code> attribute to validate the password, and <code>data-match</code> attribute to validation the password confirmation. Note that <code>data-match</code> should contain the original password field <code>id</code>.</p>
@@ -249,8 +429,26 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="password" id="password-field" required&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example11-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example11-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example11-html">
+							<pre class="example"><code class="html">&lt;input type="password" id="password-field" required&gt;
 &lt;input type="password" data-match="password-field"&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example11-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 
 				<h3 id="validation-checkboxes">Checkboxes</h3>
 				<p>Checkbox can be validated individually or by group, for group validation wrap with <code>&lt;fieldset&gt;</code> and use the <code>min</code> &amp; <code>max</code> attributes. Note that you can't add <code>required</code> attribute to the <code>&lt;fieldset&gt;</code>, use <code>min="1"</code> instead.</p>
@@ -292,8 +490,16 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">
-&lt;input type="checkbox" required&gt; &lt;!-- Required checkbox --&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example12-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example12-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example12-html">
+							<pre class="example"><code class="html">&lt;input type="checkbox" required&gt; &lt;!-- Required checkbox --&gt;
 
 &lt;!-- Checkbox group --&gt;
 &lt;fieldset min="2" max="3"&gt;
@@ -314,6 +520,15 @@
         Group option four
     &lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example12-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 				
 				<div class="callout callout-warning">
 					<h4>Keep checkboxes &amp; radio separated</h4>
@@ -348,7 +563,16 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;fieldset required&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example13-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example13-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example13-html">
+							<pre class="example"><code class="html">&lt;fieldset required&gt;
     &lt;label&gt;
         &lt;input type="radio" name="example"&gt;
         Option one
@@ -362,6 +586,15 @@
         Option three
     &lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example13-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
 				
 				<div class="callout callout-info">
 					<h4>Better way to validate radio buttons</h4>
@@ -386,8 +619,27 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" disabled&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example14-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example14-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example14-html">
+							<pre class="example"><code class="html">&lt;input type="text" disabled&gt;
 &lt;input type="text" data-ignore="true" required&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example14-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
+				
 
 				<h1 id="errors" class="page-header">Errors</h1>
 
@@ -520,17 +772,37 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" placeholder="First Name" min="3" required data-required-error-msg="Enter first name" data-min-error-msg="At least 3 characters"&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example15-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example15-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example15-html">
+							<pre class="example"><code class="html">&lt;input type="text" placeholder="First Name" min="3" required data-required-error-msg="Enter first name" data-min-error-msg="At least 3 characters"&gt;
 &lt;input type="email" placeholder="Email" required data-required-error-msg="Required email" data-email-error-msg="Email is invalid"&gt;
 &lt;label&gt;
     &lt;input type="checkbox" reruired data-required-error-msg="Don't forget to check this"&gt;
     Must check this
 &lt;/label&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example15-js">
+							<pre class="example"><code class="js">var form = $('form').vForm(function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
+				
 
 				<h3 id="error-summarized">Summarized Errors</h3>
 				<p>Summarized errors are gathered together and can be shown above the form.</p>
+
 				<div class="example">
-					<div id="example-13-errors"></div>
+					<div id="example-16-errors"></div>
 					<form novalidate="novalidate" id="example-16">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" required data-required-error-msg="Please enter the name">
@@ -561,7 +833,16 @@
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;div id="form-errors"&gt;&lt;/div&gt;
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example16-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example16-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example16-html">
+							<pre class="example"><code class="html">&lt;div id="&gt;"&gt;&lt;/div&gt;
 
 &lt;input type="text" placeholder="Name" required data-required-error-msg="Please enter the name"&gt;
 &lt;input type="text" placeholder="Phone: (123) 456-7890" pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" data-pattern-error-msg="Phone number is incorrect"&gt;
@@ -577,11 +858,158 @@
         Female
     &lt;/label&gt;
 &lt;/fieldset&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example16-js">
+							<pre class="example"><code class="js">var form = $('form').vForm({
+    onBegin: function(fields){
+        $('#form-errors').html('').hide();
+        return true;
+    },
+    onFail: function(fields, messages){
+        var $container = $('#form-errors'),
+            html = '';
 
+        if(messages.length){
+            html = '&lt;div class="container"&gt;&lt;h5&gt;Please resolve those errors:&lt;/h5&gt;&lt;ul&gt;';
+            $.each(messages, function(index, message){ html += '&lt;li&gt;' + message + '&lt;/li&gt;'; });
+            html += '&lt;/ul&gt;&lt;/div&gt;';
+            $container.html(html).show();
+        }
+
+        return false;
+    }
+}, function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
+				
+				
+				<h3 id="error-i18n">i18n</h3>
+				<p>vForm can easily support any language for the error message.</p>
+
+				<div class="example">
+					<form novalidate="novalidate" id="example-17">
+						<div class="form-group">
+							<select class="form-control" id="example-17-lang">
+								<option value="en">English</option>
+								<option value="es">Español</option>
+								<option value="ru">Русский</option>
+								<option value="it">Italiano</option>
+								<option value="de">Deutsch</option>
+								<option value="fr">Français</option>
+								<option value="jp">日本語</option>
+								<option value="he">עברית</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Name" required>
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="Email" required>
+						</div>
+						<div class="form-group">
+							<textarea class="form-control" rows="3" placeholder="Message" required></textarea>
+						</div>
+						<button type="submit" class="btn btn-default">Validate</button>
+					</form>
+				</div>
+				<div role="tabpanel">
+
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#example-17-html" role="tab" data-toggle="tab">HTML</a></li>
+						<li role="presentation"><a href="#example-17-js" role="tab" data-toggle="tab">JavaScript</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="example-17-html">
+							<pre class="example"><code class="html">&lt;select id="lang"&gt;
+    &lt;option value="en"&gt;English&lt;/option&gt;
+    &lt;option value="es"&gt;Español&lt;/option&gt;
+    &lt;option value="ru"&gt;Русский&lt;/option&gt;
+    &lt;option value="it"&gt;Italiano&lt;/option&gt;
+    &lt;option value="de"&gt;Deutsch&lt;/option&gt;
+    &lt;option value="fr"&gt;Français&lt;/option&gt;
+    &lt;option value="jp"&gt;日本語&lt;/option&gt;
+    &lt;option value="he"&gt;עברית&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;input type="text" name="name" required&gt;
+&lt;input type="email" name="email" required&gt;
+&lt;textarea name="message" required&gt;&lt;/textarea&gt;</code></pre>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="example-17-js">
+							<pre class="example"><code class="js">var data = {
+    en: {
+        default: 'Invalid',
+        required: 'Required',
+        email: 'Incorrect Email',
+        message: 'Enter Message'
+    },
+    es: {
+        default: 'Inválido',
+        required: 'Necesario',
+        email: 'Correo electrónico incorrecta',
+        message: 'Introduzca Mensaje'
+    },
+    ru: {
+        default: 'Неверно',
+        required: 'Tребуется',
+        email: 'Неправильное Email',
+        message: 'Введите Cообщение'
+    },
+    it: {
+        default: 'Non valido',
+        required: 'Necessario',
+        email: 'Errata Email',
+        message: 'Inserisci Messaggio'
+    },
+    de: {
+        default: 'Ungültig',
+        required: 'Erforderlich',
+        email: 'Falsche E-Mail Adresse',
+        message: 'Geben Sie Nachricht'
+    },
+    fr: {
+        default: 'Invalide',
+        required: 'Requis',
+        email: 'Adresse électronique incorrecte',
+        message: 'Entrez Message'
+    },
+    jp: {
+        default: '無効',
+        required: '必須',
+        email: 'メールアドレスが正しくありません',
+        message: 'メッセージを入力してください'
+    },
+    he: {
+        default: 'לא תקין',
+        required: 'חובה',
+        email: 'דוא״ל לא תקין',
+        message: 'יש להזין הודעה'
+    }
+}
+
+var form = $('form').vForm({
+    onErrorMessage: function($field, message, key){
+        if($field.is('textarea') &amp;&amp; key === 'required'){ key = 'message'; }
+        var lang = $('#lang').val();
+        return data[lang][key];
+    }
+}, function(){
+    form.validate();
+    return false;
+});</code></pre>
+						</div>
+					</div>
+				</div>
+				
 				<h1 id="live" class="page-header">Live Validation</h1>
 				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-17">
+					<form novalidate="novalidate" id="example-18">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="First Name" required>
 						</div>
@@ -775,7 +1203,7 @@
 					</tbody>
 				</table>
 
-				<h3 id="events-onerror-message">onErrorMessage <small>( $field, message )</small></h3>
+				<h3 id="events-onerror-message">onErrorMessage <small>( $field, message, key )</small></h3>
 				<table class="table">
 					<tbody>
 						<tr>
@@ -783,11 +1211,14 @@
 							<td>When field is invalid and need to show an error message.</td>
 						</tr>
 						<tr>
-							<th rowspan="2">Params</th>
+							<th rowspan="3">Params</th>
 							<td><code>$field</code> <span class="label label-danger">jQuery Object</span> of the field.</td>
 						</tr>
 						<tr>
 							<td><code>message</code> <span class="label label-success">String</span> error message.</td>
+						</tr>
+						<tr>
+							<td><code>key</code> <span class="label label-success">String</span> error key as described at the <a href="#error-messages">error messages</a>.</td>
 						</tr>
 						<tr>
 							<th>Return</th>
@@ -795,7 +1226,7 @@
 						</tr>
 						<tr>
 							<th>Example</th>
-							<td><pre><code class="javascript">function( $field, message ){
+							<td><pre><code class="javascript">function( $field, message, key ){
     return "&lt;span class='error-message'&gt;" + message + "&lt;/span&gt;";
 }</code></pre></td>
 						</tr>
@@ -1008,7 +1439,7 @@
 					</tbody>
 				</table>
 				<div class="example">
-					<form novalidate="novalidate" id="example-18">
+					<form novalidate="novalidate" id="example-19">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Must be 'Ben'">
 						</div>
@@ -1065,7 +1496,7 @@
 				<h3 id="methods-clear">Clear <small>( )</small></h3>
 				<p>Reset all the form fields, for default values use <code>data-default</code> attribute.</p>
 				<div class="example">
-					<form novalidate="novalidate" id="example-19">
+					<form novalidate="novalidate" id="example-20">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Name" data-default="Dan" required>
 						</div>
@@ -1101,7 +1532,7 @@
 								</label>
 							</div>
 						</fieldset>
-						<button type="button" id="example-16-clear" class="btn btn-warning">Clear</button>
+						<button type="button" id="example-20-clear" class="btn btn-warning">Clear</button>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
@@ -1166,6 +1597,7 @@
 							<ul class="nav">
 								<li><a href="#error-messages">Error Messages</a></li>
 								<li><a href="#error-summarized">Summarized Errors</a></li>
+								<li><a href="#error-i18n">i18n</a></li>
 							</ul>
 						</li>
 						<li>

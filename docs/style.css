@@ -20,6 +20,9 @@ footer {
 .navbar-brand .label-default {
 	background: #999;
 }
+textarea {
+	resize: none;
+}
 
 /* Navigation */
 .sidebar {
@@ -196,6 +199,35 @@ div.example:after {
 	margin-top: 0;
 }
 
+/* *********************************************************** */
+/*                      Overiding Bootstrap                    */
+/* *********************************************************** */
+.nav-tabs {
+	margin-top: -34px;
+	border-left: 1px solid #DDD;
+  	border-right: 1px solid #DDD;
+  	border-bottom: none;
+}
+.nav-tabs > li {
+	float: right;
+	margin-bottom: 0;
+}
+.nav-tabs > li:first-child {
+	margin-right: -1px;
+}
+.nav-tabs > li > a {
+	margin-right: 0;
+	border-radius: 0;
+	color: #4D92DE;
+	border: none !important;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+	border: none !important;
+	background: #232323;
+	color: #E6E1DC;
+}
 
 /* *********************************************************** */
 /*                      Syntax Highlighting                    */

@@ -1,5 +1,8 @@
 ![preview](https://raw.githubusercontent.com/sinapsa/vForm/develop/docs/logo.png)
 
+[min]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.min.js
+[max]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.js
+[docs]: http://sinapsa.github.io/vForm/
 
 ### Install
 Optionally, you can install vForm with bower:
@@ -8,8 +11,6 @@ bower install bower install vform
 ```
 Or download the [production version][min] / [development version][max].
 
-[min]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.min.js
-[max]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.js
 
 ### Requirements
 vForm is working best with jQuery 2.X, however it can work well with older version of jQuery as well 1.11.x
@@ -24,15 +25,13 @@ if you're using an older version - you can run the unit test.
 
 ### How to use it
 ```javascript
-$('#my-form').vForm(function( event ){
-	return event.data.form.validate();
+var form = $('#my-form').vForm(function(){
+	return form.validate();
 });
 ```
 
 ### Documentation
 See the full [documentation & examples][docs].
-
-[docs]: http://sinapsa.github.io/vForm/
 
 ### Compatibility
 vForm is fully functional on all modern browsers, as well as some old ones such as IE 8+. It is also designed to work on touch devices such as mobile phones or tablets.
