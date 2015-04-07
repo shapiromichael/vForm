@@ -1,5 +1,5 @@
 /*!
-* vForm - v2.0.9
+* vForm - v2.0.10
 * http://sinapsa.github.io/vForm/
 * Copyright (c) 2015 
 * Licensed MIT
