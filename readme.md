@@ -30,7 +30,7 @@ $('#my-form').vForm(function( event ){
 ```
 
 ### Documentation
-See the full [documentation & examples][min].
+See the full [documentation & examples][docs].
 
 [docs]: http://sinapsa.github.io/vForm/
 
