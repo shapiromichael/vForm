@@ -1,8 +1,8 @@
-![preview](https://raw.githubusercontent.com/sinapsa/vForm/develop/docs/logo.png)
+![preview](https://raw.githubusercontent.com/shapiromichael/vForm/develop/docs/logo.png)
 
-[min]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.min.js
-[max]: https://raw.githubusercontent.com/sinapsa/vForm/master/dist/vform.js
-[docs]: http://sinapsa.github.io/vForm/
+[min]: https://raw.githubusercontent.com/shapiromichael/vForm/master/dist/vform.min.js
+[max]: https://raw.githubusercontent.com/shapiromichael/vForm/master/dist/vform.js
+[docs]: http://shapiromichael.github.io/vForm/
 
 ### Install
 Optionally, you can install vForm with bower:
@@ -19,7 +19,7 @@ if you're using an older version - you can run the unit test.
 ### Including files
 
 ```html
-<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="vform.min.js"></script>
 ```
 
@@ -40,7 +40,7 @@ vForm is fully functional on all modern browsers, as well as some old ones such 
 
 [![License](http://img.shields.io/badge/License-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2015 Sinapsa - R&D Center
+Copyright (c) 2016 Michael Shapiro
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
