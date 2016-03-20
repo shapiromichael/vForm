@@ -19,13 +19,13 @@ if you're using an older version - you can run the unit test.
 ### Including files
 
 ```html
-<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="vform.min.js"></script>
 ```
 
 ### How to use it
 ```javascript
-var form = $('#my-form').vForm(function(){
+var form = $('#my-form').vForm(function() {
 	return form.validate();
 });
 ```
@@ -40,7 +40,7 @@ vForm is fully functional on all modern browsers, as well as some old ones such 
 
 [![License](http://img.shields.io/badge/License-MIT-blue.svg)](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2015 Michael Shapiro
+Copyright (c) 2016 Michael Shapiro
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
