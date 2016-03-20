@@ -1,7 +1,7 @@
 /*!
 * vForm - v2.0.10
 * http://sinapsa.github.io/vForm/
-* Copyright (c) 2015 
+* Copyright (c) 2016 
 * Licensed MIT
 */
 (function($) {
@@ -51,9 +51,9 @@
 			__.errors = [];
 
 			// Single field validation mode
-			if (options instanceof jQuery && options.size() === 1) {
-				if (_form.on('begin', options) && _form.on('before', options)) {
-					return _form.process(options);
+			if ((options instanceof jQuery && options.size() === 1) || (typeof options === 'string' && $(options).size === 1)) {
+				if (_form.on('begin', $(options)) && _form.on('before', $(options))) {
+					return (_form.process($(options))) ? _form.on('success') : _form.on('fail');
 				}
 			} else {
 
@@ -232,9 +232,20 @@
 				__.defaults.fields = _form.set.fields(__.defaults.fields);
 
 				// Live validation
-				__.defaults.live = __.defaults.live.toLowerCase();
-				__.defaults.live = (__.defaults.live === 'change' || __.defaults.live === 'keyup' || __.defaults.live === 'blur') ? __.defaults.live : '' ;
+				switch (__.defaults.live.toLowerCase()) {
+					case 'change': case 'keyup':  case 'blur':
+						__.defaults.live = __.defaults.live.toLowerCase();
+						break;
+					case 'onchange': case 'onkeyup': case 'onblur':
+						__.defaults.live = __.defaults.live.substring(2).toLowerCase();
+						break;
+					default:
+						__.defaults.live = '';
+						break;
+				}
+
 				if (__.defaults.live) {
+					__.params = $.extend({}, __.defaults, options);
 					__.defaults.fields.on(__.defaults.live, function() {
 						_this.validate($(this));
 					});
@@ -577,7 +588,7 @@
 				return isValid;
 			},
 			error: function($this, key, attribute) {
-				if (__.params.error.enabled) {
+				if (__.params.error && __.params.error.enabled) {
 
 					var msg = '';
 
@@ -585,13 +596,13 @@
 					if (key === '!') {
 						msg = attribute;
 					} else if ($this.data(attribute + '-error-msg')) {
-						msg = $this.data(attribute + '-error-msg');
+						msg = $this.data(attribute + '-error-msg') || '';
 					} else if ($this.data('error-msg')) {
-						msg = $this.data('error-msg');
+						msg = $this.data('error-msg') || '';
 					} else if (__.params.error.messages[ key ]) {
-						msg = __.params.error.messages[ key ];
+						msg = __.params.error.messages[ key ] || '';
 					} else {
-						msg = __.params.error.messages.invalid;
+						msg = __.params.error.messages.invalid || '';
 					}
 
 					// Fire the error message event
@@ -604,7 +615,7 @@
 				}
 			},
 			feedback: function($this) {
-				if (__.params.feedback.enabled) {
+				if (__.params.feedback && __.params.feedback.enabled) {
 					_form.on('validFeedback', $this);
 				}
 			}
@@ -626,9 +637,7 @@
 					fields: 'input, textarea, select'
 				}, options) : { fields: 'input, textarea, select' };
 
-			if (typeof params.fields === 'string' || params.fields instanceof String) {
-				params.fields = $(params.fields, $this);
-			} else if (params.fields instanceof jQuery) {
+			if (typeof params.fields === 'string' || params.fields instanceof String || params.fields instanceof jQuery) {
 				params.fields = $(params.fields, $this);
 			}
 

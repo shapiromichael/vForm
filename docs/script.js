@@ -17,11 +17,15 @@ var Demo = {
 				enabled: true
 			},
 			onBegin: function(fields) {
-
 				var $form = $(fields[0]).parents('form');
 
-				$form.find('.form-feedback, .form-control-feedback, .form-control-feedback-inline').remove();
-				$form.find('.has-error, .has-success').removeClass('has-error has-success');
+				$form.find('.form-feedback').remove();
+
+				$.each(fields, function() {
+					$(this).parents('.form-group').removeClass('has-error has-feedback has-success');
+					$(this).parents('.form-group').find('.form-control-feedback, .form-control-feedback-inline').remove();
+					$(this).removeClass('has-error has-success');
+				});
 
 				return true;
 			},
@@ -257,7 +261,7 @@ var Demo = {
 
 		// Example 18 - Live Validation
 		var example18 = $('#example-18').vForm($.extend({}, options, {
-			live: 'keyup'
+			live: 'blur'
 		}), function() {
 			example18.validate();
 			ga('send', 'event', 'Examples', 'Live Validation', example18.status());
