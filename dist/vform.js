@@ -1,6 +1,6 @@
 /*!
-* vForm - v2.0.10
-* http://sinapsa.github.io/vForm/
+* vForm - v2.1.0
+* http://shapiromichael.github.io/vForm/
 * Copyright (c) 2016 
 * Licensed MIT
 */
