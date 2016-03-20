@@ -3,38 +3,38 @@
 <head>
 	<meta charset="UTF-8">
 	<title>vForm</title>
-	
+
 	<link rel="icon" href="icon.ico" type="image/x-icon">
 	<link rel="shortcut icon" href="icon.ico" type="image/x-icon">
 
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/default.min.css">
 	<link rel="stylesheet" href="style.css">
-	
+
 	<!-- OG -->
 	<meta property="og:title" content="vForm" />
 	<meta property="og:description" content="vForm is a form validation library based on the HTML 5 standards." />
 	<meta property="og:type" content="website" />
-	<meta property="og:url" content="http://sinapsa.github.io/vForm/" />
+	<meta property="og:url" content="http://shapiromichael.github.io/vForm/" />
 	<meta property="og:image" content="og-logo.png" />
 
 </head>
 <body>
-	
+
 	<!-- Header -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.0.10</span></a>
+				<a class="navbar-brand" href="#"><img src="logo.png" alt="Form.js"> <span class="label label-default">2.1.0</span></a>
 			</div>
 			<!-- <ul class="nav navbar-nav">
-				<li class="active"><a href="http://sinapsa.github.io/vForm/">jQuery</a></li>
+				<li class="active"><a href="http://shapiromichael.github.io/vForm/">jQuery</a></li>
 				<li><a href="#">Angular</a></li>
 				<li><a href="#">Node</a></li>
 			</ul> -->
 		</div>
 	</nav>
-	
+
 	<!-- Boody -->
 	<div class="container">
 		<div class="row">
@@ -50,14 +50,14 @@
 
 				<h3 id="overview-install">Install</h3>
 				<p>
-					<a href="https://github.com/sinapsa/vForm" target="_blank" class="btn btn-primary">Get vForm</a>
-					<a href="https://github.com/sinapsa/vForm/fork" target="_blank" class="btn btn-default">Fork on GitHub</a>
+					<a href="https://github.com/shapiromichael/vForm" target="_blank" class="btn btn-primary">Get vForm</a>
+					<a href="https://github.com/shapiromichael/vForm/fork" target="_blank" class="btn btn-default">Fork on GitHub</a>
 				</p>
-				
+
 				<p>Optionally, you can install vForm with bower:</p>
 				<pre><code class="bash">$ bower install vform</code></pre>
-				<p><br />Or download the <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/sinapsa/vForm/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
-			
+				<p><br />Or download the <a href="https://raw.githubusercontent.com/shapiromichael/vForm/master/dist/form.min.js" onclick="ga('send', 'event', 'download', 'source link', 'production version');">production version</a> / <a href="https://raw.githubusercontent.com/shapiromichael/vForm/master/dist/form.js" onclick="ga('send', 'event', 'download', 'source link', 'development version');">development version</a></p>
+
 				<h3 id="overview-requirements">Requirements</h3>
 				<p>vForm is working best with <strong>jQuery 2.x</strong>, however it can work well with older version of jQuery as well 1.11.x<br />if you're using an older version - you can run the unit test.</p>
 
@@ -220,7 +220,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<h3 id="validation-email">Email</h3>
 				<p>To validate an email field just make sure that <code>type="email"</code>. You can also add a <code>pattern</code> attribute to specify a custom regex pattern. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
@@ -327,7 +327,7 @@
 								<input type="number" class="form-control" placeholder="CVV" min="99" max="999">
 							</div>
 						</p>
-						<button type="submit" class="btn btn-default">Validate</button>	
+						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
 				<div role="tabpanel">
@@ -384,7 +384,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<h3 id="validation-patterns">Patterns</h3>
 				<p>To validate a regex pattern just use the <code>pattern</code> attribute. Note that blank will be valid without the <code>required</code> attribute.</p>
 				<div class="example">
@@ -486,7 +486,7 @@
 								</label>
 							</div>
 						</fieldset>
-						
+
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
@@ -529,7 +529,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="callout callout-warning">
 					<h4>Keep checkboxes &amp; radio separated</h4>
 					<p>Make sure to separate checkboxes &amp; radio buttons into different <code>&lt;fieldset&gt;</code> tags.</p>
@@ -559,7 +559,7 @@
 								</label>
 							</div>
 						</fieldset>
-						
+
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
@@ -595,7 +595,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="callout callout-info">
 					<h4>Better way to validate radio buttons</h4>
 					<p>Since radio buttons cannot be unselected, you can just add <code>checked</code> attribute to one of them. So there's no need to actually validate them.</p>
@@ -639,7 +639,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 
 				<h1 id="errors" class="page-header">Errors</h1>
 
@@ -796,7 +796,7 @@
 						</div>
 					</div>
 				</div>
-				
+
 
 				<h3 id="error-summarized">Summarized Errors</h3>
 				<p>Summarized errors are gathered together and can be shown above the form.</p>
@@ -885,8 +885,8 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 				<h3 id="error-i18n">i18n</h3>
 				<p>vForm can easily support any language for the error message.</p>
 
@@ -998,56 +998,55 @@ var form = $('form').vForm({
         var lang = $('#lang').val();
         return data[lang][key];
     }
-}, function(){
+}, function(e){
     form.validate();
     return false;
 });</code></pre>
 						</div>
 					</div>
 				</div>
-				
+
 				<h1 id="live" class="page-header">Live Validation</h1>
-				<p>Usefull to validate chars legth, you can use the <code>min</code> and <code>max</code> attributes. Note that string validation is only avalible for those HTML5 types: <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>, <code>tel</code>, and <code>textarea</code>.</p>
+				<p>Live validation will show <b>only the errors</b> before sublimting the form, you can enable live validation on <code>change</code>, <code>keyup</code> and <code>blur</code> events.</p>
 				<div class="example">
 					<form novalidate="novalidate" id="example-18">
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="First Name" required>
+							<select class="form-control" id="example-18-event" data-ignore="true">
+								<option value="change">on Change</option>
+								<option value="keyup">on Key Up</option>
+								<option value="blur" selected>on Blur</option>
+							</select>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Last Name" required>
+							<input type="text" class="form-control" placeholder="Name" required>
 						</div>
 						<div class="form-group">
 							<input type="email" class="form-control" placeholder="Email" required>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Password" id="example-14-password-field" required>
+							<input type="number" class="form-control" placeholder="Number (between 10 and 20)" min="11" max="20">
 						</div>
-						<div class="form-group">
-							<input type="password" class="form-control" placeholder="Confirm Password" data-match="example-14-password-field">
-						</div>
-						<div class="checkbox">
-								<label>
-									<input type="checkbox" required>
-									Must check this
-								</label>
-							</div>
 						<button type="submit" class="btn btn-default">Validate</button>
 					</form>
 				</div>
-				<pre class="example"><code class="html">&lt;input type="text" placeholder="First Name" required&gt;
-&lt;input type="text" placeholder="Last Name" required&gt;
+				<pre class="example"><code class="html">&lt;select id="event" data-ignore="true"&gt;
+    &lt;option value="change"&gt;on Change&lt;/option&gt;
+    &lt;option value="keyup"&gt;on Key Up&lt;/option&gt;
+    &lt;option value="blur" selected&gt;on Blur&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;input type="text" placeholder="Name" required&gt;
 &lt;input type="email" placeholder="Email" required&gt;
-&lt;input type="password" placeholder="Password" id="password-field" required&gt;
-&lt;input type="password" placeholder="Confirm Password" data-match="password-field"&gt;
-&lt;label&gt;
-    &lt;input type="checkbox" reruired&gt;
-    Must check this
-&lt;/label&gt;</code></pre>
+&lt;input type="number" placeholder="Number (between 10 and 20)" min="11" max="20"&gt;
+</code></pre>
 
 				<h3 id="live-single">Single Field Validation</h3>
-				<pre><code class="javascript">form.validate( $('#my-field') );</code></pre>
+				<pre><code class="javascript">form.validate( $('#my-field') );
 
-				<h3 id="live-feedback">Live Feedback</h3>
+// OR
+
+form.validate('#my-field');
+</code></pre>
 
 				<h1 id="processing" class="page-header">Processing</h1>
 
@@ -1060,7 +1059,7 @@ var form = $('form').vForm({
 				<pre><code class="javascript">var form = $('#my-form').vForm(function(){
 
     if( form.validate() ){
-        $.post( "test.php", $(this).serialize(), function(){
+        $.post('test.php', $(this).serialize(), function(){
             alert( "Done!" );
         });
     }
@@ -1357,7 +1356,7 @@ var form = $('form').vForm({
     feedback: true,
     live: 'keyup'
 });</code></pre>
-				
+
 				<div class="callout callout-warning">
 					<h4>jQuery form method won't return a jQuery object</h4>
 					<p>Using the jQuery short method will return the form element rather than jQuery, so you won't be able to call other jQuery methods. If you need to make sure to call the <code>form</code> function at the end.</p>
@@ -1384,7 +1383,7 @@ var form = $('form').vForm({
 						</tr>
 					</tbody>
 				</table>
-				
+
 
 				<h3 id="methods-status">Status <small>( )</small></h3>
 				<table class="table">
@@ -1449,7 +1448,7 @@ var form = $('form').vForm({
 				<pre class="example"><code class="javascript">myForm.add(function( value ){
     return ( value === 'Ben' ) ? true : false ;
 }, 'Value is not Ben');</code></pre>
-				
+
 				<h3 id="methods-get">Get <small>( [filter] )</small></h3>
 				<table class="table">
 					<tbody>
@@ -1553,7 +1552,7 @@ var form = $('form').vForm({
 				<h3 id="utilities-test">Test</h3> -->
 
 				<h1 id="license" class="page-header">License <small>MIT</small></h1>
-				<p>Copyright (c) 2015 Sinapsa - R&amp;D Center</p>
+				<p>Copyright (c) 2016 Michael Shapiro</p>
 				<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 				<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 				<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
@@ -1604,7 +1603,6 @@ var form = $('form').vForm({
 							<a href="#live">Live Validation</a>
 							<ul class="nav">
 								<li><a href="#live-single">Single Field Validation</a></li>
-								<li><a href="#live-feedback">Live Feedback</a></li>
 							</ul>
 						</li>
 						<li>
@@ -1663,8 +1661,8 @@ var form = $('form').vForm({
 					<a class="back-to-top" href="#top">
 						Back to top
 					</a>
-					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=sinapsa&amp;repo=vForm&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 10px 0 0 20px; float: left; clear: left;"></iframe>
-					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=sinapsa&amp;repo=vForm&amp;type=fork&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 5px 0 0 20px; float: left; clear: left;"></iframe>
+					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=shapiromichael&amp;repo=vForm&amp;type=watch&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 10px 0 0 20px; float: left; clear: left;"></iframe>
+					<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=shapiromichael&amp;repo=vForm&amp;type=fork&amp;count=true" width="100" height="20" title="Star on GitHub" style="border: none; margin: 5px 0 0 20px; float: left; clear: left;"></iframe>
 
 				</nav>
 			</div>
@@ -1672,18 +1670,18 @@ var form = $('form').vForm({
 
 		<!-- Footer -->
 		<footer class="footer">
-			<p>Made with <i class="glyphicon glyphicon-heart" style="color: #FF0091;"></i> by Sinapsa</p>
+			<p>Made with <i class="glyphicon glyphicon-heart" style="color: #FF0091;"></i> by Michael Shapiro</p>
 		</footer>
 
 	</div>
 </div>
 
 <!-- Scripts -->
-<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 
-<script src="vform.min.js"></script>
+<script src="../src/vform.js"></script>
 
 <script src="script.js"></script>
 
@@ -1698,7 +1696,7 @@ var form = $('form').vForm({
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-60173413-1', 'auto');
+  ga('create', 'UA-17810881-1', 'auto');
   ga('send', 'pageview');
 
 </script>
