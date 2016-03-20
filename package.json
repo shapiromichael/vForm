@@ -1,15 +1,15 @@
 {
   "name": "vform",
-  "version": "2.0.10",
+  "version": "2.1.0",
   "description": "vForm is a validation library based on the HTML 5 standards.",
-  "homepage": "http://sinapsa.github.io/vForm/",
+  "homepage": "http://shapiromichael.github.io/vForm/",
   "keywords": [
     "jquery-plugin"
   ],
-  "author": "Sinapsa - R&D Center",
+  "author": "Michael Shapiro",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sinapsa/vForm"
+    "url": "https://github.com/shapiromichael/vForm"
   },
   "license": "MIT",
   "scripts": {
